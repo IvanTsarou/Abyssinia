@@ -31,29 +31,23 @@
         .location-card {
             transition: all 0.3s ease;
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 0;
         }
         .location-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
+        /* Как в Тунисе: фиксированная высота блока с фото у всех карточек */
         .location-card .card-image-wrap {
-            flex-shrink: 0;
-            height: 12rem;
+            height: 240px;
+            overflow: hidden;
+            border-radius: 0.5rem 0.5rem 0 0;
+            background-color: #f3f4f6;
         }
-        @media (min-width: 640px) { .location-card .card-image-wrap { height: 14rem; } }
-        .location-card .card-body {
-            flex: 1 1 auto;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
+        @media (min-width: 640px) {
+            .location-card .card-image-wrap { height: 280px; }
         }
-        .location-card .card-buttons {
-            margin-top: auto;
-            flex-shrink: 0;
+        @media (min-width: 768px) {
+            .location-card .card-image-wrap { height: 320px; }
         }
         
         #map {
@@ -188,7 +182,7 @@
                     <i class="fas fa-images mr-2 text-[#DA121A]"></i>
                     Галерея
                 </h2>
-                <div id="locations-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 items-stretch">
+                <div id="locations-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     <!-- карточки из main.js -->
                 </div>
             </div>
