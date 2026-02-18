@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abyssinia — маршрут</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hero-eth { background: linear-gradient(135deg, #078930 0%, #056b24 40%, #DA121A 100%); color: white; }
+        #route-map { height: 350px; min-height: 280px; }
+        @media (min-width: 640px) { #route-map { height: 450px; } }
+        @media (min-width: 768px) { #route-map { height: calc(100vh - 220px); min-height: 450px; } }
+        .route-list { max-height: 70vh; overflow-y: auto; }
+        .route-item { cursor: pointer; transition: all 0.2s; }
+        .route-item:hover { background: #f0fdf4; }
+        .route-item.active { background: #dcfce7; border-left: 4px solid #078930; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="sticky top-0 z-50 hero-eth shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-white font-bold flex items-center"><i class="fas fa-map-marker-alt mr-2 text-[#FCDD09]"></i>Abyssinia</a>
+                <div class="flex gap-4">
+                    <a href="index.html" class="text-white/90 hover:text-white text-sm">Карта</a>
+                    <a href="journey.html" class="text-white/90 hover:text-white text-sm">План</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-eth py-8 md:py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-2xl md:text-3xl font-bold mb-2">Abyssinia — маршрут</h1>
+            <p class="text-white/90 text-sm md:text-base">Все достопримечательности на одной карте</p>
+            <div class="flex flex-wrap justify-center gap-4 mt-4">
+                <a href="journey.html" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">План поездки</a>
+                <a href="index.html" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">Все локации</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-4 md:py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-4 route-list">
+                    <h2 class="text-lg font-bold text-gray-800 mb-3"><i class="fas fa-list mr-2 text-[#078930]"></i>Локации</h2>
+                    <div id="route-list" class="space-y-1"></div>
+                </div>
+            </div>
+            <div class="lg:col-span-2">
+                <div id="route-map" class="rounded-xl shadow-lg"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/locations-data.js"></script>
+    <script>
+        var map = L.map('route-map').setView([9.5, 40.0], 6);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(map);
+        var markers = [];
+        var listEl = document.getElementById('route-list');
+        var colors = { 'Амхара': '#078930', 'Тыграй': '#8B4512', 'Харари': '#B8860B', 'Афар': '#CD5C5C', 'Оромия': '#228B22', 'Южные нации': '#DA121A', 'Аддис-Абеба': '#1E90FF', 'Дыре-Дауа': '#6B8E23', 'Афар / Оромия': '#9370DB', 'Оромия / Южные нации': '#20B2AA' };
+        function addMarkers() {
+            if (typeof locations === 'undefined' || !locations.length) return;
+            locations.forEach(function(loc, i) {
+                var lat = loc.coordinates[1], lon = loc.coordinates[0];
+                var color = colors[loc.region] || '#078930';
+                var icon = L.divIcon({
+                    className: '',
+                    html: '<div style="background:' + color + ';width:28px;height:28px;border-radius:50%;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:bold;">' + (i + 1) + '</div>',
+                    iconSize: [28, 28],
+                    iconAnchor: [14, 14]
+                });
+                var marker = L.marker([lat, lon], { icon: icon }).addTo(map);
+                marker.bindPopup('<strong>' + loc.name + '</strong><br><small>' + (loc.region || '') + '</small><br><a href="location.html?id=' + loc.id + '">Подробнее →</a>');
+                markers.push(marker);
+                var item = document.createElement('div');
+                item.className = 'route-item p-2 rounded-lg flex items-center gap-2';
+                item.innerHTML = '<span style="width:12px;height:12px;border-radius:50%;background:' + color + '"></span><a href="location.html?id=' + loc.id + '" class="text-gray-800 hover:text-[#078930] text-sm flex-1">' + loc.name + '</a>';
+                item.dataset.lat = lat;
+                item.dataset.lon = lon;
+                item.onclick = function(e) {
+                    if (e.target.tagName === 'A') return;
+                    var la = parseFloat(this.dataset.lat), lo = parseFloat(this.dataset.lon);
+                    map.setView([la, lo], 12, { animate: true });
+                    document.querySelectorAll('.route-item').forEach(function(r) { r.classList.remove('active'); });
+                    this.classList.add('active');
+                };
+                listEl.appendChild(item);
+            });
+            var bounds = L.latLngBounds(locations.map(function(l) { return [l.coordinates[1], l.coordinates[0]]; }));
+            map.fitBounds(bounds, { padding: [30, 30] });
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof locations !== 'undefined') addMarkers();
+            else window.addEventListener('load', function() { setTimeout(addMarkers, 300); });
+        });
+    </script>
+</body>
+</html>

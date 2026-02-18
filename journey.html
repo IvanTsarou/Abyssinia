@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abyssinia — план поездки</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .hero-eth { background: linear-gradient(135deg, #078930 0%, #056b24 40%, #DA121A 100%); color: white; }
+        .day-card { border-left: 4px solid #078930; }
+        .day-1 { border-left-color: #078930; }
+        .day-2 { border-left-color: #DA121A; }
+        .day-3 { border-left-color: #FCDD09; }
+        .day-4 { border-left-color: #8B4512; }
+        .day-5 { border-left-color: #1E90FF; }
+        @media (max-width: 640px) { .hero-eth h1 { font-size: 1.5rem; } .day-card { padding: 1rem; } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="sticky top-0 z-50 hero-eth shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-white font-bold flex items-center"><i class="fas fa-map-marker-alt mr-2 text-[#FCDD09]"></i>Abyssinia</a>
+                <div class="flex gap-4">
+                    <a href="index.html" class="text-white/90 hover:text-white text-sm">Карта</a>
+                    <a href="route.html" class="text-white/90 hover:text-white text-sm">Маршрут</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-eth py-10 md:py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Abyssinia — план поездки</h1>
+            <p class="text-lg text-white/90 mb-2">Классический северный маршрут</p>
+            <p class="text-sm text-white/80">Примерно 10–14 дней • Исторические памятники и природа</p>
+            <a href="#day-1" class="inline-block mt-6 px-6 py-3 bg-white text-[#078930] font-semibold rounded-xl hover:bg-[#FCDD09] transition">Смотреть план</a>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-8 md:py-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+            <div class="bg-white rounded-xl p-4 text-center shadow">
+                <div class="text-2xl md:text-3xl font-bold text-[#078930]">10–14</div>
+                <div class="text-gray-600 text-sm">дней</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 text-center shadow">
+                <div class="text-2xl md:text-3xl font-bold text-[#078930]">~2500</div>
+                <div class="text-gray-600 text-sm">км</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 text-center shadow">
+                <div class="text-2xl md:text-3xl font-bold text-[#078930]">5</div>
+                <div class="text-gray-600 text-sm">ЮНЕСКО</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 text-center shadow">
+                <div class="text-2xl md:text-3xl font-bold text-[#DA121A]">🇪🇹</div>
+                <div class="text-gray-600 text-sm">Abyssinia</div>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <div id="day-1" class="day-card day-1 bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-2">День 1–2: Аддис-Абеба</h2>
+                <p class="text-gray-600 text-sm mb-3">Прилёт, акклиматизация. Национальный музей (Люси), Меркато, собор Св. Георгия.</p>
+                <a href="location.html?id=13" class="text-[#078930] font-medium text-sm hover:underline">Музей (Люси)</a>
+                <a href="location.html?id=14" class="ml-3 text-[#078930] font-medium text-sm hover:underline">Меркато</a>
+                <a href="location.html?id=15" class="ml-3 text-[#078930] font-medium text-sm hover:underline">Собор</a>
+            </div>
+            <div id="day-2" class="day-card day-2 bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-2">День 3–4: Озеро Тана и Голубой Нил</h2>
+                <p class="text-gray-600 text-sm mb-3">Бахр-Дар. Монастыри на озере Тана, водопад Тис-Ысат (исток Голубого Нила).</p>
+                <a href="location.html?id=6" class="text-[#078930] font-medium text-sm hover:underline">Озеро Тана →</a>
+                <a href="location.html?id=7" class="ml-3 text-[#078930] font-medium text-sm hover:underline">Водопад Тис-Ысат →</a>
+            </div>
+            <div id="day-3" class="day-card day-3 bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-2">День 5: Гондэр</h2>
+                <p class="text-gray-600 text-sm mb-3">Крепости Фасил-Гебби, царский комплекс, баня Фасилидаса.</p>
+                <a href="location.html?id=3" class="text-[#078930] font-medium text-sm hover:underline">Гондэр →</a>
+            </div>
+            <div id="day-4" class="day-card day-4 bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-2">День 6–7: Симиен и Аксум</h2>
+                <p class="text-gray-600 text-sm mb-3">Треккинг в горах Симиен (гелады, пейзажи). Перелёт/переезд в Аксум — стелы, гробницы, Ковчег Завета.</p>
+                <a href="location.html?id=5" class="text-[#078930] font-medium text-sm hover:underline">Симиен →</a>
+                <a href="location.html?id=2" class="ml-3 text-[#078930] font-medium text-sm hover:underline">Аксум →</a>
+            </div>
+            <div id="day-5" class="day-card day-5 bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-2">День 8–10: Лалибела</h2>
+                <p class="text-gray-600 text-sm mb-3">Скальные церкви Лалибелы — главная жемчужина маршрута. Церковь Св. Георгия, комплекс Бет Медхане Алем.</p>
+                <a href="location.html?id=1" class="text-[#078930] font-medium text-sm hover:underline">Лалибела →</a>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#078930]">
+                <h2 class="text-xl font-bold text-gray-800 mb-2">Дополнительно</h2>
+                <p class="text-gray-600 text-sm mb-3">Юг: долина Омо (племена), Консо. Восток: Харар. Природа: Данакиль, Бейл-Маунтинс, Соф-Омар.</p>
+                <a href="index.html" class="text-[#078930] font-medium text-sm hover:underline">Все достопримечательности на карте →</a>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <a href="route.html" class="inline-flex items-center px-6 py-3 bg-[#078930] text-white font-semibold rounded-xl hover:bg-[#056b24] transition">
+                <i class="fas fa-route mr-2"></i>Смотреть маршрут на карте
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-6 text-center mt-8">
+        <p class="text-gray-300 text-sm">Abyssinia</p>
+    </footer>
+</body>
+</html>

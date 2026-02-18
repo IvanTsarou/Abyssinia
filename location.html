@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Достопримечательность — Abyssinia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hero-eth { background: linear-gradient(135deg, #078930 0%, #056b24 50%, #DA121A 100%); color: white; }
+        .slider-wrap { height: 50vh; min-height: 260px; }
+        @media (min-width: 768px) { .slider-wrap { height: 60vh; min-height: 400px; } }
+        .slider-track { display: flex; transition: transform 0.4s ease; height: 100%; }
+        .slider-slide { flex: 0 0 100%; height: 100%; background: #111; }
+        .slider-slide img { width: 100%; height: 100%; object-fit: contain; }
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(0,0,0,0.6); color: white; border: none; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .nav-btn:hover { background: rgba(0,0,0,0.9); }
+        #loc-map { height: 320px; border-radius: 1rem; }
+        @media (min-width: 640px) { #loc-map { height: 400px; } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="hero-eth py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center gap-3">
+                <a href="index.html" class="inline-flex items-center px-4 py-2 rounded-lg font-semibold text-white bg-white/20 hover:bg-white/30 transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Назад
+                </a>
+                <div class="flex-1 min-w-0">
+                    <h1 class="text-xl sm:text-2xl font-bold truncate" id="location-title">Загрузка…</h1>
+                    <p class="text-sm text-white/90" id="location-region"></p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-4 md:py-8">
+        <section class="mb-6">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="relative slider-wrap">
+                    <div id="photo-slider" class="slider-track"></div>
+                    <button type="button" id="slider-prev" class="nav-btn left-2" aria-label="Назад"><i class="fas fa-chevron-left"></i></button>
+                    <button type="button" id="slider-next" class="nav-btn right-2" aria-label="Вперёд"><i class="fas fa-chevron-right"></i></button>
+                    <div id="slider-counter" class="absolute bottom-2 right-2 bg-black/60 text-white text-sm px-3 py-1 rounded-full"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-info-circle mr-2 text-[#078930]"></i>Описание</h2>
+                <div id="location-description" class="text-gray-700 leading-relaxed"></div>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-map-marked-alt mr-2 text-[#078930]"></i>Расположение</h2>
+                <div id="location-map" class="mb-4"></div>
+                <div class="flex flex-wrap gap-4 items-center pt-4 border-t border-gray-100">
+                    <span class="text-gray-600" id="location-coordinates"></span>
+                    <a id="google-maps-link" href="#" target="_blank" class="text-blue-600 hover:underline font-medium">Google Maps</a>
+                    <a id="mapsme-link" href="#" class="text-green-600 hover:underline font-medium">Maps.me</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 text-center">
+        <p class="text-gray-300 text-sm">Abyssinia</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/locations-data.js"></script>
+    <script src="js/detailed-descriptions.js"></script>
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var locationId = parseInt(urlParams.get('id'), 10);
+        var currentLocation;
+        var currentSlideIndex = 0;
+        var sliderPhotos = [];
+        var map;
+
+        function loadLocation() {
+            if (!locations || !locations.length) { document.getElementById('location-title').textContent = 'Ошибка загрузки'; return; }
+            currentLocation = locations.find(function(l) { return l.id === locationId; });
+            if (!currentLocation) { document.getElementById('location-title').textContent = 'Не найдено'; return; }
+            document.getElementById('location-title').textContent = currentLocation.name;
+            document.getElementById('location-region').textContent = currentLocation.region || '';
+            document.title = currentLocation.name + ' — Abyssinia';
+            var desc = typeof detailedDescriptions !== 'undefined' && detailedDescriptions[currentLocation.id]
+                ? detailedDescriptions[currentLocation.id]
+                : '<p>' + (currentLocation.description || 'Описание отсутствует') + '</p>';
+            document.getElementById('location-description').innerHTML = desc;
+            loadPhotos();
+            loadMap();
+            var lon = currentLocation.coordinates[0], lat = currentLocation.coordinates[1];
+            document.getElementById('location-coordinates').textContent = lat.toFixed(4) + ', ' + lon.toFixed(4);
+            document.getElementById('google-maps-link').href = 'https://www.google.com/maps?q=' + lat + ',' + lon;
+            document.getElementById('mapsme-link').href = 'mapsme://map?v=1&ll=' + lat + ',' + lon + '&n=' + encodeURIComponent(currentLocation.name);
+        }
+
+        function loadPhotos() {
+            sliderPhotos = (currentLocation.photos && currentLocation.photos.length) ? currentLocation.photos : (currentLocation.photoUrl ? [currentLocation.photoUrl] : []);
+            var slider = document.getElementById('photo-slider');
+            var prev = document.getElementById('slider-prev');
+            var next = document.getElementById('slider-next');
+            var counter = document.getElementById('slider-counter');
+            if (!sliderPhotos.length) {
+                slider.innerHTML = '<div class="slider-slide flex items-center justify-center text-gray-400"><i class="fas fa-image text-5xl"></i></div>';
+                prev.style.display = 'none';
+                next.style.display = 'none';
+                counter.textContent = '';
+                return;
+            }
+            slider.innerHTML = sliderPhotos.map(function(photo, i) {
+                return '<div class="slider-slide"><img src="' + photo + '" alt="' + currentLocation.name + ' ' + (i+1) + '" loading="lazy"></div>';
+            }).join('');
+            currentSlideIndex = 0;
+            updateSlider();
+            prev.style.display = 'flex';
+            next.style.display = 'flex';
+            prev.onclick = function() { if (currentSlideIndex > 0) { currentSlideIndex--; updateSlider(); } };
+            next.onclick = function() { if (currentSlideIndex < sliderPhotos.length - 1) { currentSlideIndex++; updateSlider(); } };
+        }
+
+        function updateSlider() {
+            var slider = document.getElementById('photo-slider');
+            if (slider) slider.style.transform = 'translateX(-' + (currentSlideIndex * 100) + '%)';
+            var counter = document.getElementById('slider-counter');
+            if (counter && sliderPhotos.length) counter.textContent = (currentSlideIndex + 1) + ' / ' + sliderPhotos.length;
+        }
+
+        function loadMap() {
+            var lon = currentLocation.coordinates[0], lat = currentLocation.coordinates[1];
+            map = L.map('location-map').setView([lat, lon], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(map);
+            var ico = L.divIcon({
+                className: '',
+                html: '<div style="background:#078930;width:36px;height:36px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>',
+                iconSize: [36, 36],
+                iconAnchor: [18, 18]
+            });
+            L.marker([lat, lon], { icon: ico }).addTo(map).bindPopup('<strong>' + currentLocation.name + '</strong>').openPopup();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof locations !== 'undefined') loadLocation();
+            else window.addEventListener('load', function() { setTimeout(loadLocation, 400); });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abyssinia — карта путешествия и достопримечательности</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇪🇹</text></svg>">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --eth-green: #078930;
+            --eth-yellow: #FCDD09;
+            --eth-red: #DA121A;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        
+        .hero-ethiopia {
+            background: linear-gradient(135deg, #078930 0%, #056b24 40%, #DA121A 100%);
+            color: white;
+        }
+        
+        .hero-ethiopia .accent {
+            color: #FCDD09;
+        }
+        
+        .location-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        #map {
+            height: 320px;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        @media (min-width: 640px) { #map { height: 450px; } }
+        @media (min-width: 768px) { #map { height: 560px; } }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #078930 0%, #056b24 100%);
+            color: white;
+            border-color: #078930;
+        }
+        
+        .stats-card-eth {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        
+        .btn-eth-primary {
+            background: linear-gradient(135deg, #078930 0%, #056b24 100%);
+            color: white;
+            border: 2px solid rgba(252, 221, 9, 0.4);
+        }
+        .btn-eth-primary:hover {
+            background: linear-gradient(135deg, #056b24 0%, #034d1a 100%);
+            transform: scale(1.02);
+        }
+        
+        .btn-eth-secondary {
+            background: linear-gradient(135deg, #DA121A 0%, #b80e15 100%);
+            color: white;
+        }
+        .btn-eth-secondary:hover {
+            background: linear-gradient(135deg, #b80e15 0%, #9a0c12 100%);
+            transform: scale(1.02);
+        }
+        
+        .category-badge { font-size: 0.7rem; padding: 0.25rem 0.5rem; border-radius: 9999px; }
+        
+        @media (max-width: 640px) {
+            .hero-ethiopia h1 { font-size: 1.75rem; }
+            .hero-ethiopia .text-xl { font-size: 1rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <header class="hero-ethiopia py-6 sm:py-8 md:py-12 shadow-xl">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">
+                    <i class="fas fa-map-marked-alt mr-2 accent"></i>
+                    Abyssinia — карта путешествия
+                </h1>
+                <p class="text-sm sm:text-base md:text-lg text-white/90 mb-2">Интерактивный справочник достопримечательностей</p>
+                <p class="text-xs sm:text-sm text-white/80 mb-4 md:mb-6">
+                    <i class="fas fa-mountain-sun mr-1 accent"></i>
+                    Исторические памятники, природа и культура
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                    <a href="journey.html" class="btn-eth-secondary w-full sm:w-auto px-6 py-3 rounded-xl font-semibold inline-flex items-center justify-center gap-2 shadow-lg transition">
+                        <i class="fas fa-book-open"></i>
+                        <span>План поездки</span>
+                    </a>
+                    <a href="route.html" class="btn-eth-primary w-full sm:w-auto px-6 py-3 rounded-xl font-semibold inline-flex items-center justify-center gap-2 shadow-lg transition">
+                        <i class="fas fa-route"></i>
+                        <span>Маршрут</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-6 md:mt-10 max-w-4xl mx-auto stats-grid">
+                <div class="stats-card-eth rounded-xl p-3 md:p-4 text-center">
+                    <div class="text-2xl md:text-3xl font-bold accent" id="total-locations">20</div>
+                    <div class="text-xs md:text-sm text-white/80">Достопримечательностей</div>
+                </div>
+                <div class="stats-card-eth rounded-xl p-3 md:p-4 text-center">
+                    <div class="text-2xl md:text-3xl font-bold" id="unesco-count">5</div>
+                    <div class="text-xs md:text-sm text-white/80">Объектов ЮНЕСКО</div>
+                </div>
+                <div class="stats-card-eth rounded-xl p-3 md:p-4 text-center col-span-2 md:col-span-1">
+                    <div class="text-2xl md:text-3xl font-bold" id="regions-count">10</div>
+                    <div class="text-xs md:text-sm text-white/80">Регионов</div>
+                </div>
+                <div class="stats-card-eth rounded-xl p-3 md:p-4 text-center col-span-2 md:col-span-1">
+                    <div class="text-2xl md:text-3xl font-bold">🇪🇹</div>
+                    <div class="text-xs md:text-sm text-white/80">Abyssinia</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container mx-auto px-4 py-4 md:py-8">
+        
+        <section class="mb-4 md:mb-8">
+            <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+                    <h2 class="text-lg md:text-xl font-bold text-gray-800">
+                        <i class="fas fa-filter mr-2 text-[#078930]"></i>
+                        Категории
+                    </h2>
+                    <button id="reset-filter" class="text-sm text-gray-600 hover:text-[#078930] transition self-start sm:self-center">
+                        <i class="fas fa-redo mr-1"></i>Сбросить
+                    </button>
+                </div>
+                <div id="category-filters" class="flex flex-wrap gap-2">
+                    <!-- генерируется в main.js -->
+                </div>
+            </div>
+        </section>
+        
+        <section class="mb-4 md:mb-8">
+            <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6">
+                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-globe-africa mr-2 text-[#078930]"></i>
+                    Карта
+                </h2>
+                <div id="map"></div>
+            </div>
+        </section>
+        
+        <section class="mb-6 md:mb-10">
+            <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6">
+                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-images mr-2 text-[#DA121A]"></i>
+                    Галерея
+                </h2>
+                <div id="locations-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                    <!-- карточки из main.js -->
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <footer class="bg-gray-800 text-white py-6 md:py-8 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-300 text-sm md:text-base">
+                <i class="fas fa-map-marker-alt mr-2 text-[#FCDD09]"></i>
+                Abyssinia — карта путешествия
+            </p>
+            <p class="text-xs md:text-sm text-gray-400 mt-2">20 достопримечательностей • По документу • Адаптивная вёрстка</p>
+        </div>
+    </footer>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/locations-data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
