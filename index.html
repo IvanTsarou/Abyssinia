@@ -31,10 +31,29 @@
         .location-card {
             transition: all 0.3s ease;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 0;
         }
         .location-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        .location-card .card-image-wrap {
+            flex-shrink: 0;
+            height: 12rem;
+        }
+        @media (min-width: 640px) { .location-card .card-image-wrap { height: 14rem; } }
+        .location-card .card-body {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .location-card .card-buttons {
+            margin-top: auto;
+            flex-shrink: 0;
         }
         
         #map {
@@ -169,7 +188,7 @@
                     <i class="fas fa-images mr-2 text-[#DA121A]"></i>
                     Галерея
                 </h2>
-                <div id="locations-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <div id="locations-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 items-stretch">
                     <!-- карточки из main.js -->
                 </div>
             </div>
