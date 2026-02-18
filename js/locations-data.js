@@ -8,9 +8,9 @@ const locations = [
     region: "Амхара",
     category: "historic",
     isUnesco: true,
-    photoUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800",
+    photoUrl: "photos/1.jpg",
     description: "Лалибела — город в горах на севере Эфиопии, знаменитый 11 монолитными христианскими церквями XII–XIII веков, высеченными в скале. Объект Всемирного наследия ЮНЕСКО (1978). Церковь Святого Георгия (Бет Гиоргис) в форме креста — самый узнаваемый символ. Культурно-историческая достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800", "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800"]
+    photos: ["photos/1.jpg"]
   },
   {
     id: 2,
@@ -19,9 +19,9 @@ const locations = [
     region: "Тыграй",
     category: "historic",
     isUnesco: true,
-    photoUrl: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800",
+    photoUrl: "photos/2.jpg",
     description: "Древний город Аксум — столица Аксумского царства (I–X вв.). Объект ЮНЕСКО (1980). Знаменит гигантскими стелами (обелисками), царскими гробницами, руинами дворцов. По преданию в церкви Святой Марии Сионской хранится Ковчег Завета. Культурно-историческая достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800", "https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800"]
+    photos: ["photos/2.jpg"]
   },
   {
     id: 3,
@@ -30,9 +30,9 @@ const locations = [
     region: "Амхара",
     category: "historic",
     isUnesco: true,
-    photoUrl: "https://images.unsplash.com/photo-1523482580671-f216ba185691?w=800",
+    photoUrl: "photos/3.jpg",
     description: "Гондэр — «африканский Камелот». Крепостной город Фасил-Гебби (XVII–XVIII вв.) включён в список ЮНЕСКО (1979). Замки императоров, дворцы, церкви в стиле барокко с индийским и арабским влиянием. Культурно-историческая достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1523482580671-f216ba185691?w=800", "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800"]
+    photos: ["photos/3.jpg"]
   },
   {
     id: 4,
@@ -41,9 +41,9 @@ const locations = [
     region: "Харари",
     category: "historic",
     isUnesco: true,
-    photoUrl: "https://images.unsplash.com/photo-1523482580671-f216ba185691?w=800",
+    photoUrl: "photos/4.jpg",
     description: "Харар — священный город ислама, объект ЮНЕСКО (2006). Старая крепость Харар-Джугол с узкими улочками, более 80 мечетей и святынь. Уникальная традиция кормления гиен по вечерам. Дом Артура Рембо. Культурно-историческая достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1523482580671-f216ba185691?w=800", "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800"]
+    photos: ["photos/4.jpg"]
   },
   {
     id: 5,
@@ -52,9 +52,9 @@ const locations = [
     region: "Амхара",
     category: "nature",
     isUnesco: true,
-    photoUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800",
+    photoUrl: "photos/5.jpg",
     description: "Горы Симиен — объект ЮНЕСКО (1978). Один из самых живописных горных массивов Африки с вершинами выше 4000 м. Эндемичные виды: гелада (бабуин), эфиопский волк, горная коза валья. Треккинг, панорамы ущелий и плато. Природная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800", "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"]
+    photos: ["photos/5.jpg"]
   },
   {
     id: 6,
@@ -63,9 +63,9 @@ const locations = [
     region: "Амхара",
     category: "nature",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800",
+    photoUrl: "photos/6.jpg",
     description: "Озеро Тана — крупнейшее озеро Эфиопии, исток Голубого Нила. На островах — древние монастыри с фресками (XIII–XVIII вв.). Природно-культурная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800", "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800"]
+    photos: ["photos/6.jpg"]
   },
   {
     id: 7,
@@ -74,9 +74,9 @@ const locations = [
     region: "Амхара",
     category: "nature",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800",
+    photoUrl: "photos/7.jpg",
     description: "Водопад Тис-Ысат (Тис-Аббай) — «дымящая вода» на Голубом Ниле. Ширина около 400 м в сезон дождей, высота до 45 м. Один из самых зрелищных водопадов Африки. Природная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800", "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800"]
+    photos: ["photos/7.jpg"]
   },
   {
     id: 8,
@@ -85,9 +85,9 @@ const locations = [
     region: "Афар",
     category: "nature",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800",
+    photoUrl: "photos/8.jpg",
     description: "Впадина Данакиль — одно из самых жарких мест на Земле. Вулкан Эрта-Але с лавовым озером, Даллол с кислотными озёрами и солью всех цветов. Природная и геологическая достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800", "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800"]
+    photos: ["photos/8.jpg"]
   },
   {
     id: 9,
@@ -96,9 +96,9 @@ const locations = [
     region: "Оромия",
     category: "nature",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+    photoUrl: "photos/9.jpg",
     description: "Горы Бале — высокогорные плато и леса. Эндемики: эфиопский волк, горная ньяла, множество птиц. Санетти-Плато называют «африканской Арктикой». Природная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800", "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800"]
+    photos: ["photos/9.jpg"]
   },
   {
     id: 10,
@@ -107,9 +107,9 @@ const locations = [
     region: "Южные нации",
     category: "culture",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=800",
+    photoUrl: "photos/10.jpg",
     description: "Долина нижнего течения реки Омо — один из важнейших палеоантропологических регионов мира. Традиционные племена: Мурси, Хамар, Каро, Дассанеч и др. Культурно-этнографическая достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=800", "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800"]
+    photos: ["photos/10.jpg"]
   },
   {
     id: 11,
@@ -118,9 +118,9 @@ const locations = [
     region: "Афар / Оромия",
     category: "nature",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800",
+    photoUrl: "photos/11.jpg",
     description: "Национальный парк Аваш — долина нижнего течения реки Аваш, один из важнейших палеонтологических районов Африки. Останки гоминид. Природная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800"]
+    photos: ["photos/11.jpg"]
   },
   {
     id: 12,
@@ -129,9 +129,9 @@ const locations = [
     region: "Оромия / Южные нации",
     category: "nature",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800",
+    photoUrl: "photos/12.jpg",
     description: "Цепочка озёр Великой Рифтовой долины: Зивай, Лангано, Хавасса, Аваса. Птицы, гиппопотамы, уникальная природа. Природная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800", "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800"]
+    photos: ["photos/12.jpg"]
   },
   {
     id: 13,
@@ -140,9 +140,9 @@ const locations = [
     region: "Аддис-Абеба",
     category: "museum",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800",
+    photoUrl: "photos/13.jpg",
     description: "Национальный музей Эфиопии в Аддис-Абебе. Главный экспонат — скелет австралопитека «Люси» (3,2 млн лет). Археологические и этнографические коллекции. Музейная и культурная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800", "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800"]
+    photos: ["photos/13.jpg"]
   },
   {
     id: 14,
@@ -151,9 +151,9 @@ const locations = [
     region: "Аддис-Абеба",
     category: "urban",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800",
+    photoUrl: "photos/14.jpg",
     description: "Меркато — один из крупнейших открытых рынков Африки. Традиционные ремёсла, ткани, специи, бытовая утварь. Городская и культурная достопримечательность Аддис-Абебы.",
-    photos: ["https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800"]
+    photos: ["photos/14.jpg"]
   },
   {
     id: 15,
@@ -162,9 +162,9 @@ const locations = [
     region: "Аддис-Абеба",
     category: "religious",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800",
+    photoUrl: "photos/15.jpg",
     description: "Кафедральный собор Святой Троицы — главный собор Эфиопской православной церкви в столице. Религиозная и культурная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800"]
+    photos: ["photos/15.jpg"]
   },
   {
     id: 16,
@@ -173,9 +173,9 @@ const locations = [
     region: "Аддис-Абеба",
     category: "historic",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800",
+    photoUrl: "photos/16.jpg",
     description: "Гора Энтото — историческое место, где император Менелик II основал столицу. Дворец Менелика, церкви, панорама Аддис-Абебы. Историческая и природная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800", "https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800"]
+    photos: ["photos/16.jpg"]
   },
   {
     id: 17,
@@ -184,9 +184,9 @@ const locations = [
     region: "Аддис-Абеба",
     category: "museum",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800",
+    photoUrl: "photos/17.jpg",
     description: "Мемориал жертвам «красного террора» — музей памяти жертв репрессий 1977–1978 годов. Музейная и мемориальная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=800"]
+    photos: ["photos/17.jpg"]
   },
   {
     id: 18,
@@ -195,9 +195,9 @@ const locations = [
     region: "Тыграй",
     category: "historic",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800",
+    photoUrl: "photos/18.jpg",
     description: "Скальные церкви Тиграя, высеченные в песчаниковых горах. Абуна-Йемата-Гух — одна из самых труднодоступных церквей в мире. Культурно-религиозная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800", "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800"]
+    photos: ["photos/18.jpg"]
   },
   {
     id: 19,
@@ -206,9 +206,9 @@ const locations = [
     region: "Оромия",
     category: "nature",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800",
+    photoUrl: "photos/19.jpg",
     description: "Национальный парк Абиджатта-Шалла — два озера в Рифтовой долине. Фламинго и другие водоплавающие птицы. Природная достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800", "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800"]
+    photos: ["photos/19.jpg"]
   },
   {
     id: 20,
@@ -217,8 +217,8 @@ const locations = [
     region: "Дыре-Дауа",
     category: "urban",
     isUnesco: false,
-    photoUrl: "https://images.unsplash.com/photo-1523482580671-f216ba185691?w=800",
+    photoUrl: "photos/20.jpg",
     description: "Дыре-Дауа — второй по величине город Эфиопии с колониальной архитектурой и оживлённым рынком. Городская и историческая достопримечательность.",
-    photos: ["https://images.unsplash.com/photo-1523482580671-f216ba185691?w=800", "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800"]
+    photos: ["photos/20.jpg"]
   }
 ];
