@@ -46,7 +46,7 @@ function createCustomIcon(location) {
 }
 
 function initMap() {
-    map = L.map('map').setView([9.5, 40.0], 6);
+    map = L.map('map', { scrollWheelZoom: false }).setView([9.5, 40.0], 6);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19

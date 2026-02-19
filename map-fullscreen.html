@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта — Abyssinia</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <style>
+        body { margin: 0; font-family: system-ui, sans-serif; }
+        .map-header {
+            position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+            z-index: 1000; display: flex; align-items: center; gap: 12px;
+            background: white; padding: 8px 16px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .map-header a { color: #078930; text-decoration: none; font-weight: 600; }
+        .map-header a:hover { text-decoration: underline; }
+        #map { height: 100vh; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="map-header">
+        <a href="index.html"><i class="fas fa-arrow-left" style="margin-right:8px"></i>На главную</a>
+    </div>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/locations-data.js"></script>
+    <script>
+(function() {
+    var regionColors = { 'Амхара': '#078930', 'Тыграй': '#8B4512', 'Харари': '#B8860B', 'Афар': '#CD5C5C', 'Оромия': '#228B22', 'Южные нации': '#DA121A', 'Аддис-Абеба': '#1E90FF', 'Дыре-Дауа': '#6B8E23', 'Афар / Оромия': '#9370DB', 'Оромия / Южные нации': '#20B2AA' };
+    var iconClasses = { 'Амхара': 'fa-church', 'Тыграй': 'fa-monument', 'Харари': 'fa-fort', 'Афар': 'fa-fire', 'Оромия': 'fa-mountain', 'Южные нации': 'fa-people-group', 'Аддис-Абеба': 'fa-landmark', 'Дыре-Дауа': 'fa-city', 'Афар / Оромия': 'fa-mountain-sun', 'Оромия / Южные нации': 'fa-water' };
+    function createIcon(loc) {
+        var color = regionColors[loc.region] || '#078930';
+        var cls = iconClasses[loc.region] || 'fa-map-marker-alt';
+        return L.divIcon({ className: 'custom-marker', iconSize: [30, 30], iconAnchor: [15, 15],
+            html: '<div style="background:' + color + ';width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);"><i class="fas ' + cls + '" style="color:white;font-size:12px;"></i></div>' });
+    }
+    var map = L.map('map', { scrollWheelZoom: true }).setView([9.5, 40.0], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', maxZoom: 19
+    }).addTo(map);
+    if (typeof locations !== 'undefined' && locations.length) {
+        locations.forEach(function(loc) {
+            var lat = loc.coordinates[1], lon = loc.coordinates[0];
+            var m = L.marker([lat, lon], { icon: createIcon(loc) }).addTo(map);
+            m.bindPopup('<div style="padding:10px;min-width:200px;"><h3 style="margin:0 0 8px 0;font-size:1.05em;font-weight:bold;">' + loc.name + '</h3><p style="margin:5px 0;color:#666;font-size:0.9em;"><strong>Регион:</strong> ' + loc.region + '</p><p style="margin:8px 0 0 0;color:#555;font-size:0.85em;">' + (loc.description || '').substring(0, 120) + '…</p><a href="location.html?id=' + loc.id + '" style="display:inline-block;margin-top:10px;padding:6px 12px;background:#078930;color:white;text-decoration:none;border-radius:6px;font-size:0.9em;">Подробнее →</a></div>');
+        });
+        var bounds = L.latLngBounds(locations.map(function(loc) { return [loc.coordinates[1], loc.coordinates[0]]; }));
+        map.fitBounds(bounds, { padding: [40, 40] });
+    }
+})();
+    </script>
+</body>
+</html>
