@@ -82,31 +82,44 @@ function getBestLocationPhoto(location) {
     return location.photoUrl || null;
 }
 
+function escapeHtml(s) {
+    if (!s) return '';
+    return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
 function createLocationCard(location) {
-    var lon = location.coordinates[0], lat = location.coordinates[1];
+    if (!location || !location.coordinates || location.coordinates.length < 2) return '';
+    var lon = Number(location.coordinates[0]), lat = Number(location.coordinates[1]);
     var photo = getBestLocationPhoto(location);
     var googleMapsUrl = 'https://www.google.com/maps?q=' + lat + ',' + lon;
     var mapsMeUrl = 'mapsme://map?v=1&ll=' + lat + ',' + lon + '&n=' + encodeURIComponent(location.name);
-    var escapedName = (location.name || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    var desc = (location.description || '').substring(0, 150);
-    if (location.description && location.description.length > 150) desc += '…';
-    var imgHtml = photo
-        ? '<img src="' + photo + '" alt="' + escapedName + '" class="w-full h-full object-cover" style="display:block" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class="flex items-center justify-center bg-gray-100 text-gray-400 h-full"><i class="fas fa-image text-3xl"></i></div>\'">'
-        : '<div class="flex items-center justify-center bg-gray-100 text-gray-400 h-full"><i class="fas fa-image text-3xl"></i><span class="ml-2 text-sm">Нет фото</span></div>';
-    return '<div class="location-card bg-white rounded-xl shadow-lg overflow-hidden" data-location-id="' + location.id + '" data-region="' + (location.region || '').replace(/"/g, '&quot;') + '">' +
-        '<div class="card-image-wrap relative w-full">' + imgHtml + '</div>' +
+    var nameSafe = escapeHtml(location.name || '');
+    var regionSafe = escapeHtml(location.region || '');
+    var descSafe = escapeHtml(location.description || '');
+    var imgBlock = photo
+        ? '<img src="' + photo + '" alt="' + nameSafe + '" class="w-full h-full object-cover" style="display:block" loading="lazy">'
+        : '<div class="flex items-center justify-center bg-gray-100 text-gray-400 h-full min-h-[200px]"><i class="fas fa-image text-4xl"></i></div>';
+    var unescoBadge = location.isUnesco
+        ? '<div class="absolute top-3 right-3 z-10"><span class="px-3 py-1 rounded-full text-xs font-bold text-black shadow" style="background:linear-gradient(135deg,#FCDD09 0%,#F59E0B 100%)"><i class="fas fa-landmark mr-1"></i>ЮНЕСКО</span></div>'
+        : '';
+    return '<div class="location-card bg-white rounded-xl shadow-lg overflow-hidden" data-location-id="' + location.id + '" data-region="' + regionSafe + '">' +
+        '<div class="relative" style="height:240px;overflow:hidden;border-radius:0.5rem 0.5rem 0 0;background:#f3f4f6">' + imgBlock + unescoBadge + '</div>' +
         '<div class="p-4 sm:p-5">' +
-        '<h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-1">' + escapedName + '</h3>' +
-        '<p class="text-gray-500 text-xs mb-2 sm:mb-3">' + (location.region || '') + '</p>' +
-        '<p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-3">' + desc + '</p>' +
-        '<div class="mb-4 pt-3 border-t border-gray-100 flex items-center justify-between">' +
-        '<a href="' + googleMapsUrl + '" target="_blank" class="text-blue-600 hover:underline text-sm font-medium" onclick="event.stopPropagation()">Google Maps</a>' +
-        '<span class="text-xs text-gray-500"><i class="fas fa-map-marker-alt text-[#078930] mr-1"></i>' + lat.toFixed(2) + ', ' + lon.toFixed(2) + '</span>' +
-        '<a href="' + mapsMeUrl + '" class="text-green-600 hover:underline text-sm font-medium" onclick="event.stopPropagation()">Maps.me</a>' +
+        '<h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-1">' + nameSafe + '</h3>' +
+        '<p class="text-gray-500 text-xs mb-2 sm:mb-3">' + regionSafe + '</p>' +
+        '<p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-3">' + descSafe + '</p>' +
+        '<div class="mb-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs sm:text-sm">' +
+        '<a href="' + googleMapsUrl + '" target="_blank" rel="noopener" class="text-blue-600 hover:underline" onclick="event.stopPropagation()">Google Maps</a>' +
+        '<span class="text-gray-500"><i class="fas fa-map-marker-alt text-[#078930] mr-1"></i>' + lat.toFixed(2) + ', ' + lon.toFixed(2) + '</span>' +
+        '<a href="' + mapsMeUrl + '" class="text-green-600 hover:underline" onclick="event.stopPropagation()">Maps.me</a>' +
         '</div>' +
         '<div class="flex gap-2">' +
-        '<a href="location.html?id=' + location.id + '" class="flex-1 bg-[#078930] hover:bg-[#056b24] text-white font-medium py-2 px-4 rounded-lg text-center text-sm" onclick="event.stopPropagation()"><i class="fas fa-info-circle mr-2"></i>Подробнее</a>' +
-        '<button type="button" onclick="event.stopPropagation();showOnMap(' + location.id + ');" class="flex-1 bg-[#DA121A] hover:bg-[#b80e15] text-white font-medium py-2 px-4 rounded-lg text-sm"><i class="fas fa-map-marker-alt mr-2"></i>На карте</button>' +
+        '<a href="location.html?id=' + location.id + '" class="flex-1 bg-[#078930] hover:bg-[#056b24] text-white font-medium py-2 px-4 rounded-lg text-center text-sm" onclick="event.stopPropagation()">Подробнее</a>' +
+        '<button type="button" onclick="event.stopPropagation();showOnMap(' + location.id + ');" class="flex-1 bg-[#DA121A] hover:bg-[#b80e15] text-white font-medium py-2 px-4 rounded-lg text-sm">На карте</button>' +
         '</div></div></div>';
 }
 
@@ -118,7 +131,13 @@ function renderLocationCards(filteredLocations) {
         container.innerHTML = '<p class="text-gray-500 text-center col-span-full py-8">Ничего не найдено</p>';
         return;
     }
-    container.innerHTML = list.map(createLocationCard).join('');
+    try {
+        container.innerHTML = list.map(createLocationCard).filter(Boolean).join('');
+    } catch (e) {
+        console.error('renderLocationCards:', e);
+        container.innerHTML = '<p class="text-red-500 text-center col-span-full py-8">Ошибка загрузки карточек. Проверьте консоль.</p>';
+        return;
+    }
     container.querySelectorAll('.location-card').forEach(function(card) {
         var id = card.dataset.locationId;
         card.addEventListener('click', function(e) {
