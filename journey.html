@@ -19,7 +19,10 @@
         .day-5 { border-left-color: #FCDD09; }
         .day-6 { border-left-color: #DA121A; }
         .day-7 { border-left-color: #078930; }
-        @media (max-width: 640px) { .hero-eth h1 { font-size: 1.5rem; } .day-card { padding: 1rem; } }
+        .transport-table { font-size: 0.75rem; }
+        .transport-table th, .transport-table td { padding: 0.35rem 0.5rem; border: 1px solid #e5e7eb; }
+        .transport-table th { background: #f3f4f6; font-weight: 600; }
+        @media (max-width: 640px) { .hero-eth h1 { font-size: 1.5rem; } .day-card { padding: 1rem; } .transport-table { font-size: 0.7rem; } .transport-table th, .transport-table td { padding: 0.25rem; } }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -67,6 +70,7 @@
             <div id="day-0" class="day-card day-0 bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-3">День 0 — Прилёт · Аддис-Абеба</h2>
                 <p class="text-gray-600 text-sm mb-3 font-medium">Знакомство со столицей</p>
+                <p class="text-gray-600 text-sm font-semibold mb-1">🏛️ Достопримечательности</p>
                 <ul class="text-gray-600 text-sm space-y-1 mb-4 list-disc list-inside">
                     <li>Национальный музей Эфиопии — скелет «Люси» (3,2 млн лет), этнография. Вход ~$10/чел</li>
                     <li>Гора Энтото — панорама Аддис-Абебы. Бесплатно</li>
@@ -74,8 +78,28 @@
                     <li>Мемориал Красного Террора (1977–1978). ~$2/чел</li>
                     <li>Кофейная церемония в местном кафе</li>
                 </ul>
-                <p class="text-gray-500 text-xs mb-2"><strong>Транспорт в Бахр-Дар (565 км):</strong> перелёт 50 мин ~$360; ночной автобус 10–12 ч ~$33; авто с водителем 8–10 ч ~$180.</p>
-                <p class="text-gray-500 text-xs"><strong>Ночлег:</strong> отель в центре ~$80/ночь или ночь в автобусе (экономия).</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Аддис-Абеба → Бахр-Дар (565 км)</p>
+                <div class="overflow-x-auto mb-4">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
+                        <tbody>
+                            <tr><td>✈️ Перелёт</td><td>50 мин</td><td>$360 ($120×3)</td><td>06:00</td><td>06:50</td><td>Ethiopian Airlines. Быстро и комфортно.</td></tr>
+                            <tr><td>🚌 Ночной автобус ⭐</td><td>10–12 ч</td><td>$33 ($11×3)</td><td>18:00</td><td>05:00 (+1)</td><td>Selam Bus. Спите в дороге, экономите ночь в отеле.</td></tr>
+                            <tr><td>🛣️ Авто с водителем</td><td>8–10 ч</td><td>$180 (доля)</td><td>07:00</td><td>16:00</td><td>4WD + водитель ($150/день + топливо). Свобода остановок.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
+                <div class="overflow-x-auto mb-3">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
+                        <tbody>
+                            <tr><td>✈️ В1 — Аддис</td><td>Отель (1 ночь)</td><td>$80 (2-мест $45 + 1-мест $35)</td><td>Центр города, недалеко от музея</td></tr>
+                            <tr><td>🚌 В2 — Ночной автобус</td><td>В автобусе</td><td>$0</td><td>Экономия $80 на проживании</td></tr>
+                            <tr><td>🛣️ В3 — Аддис</td><td>Отель (1 ночь)</td><td>$80</td><td>Тот же отель, что в В1</td></tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="mt-3 flex flex-wrap gap-2">
                     <a href="location.html?id=13" class="text-[#078930] font-medium text-sm hover:underline">Музей (Люси)</a>
                     <a href="location.html?id=16" class="text-[#078930] font-medium text-sm hover:underline">Энтото</a>
@@ -87,12 +111,28 @@
             <div id="day-1" class="day-card day-1 bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-3">День 1 — Бахр-Дар</h2>
                 <p class="text-gray-600 text-sm mb-3 font-medium">Озеро Тана и водопады Голубого Нила</p>
-                <ul class="text-gray-600 text-sm space-y-1 mb-4 list-disc list-inside">
+                <p class="text-gray-600 text-sm font-semibold mb-1">🏛️ Достопримечательности</p>
+                <ul class="text-gray-600 text-sm space-y-1 mb-3 list-disc list-inside">
                     <li>Водопад Тис-Ысат (Голубой Нил) — до 45 м в сезон. Вход $5/чел + транспорт ~$30</li>
                     <li>Озеро Тана — лодка к островным монастырям (Зеге, Ура-Кидане-Мехрет). ~$25/чел</li>
                     <li>Набережная и рынок Бахр-Дара</li>
                 </ul>
-                <p class="text-gray-500 text-xs mb-2"><strong>Ночлег:</strong> отель в центре ~$70; бюджет гестхаус $40–50; комфорт Kuriftu Resort $120–150.</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт внутри дня</p>
+                <ul class="text-gray-600 text-sm space-y-0.5 mb-4 list-disc list-inside">
+                    <li>До водопада: маршрутка/такси $10–15</li>
+                    <li>До монастырей: лодка от пристани $25/чел (2–3 часа)</li>
+                </ul>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
+                <div class="overflow-x-auto mb-3">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
+                        <tbody>
+                            <tr><td>Все варианты</td><td>Отель Бахр-Дар</td><td>$70 (2-мест $40 + 1-мест $30)</td><td>Центр, вид на озеро Тана</td></tr>
+                            <tr><td>Бюджетный</td><td>Гестхаус</td><td>$40–50</td><td>Рядом с портом, простые условия, чисто</td></tr>
+                            <tr><td>Комфорт</td><td>Kuriftu Resort</td><td>$120–150</td><td>На берегу озера</td></tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="mt-3 flex flex-wrap gap-2">
                     <a href="location.html?id=7" class="text-[#078930] font-medium text-sm hover:underline">Водопад Тис-Ысат</a>
                     <a href="location.html?id=6" class="text-[#078930] font-medium text-sm hover:underline">Озеро Тана</a>
@@ -102,53 +142,124 @@
             <div id="day-2" class="day-card day-2 bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-3">День 2 — Бахр-Дар → Гондэр</h2>
                 <p class="text-gray-600 text-sm mb-3 font-medium">Африканский Камелот (180 км)</p>
-                <p class="text-gray-500 text-xs mb-3">Перелёт 30 мин ~$270; автобус 3–4 ч ~$15; авто ~3 ч.</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Бахр-Дар → Гондэр (180 км)</p>
+                <div class="overflow-x-auto mb-4">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
+                        <tbody>
+                            <tr><td>✈️ Перелёт</td><td>30 мин</td><td>$270 ($90×3)</td><td>08:00</td><td>08:30</td><td>Ethiopian Airlines. Сохраняет полный день в Гондэре.</td></tr>
+                            <tr><td>🚌 Автобус ⭐</td><td>3–4 ч</td><td>$15 ($5×3)</td><td>06:00</td><td>10:00</td><td>Selam Bus. Живописная дорога, хорошее состояние.</td></tr>
+                            <tr><td>🛣️ То же авто</td><td>3 ч</td><td>$180 (день аренды)</td><td>08:00</td><td>11:00</td><td>День 2 аренды ($150 + топливо $30). Остановки где хотите.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-600 text-sm font-semibold mb-1">🏛️ Достопримечательности Гондэра</p>
                 <ul class="text-gray-600 text-sm space-y-1 mb-4 list-disc list-inside">
                     <li>Фасил-Гебби (ЮНЕСКО) — замки XVII в. $10/чел</li>
                     <li>Церковь Дэбрэ Бырхан-Селассие — иконы херувимов. $5/чел</li>
                     <li>Купальни Фасилидаса. $3/чел</li>
                 </ul>
-                <p class="text-gray-500 text-xs"><strong>Ночлег:</strong> отель ~$70; Goha Hotel на холме $100–130.</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
+                <div class="overflow-x-auto mb-3">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
+                        <tbody>
+                            <tr><td>Все варианты</td><td>Отель Гондэр</td><td>$70 (2-мест $40 + 1-мест $30)</td><td>Центр, вид на замки</td></tr>
+                            <tr><td>Бюджетный</td><td>Гестхаус / хостел</td><td>$30–45</td><td>Центр, простые условия</td></tr>
+                            <tr><td>Комфорт</td><td>Goha Hotel</td><td>$100–130</td><td>На холме над городом, панорама, бассейн</td></tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="mt-3"><a href="location.html?id=3" class="text-[#078930] font-medium text-sm hover:underline">Гондэр →</a></div>
             </div>
 
             <div id="day-3" class="day-card day-3 bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-3">День 3 — Гондэр → Горы Симиен</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Начало треккинга (Дебарк → Sankaber, ~125 км)</p>
-                <p class="text-gray-500 text-xs mb-3">Автобус до Дебарка + такси в парк ~$42; регистрация в парке + скаут $20/чел/день; гид ~$15/день.</p>
-                <ul class="text-gray-600 text-sm space-y-1 mb-4 list-disc list-inside">
-                    <li>Треккинг до Sankaber Camp (3–4 ч, набор ~400 м)</li>
-                    <li>Гелада-бабуины на тропе</li>
-                    <li>Каньоны глубиной до 1500 м</li>
+                <p class="text-gray-600 text-sm mb-3 font-medium">Начало треккинга (Гондэр → Дебарк → Sankaber, 100 + 25 км)</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Гондэр → Дебарк → Sankaber</p>
+                <div class="overflow-x-auto mb-4">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
+                        <tbody>
+                            <tr><td>✈️ В1 и В2: Автобус + такси</td><td>2 ч + 1 ч</td><td>$42 (автобус $12 + такси в парк $30)</td><td>07:00</td><td>~11:00</td><td>Автобус Гондэр–Дебарк, затем такси/джип до Sankaber.</td></tr>
+                            <tr><td>🛣️ В3: То же авто</td><td>3–4 ч</td><td>$180 (день аренды)</td><td>08:00</td><td>12:00</td><td>День 3 аренды ($150 + топливо $30). Прямо до лагеря с рюкзаками.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-600 text-sm font-semibold mb-1">🏛️ В парке:</p>
+                <ul class="text-gray-600 text-sm space-y-1 mb-3 list-disc list-inside">
+                    <li>Регистрация на воротах + обязательный скаут $20/чел/день; гид ~$15/день на группу</li>
+                    <li>Треккинг от ворот до Sankaber Camp (3–4 ч, набор ~400 м)</li>
+                    <li>Гелада-бабуины на тропе, каньоны до 1500 м</li>
                 </ul>
-                <p class="text-gray-500 text-xs"><strong>Ночлег:</strong> Sankaber Lodge/Camp ~$100; Simien Lodge 3260 м $200–280.</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
+                <div class="overflow-x-auto mb-3">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
+                        <tbody>
+                            <tr><td>Все варианты</td><td>Sankaber Lodge / Camp</td><td>~$100</td><td>У ворот парка</td></tr>
+                            <tr><td>Палатка</td><td>Кемпинг</td><td>$5–10</td><td>Холодно ночью</td></tr>
+                            <tr><td>Комфорт</td><td>Simien Lodge</td><td>$200–280</td><td>3260 м, выше парка</td></tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="mt-3"><a href="location.html?id=5" class="text-[#078930] font-medium text-sm hover:underline">Симиен →</a></div>
             </div>
 
             <div id="day-4" class="day-card day-4 bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-3">День 4 — Треккинг: Sankaber → Geech</h2>
                 <p class="text-gray-600 text-sm mb-3 font-medium">Каньоны, водопад Джинбар, эфиопский волк</p>
-                <ul class="text-gray-600 text-sm space-y-1 mb-4 list-disc list-inside">
+                <ul class="text-gray-600 text-sm space-y-1 mb-3 list-disc list-inside">
                     <li>Переход Sankaber → Geech (5–6 ч, ~12 км, до 3600 м)</li>
                     <li>Водопад Джинбар — обрыв 500 м</li>
                     <li>Гелады, при удаче — эфиопский волк</li>
                 </ul>
-                <p class="text-gray-500 text-xs">Мулы для вещей опционально $10–15/день.</p>
-                <p class="text-gray-500 text-xs mt-2"><strong>Ночлег:</strong> Geech Camp ~$115; палатка на кемпинге $5–10 (холодно ночью).</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт</p>
+                <p class="text-gray-600 text-sm mb-4">Пеший переход. Мулы для вещей опционально $10–15/день.</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
+                <div class="overflow-x-auto">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
+                        <tbody>
+                            <tr><td>Все варианты</td><td>Geech Camp</td><td>~$115</td><td>Лодж/кемпинг</td></tr>
+                            <tr><td>Палатка</td><td>Кемпинг</td><td>$5–10</td><td>Холодно ночью</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div id="day-5" class="day-card day-5 bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-3">День 5 — Симиен → Гондэр → Лалибела</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Спуск и перелёт в Лалибелу</p>
-                <p class="text-gray-500 text-xs mb-3">Утро: спуск Geech → Дебарк (~3 ч). Такси/автобус до Гондэра + перелёт в Лалибелу ~$240 (3 чел). Вечер: прогулка по Лалибеле.</p>
-                <p class="text-gray-500 text-xs"><strong>Ночлег:</strong> отель в центре Лалибелы ~$125; бюджет Ben Abeba $40–60; Lalibela Hudad Lodge на горе $180–220.</p>
+                <p class="text-gray-600 text-sm mb-3 font-medium">Спуск с гор и перелёт. Утро: спуск Geech → Дебарк (~3 ч). Вечер: прогулка по Лалибеле.</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Дебарк → Гондэр → Лалибела</p>
+                <div class="overflow-x-auto mb-4">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
+                        <tbody>
+                            <tr><td>✈️ Авто + перелёт</td><td>3 ч + 45 мин</td><td>$42 (такси) + $240 (перелёт)</td><td>09:00</td><td>15:00</td><td>Такси Дебарк→Гондэр, затем Ethiopian Airlines→Лалибела.</td></tr>
+                            <tr><td>🚌 Автобус + перелёт ⭐</td><td>3 ч + 45 мин</td><td>$30 (автобус) + $240 (перелёт)</td><td>09:00</td><td>15:00</td><td>Автобус Дебарк→Гондэр $5×3, затем тот же рейс.</td></tr>
+                            <tr><td>🛣️ Авто (горная дорога)</td><td>13–15 ч</td><td>$200 (авто + топливо)</td><td>07:00</td><td>20:00</td><td>⚠️ 330 км серпантинов! Крайне сложная дорога.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
+                <div class="overflow-x-auto mb-3">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
+                        <tbody>
+                            <tr><td>Все варианты</td><td>Отель Лалибела</td><td>$125 (2+1 комн.)</td><td>Центр, в пешей доступности от церквей</td></tr>
+                            <tr><td>Бюджетный</td><td>Ben Abeba / гестхаус</td><td>$40–60</td><td>Выше в деревне, уникальная архитектура</td></tr>
+                            <tr><td>Комфорт</td><td>Lalibela Hudad Lodge</td><td>$180–220</td><td>На горе над деревней, традиционные домики ⭐</td></tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="mt-3"><a href="location.html?id=1" class="text-[#078930] font-medium text-sm hover:underline">Лалибела →</a></div>
             </div>
 
             <div id="day-6" class="day-card day-6 bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-3">День 6 — Лалибела — скальные церкви</h2>
                 <p class="text-gray-600 text-sm mb-3 font-medium">Восьмое чудо света · ЮНЕСКО</p>
-                <p class="text-gray-500 text-xs mb-3">Комбо-билет на все 11 церквей (2 дня) $50/чел. Гид ~$30 на группу.</p>
+                <p class="text-gray-600 text-sm mb-2">Комбо-билет на все 11 церквей (2 дня) $50/чел. Гид ~$30 на группу.</p>
                 <p class="text-gray-600 text-sm mb-1 font-medium">Утро — Северная группа:</p>
                 <ul class="text-gray-600 text-sm space-y-0.5 mb-3 list-disc list-inside">
                     <li>Бет Медхане Алем, Бет Мариам, Бет Голгофа, Бет Денагель</li>
@@ -157,14 +268,100 @@
                 <ul class="text-gray-600 text-sm space-y-0.5 mb-3 list-disc list-inside">
                     <li>Бет Гиоргис (визитная карточка), Бет Абба Либанос</li>
                 </ul>
-                <p class="text-gray-500 text-xs">Вечер: кофейная церемония, ужин (инджера, тибс). Ночлег тот же или ночной автобус в Аддис (экономия).</p>
+                <p class="text-gray-600 text-sm mb-2">Вечер: кофейная церемония ~$10/чел, ужин (инджера, тибс).</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт</p>
+                <p class="text-gray-600 text-sm mb-4">Все церкви — пешком. Расстояние между группами ~500 м. Такси до Бет Гиоргис при необходимости $3–5.</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
+                <div class="overflow-x-auto mb-3">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость</th><th>Особенности</th></tr></thead>
+                        <tbody>
+                            <tr><td>В1 — 2-я ночь</td><td>Тот же отель</td><td>$125</td><td>Центр Лалибелы, удобно после долгого дня</td></tr>
+                            <tr><td>В2 — Ночной автобус ⭐</td><td>В автобусе</td><td>$0</td><td>Отпр. 18:00, приб. 11:00 (День 7). Экономия $125.</td></tr>
+                            <tr><td>В3 — Авто + 2-я ночь</td><td>Отель + авто простой</td><td>$125 + $150 авто</td><td>Водитель ждёт в Лалибеле. Частное авто на участке Лалибела→Аддис невыгодно.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="mt-3"><a href="location.html?id=1" class="text-[#078930] font-medium text-sm hover:underline">Лалибела →</a></div>
             </div>
 
             <div id="day-7" class="day-card day-7 bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-3">День 7 — Лалибела → Аддис-Абеба</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Шопинг и вылет домой</p>
-                <p class="text-gray-500 text-xs">Перелёт 1 ч ~$240; или ночной автобус (отправка вечером Дня 6) 16–18 ч ~$45 — прибытие утром Дня 7.</p>
+                <p class="text-gray-600 text-sm mb-3 font-medium">Шопинг и вылет домой (645 км)</p>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Лалибела → Аддис-Абеба</p>
+                <div class="overflow-x-auto mb-4">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
+                        <tbody>
+                            <tr><td>✈️ Перелёт</td><td>1 ч</td><td>$240 ($80×3)</td><td>10:00</td><td>11:00</td><td>Удобно: весь день в столице для шопинга.</td></tr>
+                            <tr><td>🚌 Ночной автобус ⭐</td><td>16–18 ч</td><td>$45 ($15×3)</td><td>18:00 (День 6)</td><td>11:00 (День 7)</td><td>Прибытие утром Дня 7. Экономия $195 + ночь отеля.</td></tr>
+                            <tr><td>🛣️ Ночной автобус</td><td>16–18 ч</td><td>$45</td><td>18:00 (День 6)</td><td>11:00 (День 7)</td><td>Частное авто на этом участке невыгодно.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🛍️ В Аддис-Абебе</p>
+                <ul class="text-gray-600 text-sm space-y-0.5 mb-3 list-disc list-inside">
+                    <li>Рынок Меркато — сувениры, специи, ткани</li>
+                    <li>Кофе (Yirgacheffe, Sidamo) $5–8/кг. Взять 3–5 кг!</li>
+                    <li>Специи берберé $3–5 · Ладан $2–5 · Кресты $5–50</li>
+                    <li>Прощальный ужин Yod Abyssinia — шоу + кухня ~$25/чел</li>
+                    <li>Day-use room (душ и хранение перед вылетом) ~$25</li>
+                </ul>
+                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег / вылет</p>
+                <div class="overflow-x-auto">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость</th><th>Особенности</th></tr></thead>
+                        <tbody>
+                            <tr><td>В1 — Дневная комната</td><td>Day-use room</td><td>$25 (на группу)</td><td>Аэропорт или центр. Душ + хранение перед ночным рейсом.</td></tr>
+                            <tr><td>В2 и В3</td><td>Прибытие утром</td><td>—</td><td>Прибытие 11:00 — сразу шопинг и прощальный ужин.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-[#078930]">
+                <h2 class="text-xl font-bold text-gray-800 mb-3">💰 Полный бюджет на 3 человека</h2>
+                <div class="overflow-x-auto mb-4">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Категория</th><th>✈️ Вариант 1</th><th>🚌 Вариант 2 ⭐</th><th>🛣️ Вариант 3</th><th>Единица</th></tr></thead>
+                        <tbody>
+                            <tr><td>Транспорт</td><td>$1 232</td><td>$455</td><td>$1 220</td><td>на 3 чел.</td></tr>
+                            <tr><td>Проживание (6–7 ночей)</td><td>$710</td><td>$505</td><td>$585</td><td>на 3 чел.</td></tr>
+                            <tr><td>Питание (7 дней)</td><td>$465</td><td>$465</td><td>$465</td><td>на 3 чел.</td></tr>
+                            <tr><td>Входные билеты и гиды</td><td>$698</td><td>$698</td><td>$698</td><td>на 3 чел.</td></tr>
+                            <tr><td>Разное (кофе, шопинг, чаевые)</td><td>$145</td><td>$145</td><td>$145</td><td>на 3 чел.</td></tr>
+                            <tr class="font-bold bg-gray-100"><td>ИТОГО</td><td>$3 250</td><td>$2 268</td><td>$3 113</td><td>$756–1083/чел</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-[#078930]/10 border border-[#078930]/30 rounded-lg p-4 mb-4">
+                    <p class="text-sm font-semibold text-gray-800 mb-2">🏆 Рекомендация: Вариант 2 (комбо)</p>
+                    <ul class="text-gray-700 text-sm space-y-0.5 list-disc list-inside">
+                        <li>~$756 на человека (в пределах бюджета $100/день)</li>
+                        <li>Экономия ~$1 000 на группу по сравнению с Вариантом 1</li>
+                        <li>2 ночных автобуса = приключение + экономия</li>
+                        <li>Перелёты на сложных участках (Гондэр→Лалибела)</li>
+                    </ul>
+                    <p class="text-gray-600 text-xs mt-2">⚠️ Вариант 3 (авто): после пересчёта полной аренды (~$150/день × 7 дней) обходится в $3 113 — дороже В2 на $845. Выбирайте только если важна свобода остановок и готовы к 10–12 ч серпантинов Гондэр→Лалибела.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-amber-500">
+                <h2 class="text-xl font-bold text-gray-800 mb-3">📱 Практические советы</h2>
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                        <p class="font-semibold text-gray-800 mb-1">💳 Деньги</p>
+                        <p class="text-gray-600">Меняйте $ в аэропорту Аддис. Курс ~$1 = 130 ETB (март 2026). Разменяйте на мелкие. Карты почти нигде не работают. Наличных на руках: $200–300/чел.</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800 mb-1">✈️ Перелёты и автобусы</p>
+                        <p class="text-gray-600">Selam Bus: selambus.com.et · Sky Bus: skybus.com.et. Бронируйте автобус за 2–3 дня. Ethiopian Airlines — за 2 недели! Март = высокий сезон → дорого.</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800 mb-1">⚠️ Здоровье</p>
+                        <p class="text-gray-600">Вакцины: жёлтая лихорадка + тиф. Малярия: профилактика в Бахр-Даре. Вода только бутилированная! В горах: Диамокс за день до подъёма, пить 3–4 л воды/день.</p>
+                    </div>
+                </div>
             </div>
 
             <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-gray-400">
