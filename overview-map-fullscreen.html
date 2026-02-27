@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта маршрута — Восточная Африка</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <style>
+        body { margin: 0; font-family: system-ui, sans-serif; }
+        .map-header {
+            position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+            z-index: 1000; display: flex; align-items: center; gap: 12px;
+            background: white; padding: 8px 16px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .map-header a { color: #1f2937; text-decoration: none; font-weight: 600; }
+        .map-header a:hover { text-decoration: underline; }
+        #map { height: 100vh; width: 100%; }
+        .legend {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            z-index: 1000; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+            background: white; padding: 8px 16px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            font-size: 12px;
+        }
+        .legend span { display: flex; align-items: center; gap: 4px; }
+        .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+    <div class="map-header">
+        <a href="overview.html"><i class="fas fa-arrow-left" style="margin-right:8px"></i>Назад к обзору</a>
+    </div>
+    <div id="map"></div>
+    <div class="legend">
+        <span><span class="dot" style="background:#078930"></span>Эфиопия</span>
+        <span><span class="dot" style="background:#FCDC04"></span>Уганда</span>
+        <span><span class="dot" style="background:#00A1DE"></span>Руанда</span>
+        <span><span class="dot" style="background:#CE1126"></span>Бурунди</span>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/overview-data.js"></script>
+    <script>
+(function() {
+    const countryColors = {
+        ethiopia: '#078930',
+        uganda: '#FCDC04',
+        rwanda: '#00A1DE',
+        burundi: '#CE1126'
+    };
+    
+    const countryLinks = {
+        ethiopia: 'index.html',
+        uganda: 'uganda-map.html',
+        rwanda: 'rwanda-map.html',
+        burundi: 'burundi-map.html'
+    };
+    
+    const countryNames = {
+        ethiopia: 'Эфиопия',
+        uganda: 'Уганда',
+        rwanda: 'Руанда',
+        burundi: 'Бурунди'
+    };
+    
+    const map = L.map('map', { scrollWheelZoom: true }).setView([2.0, 33.0], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap',
+        maxZoom: 18
+    }).addTo(map);
+    
+    if (typeof fullRoute !== 'undefined' && fullRoute.length) {
+        fullRoute.forEach((point, index) => {
+            const color = countryColors[point.country] || '#666';
+            const textColor = point.country === 'uganda' ? '#000' : '#fff';
+            
+            const icon = L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="background:${color};width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-size:11px;font-weight:bold;color:${textColor}">${point.day}</div>`,
+                iconSize: [28, 28],
+                iconAnchor: [14, 14]
+            });
+            
+            const marker = L.marker([point.coordinates[1], point.coordinates[0]], { icon }).addTo(map);
+            marker.bindPopup(`
+                <div style="min-width:200px;padding:5px">
+                    <h3 style="margin:0 0 5px;font-weight:bold;font-size:1em">${point.location}</h3>
+                    <p style="margin:0 0 8px;color:#666;font-size:0.85em">День ${point.day} · ${countryNames[point.country]}</p>
+                    <a href="${countryLinks[point.country]}" style="display:inline-block;padding:8px 14px;background:${color};color:${textColor};text-decoration:none;border-radius:6px;font-size:0.85em;font-weight:600">Открыть страну →</a>
+                </div>
+            `);
+        });
+        
+        // Линии маршрута по странам
+        const ethiopiaRoute = fullRoute.filter(p => p.country === 'ethiopia').map(p => [p.coordinates[1], p.coordinates[0]]);
+        const ugandaRoute = fullRoute.filter(p => p.country === 'uganda').map(p => [p.coordinates[1], p.coordinates[0]]);
+        const rwandaRoute = fullRoute.filter(p => p.country === 'rwanda').map(p => [p.coordinates[1], p.coordinates[0]]);
+        const burundiRoute = fullRoute.filter(p => p.country === 'burundi').map(p => [p.coordinates[1], p.coordinates[0]]);
+        
+        if (ethiopiaRoute.length > 1) L.polyline(ethiopiaRoute, { color: '#078930', weight: 3, opacity: 0.8, dashArray: '10, 5' }).addTo(map);
+        if (ugandaRoute.length > 1) L.polyline(ugandaRoute, { color: '#FCDC04', weight: 3, opacity: 0.8, dashArray: '10, 5' }).addTo(map);
+        if (rwandaRoute.length > 1) L.polyline(rwandaRoute, { color: '#00A1DE', weight: 3, opacity: 0.8, dashArray: '10, 5' }).addTo(map);
+        if (burundiRoute.length > 1) L.polyline(burundiRoute, { color: '#CE1126', weight: 3, opacity: 0.8, dashArray: '10, 5' }).addTo(map);
+        
+        // Перелёт Эфиопия → Уганда
+        const ethiopiaEnd = fullRoute.find(p => p.country === 'ethiopia' && p.day === 7);
+        const ugandaStart = fullRoute.find(p => p.country === 'uganda' && p.day === 8);
+        if (ethiopiaEnd && ugandaStart) {
+            L.polyline([
+                [ethiopiaEnd.coordinates[1], ethiopiaEnd.coordinates[0]],
+                [ugandaStart.coordinates[1], ugandaStart.coordinates[0]]
+            ], { color: '#666', weight: 2, opacity: 0.5, dashArray: '5, 10' }).addTo(map);
+        }
+        
+        const allCoords = fullRoute.map(p => [p.coordinates[1], p.coordinates[0]]);
+        map.fitBounds(allCoords, { padding: [50, 50] });
+    }
+})();
+    </script>
+</body>
+</html>

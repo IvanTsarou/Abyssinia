@@ -1,6 +1,6 @@
 // Service Worker для офлайн работы
 // Версия кэша — обновите при изменении контента
-const CACHE_VERSION = 'east-africa-v3';
+const CACHE_VERSION = 'east-africa-v4';
 
 // Файлы для кэширования при установке
 const PRECACHE_URLS = [
@@ -13,6 +13,10 @@ const PRECACHE_URLS = [
   '/index.html',
   '/location.html',
   '/map-fullscreen.html',
+  '/overview-map-fullscreen.html',
+  '/uganda-map-fullscreen.html',
+  '/rwanda-map-fullscreen.html',
+  '/burundi-map-fullscreen.html',
   '/uganda-map.html',
   '/rwanda-map.html',
   '/burundi-map.html',
