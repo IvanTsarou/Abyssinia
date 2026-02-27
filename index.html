@@ -53,16 +53,16 @@
 </head>
 <body class="bg-gray-50">
     
-    <!-- Навигация -->
-    <nav class="sticky top-0 z-50 bg-gradient-to-r from-[#078930] via-[#056b24] to-[#078930] shadow-lg">
+    <!-- Навигация (десктоп) -->
+    <nav class="hidden sm:block sticky top-0 z-50 bg-gradient-to-r from-[#078930] via-[#056b24] to-[#078930] shadow-lg">
         <div class="container mx-auto px-3 py-2">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-1 sm:gap-3">
-                    <a href="overview.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🗺️ <span class="hidden sm:inline">Обзор</span></a>
-                    <a href="index.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
-                    <a href="uganda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
-                    <a href="rwanda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
-                    <a href="burundi-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+                <div class="flex items-center gap-3">
+                    <a href="overview.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🗺️ Обзор</a>
+                    <a href="index.html" class="text-white bg-white/20 px-2 py-1 text-sm rounded">🇪🇹 Эфиопия</a>
+                    <a href="uganda-map.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇺🇬 Уганда</a>
+                    <a href="rwanda-map.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇷🇼 Руанда</a>
+                    <a href="burundi-map.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇧🇮 Бурунди</a>
                 </div>
                 <div class="flex items-center">
                     <a href="index.html" class="text-white bg-white/20 px-2 py-1 rounded-l text-xs font-medium"><i class="fas fa-map-marked-alt mr-1"></i>Карта</a>
@@ -72,21 +72,41 @@
         </div>
     </nav>
 
-    <header class="hero-ethiopia py-2 sm:py-4 md:py-6">
+    <!-- Навигация (мобильная) - объединённая с hero -->
+    <nav class="sm:hidden sticky top-0 z-50 bg-gradient-to-r from-[#078930] via-[#056b24] to-[#078930] shadow-lg">
+        <div class="px-3 py-2">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 text-white text-[10px]">
+                    <span class="font-medium">20 мест</span>
+                    <span class="text-white/50">•</span>
+                    <span class="accent font-medium">5 ЮНЕСКО</span>
+                    <span class="text-white/50">•</span>
+                    <span>10 регионов</span>
+                </div>
+                <div class="flex items-center">
+                    <a href="index.html" class="text-white bg-white/20 px-2 py-1 rounded-l text-xs font-medium">Карта</a>
+                    <a href="journey.html" class="text-white/80 bg-white/10 px-2 py-1 rounded-r text-xs">Маршрут</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero (только десктоп) -->
+    <header class="hidden sm:block hero-ethiopia py-4 md:py-6">
         <div class="container mx-auto px-3">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-base sm:text-xl md:text-2xl font-bold">Карта мест</h1>
-                    <p class="text-[10px] sm:text-xs text-white/70">20 достопримечательностей</p>
+                    <h1 class="text-xl md:text-2xl font-bold">Карта мест</h1>
+                    <p class="text-xs text-white/70">20 достопримечательностей</p>
                 </div>
                 <div class="flex gap-3 text-center">
                     <div>
-                        <div class="text-lg sm:text-xl font-bold accent">5</div>
-                        <div class="text-[9px] sm:text-xs text-white/70">ЮНЕСКО</div>
+                        <div class="text-xl font-bold accent">5</div>
+                        <div class="text-xs text-white/70">ЮНЕСКО</div>
                     </div>
                     <div>
-                        <div class="text-lg sm:text-xl font-bold">10</div>
-                        <div class="text-[9px] sm:text-xs text-white/70">регионов</div>
+                        <div class="text-xl font-bold">10</div>
+                        <div class="text-xs text-white/70">регионов</div>
                     </div>
                 </div>
             </div>
@@ -94,23 +114,6 @@
     </header>
     
     <main class="container mx-auto px-4 py-4 md:py-8">
-        
-        <section class="mb-4 md:mb-8">
-            <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
-                    <h2 class="text-lg md:text-xl font-bold text-gray-800">
-                        <i class="fas fa-filter mr-2 text-[#078930]"></i>
-                        Категории
-                    </h2>
-                    <button id="reset-filter" class="text-sm text-gray-600 hover:text-[#078930] transition self-start sm:self-center">
-                        <i class="fas fa-redo mr-1"></i>Сбросить
-                    </button>
-                </div>
-                <div id="category-filters" class="flex flex-wrap gap-2">
-                    <!-- генерируется в main.js -->
-                </div>
-            </div>
-        </section>
         
         <section class="mb-4 md:mb-8">
             <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6">

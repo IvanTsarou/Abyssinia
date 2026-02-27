@@ -45,12 +45,42 @@ function createCustomIcon(location) {
     });
 }
 
+function isMobile() {
+    return window.innerWidth < 640;
+}
+
 function initMap() {
-    map = L.map('map', { scrollWheelZoom: false }).setView([9.5, 40.0], 6);
+    var mapOptions = {
+        scrollWheelZoom: false,
+        zoomControl: !isMobile()
+    };
+    
+    if (isMobile()) {
+        mapOptions.dragging = false;
+        mapOptions.tap = false;
+        mapOptions.touchZoom = false;
+        mapOptions.doubleClickZoom = false;
+    }
+    
+    map = L.map('map', mapOptions).setView([9.5, 40.0], 6);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19
     }).addTo(map);
+    
+    if (isMobile()) {
+        L.control.zoom({ position: 'topright' }).addTo(map);
+        
+        var lastTap = 0;
+        map.getContainer().addEventListener('touchend', function(e) {
+            var now = Date.now();
+            if (now - lastTap < 300) {
+                window.location.href = 'map-fullscreen.html';
+            }
+            lastTap = now;
+        });
+    }
+    
     if (typeof locations !== 'undefined' && locations.length) addMarkersToMap();
 }
 
@@ -234,5 +264,4 @@ document.addEventListener('DOMContentLoaded', function() {
     else window.addEventListener('load', function() { setTimeout(initMap, 300); });
     if (typeof locations !== 'undefined' && locations.length) renderLocationCards();
     else window.addEventListener('load', function() { setTimeout(function() { if (locations && locations.length) renderLocationCards(); }, 300); });
-    initFilters();
 });
