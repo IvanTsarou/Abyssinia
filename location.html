@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
         .hero-eth { background: linear-gradient(135deg, #078930 0%, #056b24 50%, #DA121A 100%); color: white; }
         .slider-wrap { height: 50vh; min-height: 260px; }
         @media (min-width: 768px) { .slider-wrap { height: 60vh; min-height: 400px; } }
@@ -18,8 +18,6 @@
         .slider-slide img { width: 100%; height: 100%; object-fit: contain; }
         .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(0,0,0,0.6); color: white; border: none; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
         .nav-btn:hover { background: rgba(0,0,0,0.9); }
-        #loc-map { height: 320px; border-radius: 1rem; }
-        @media (min-width: 640px) { #loc-map { height: 400px; } }
     </style>
 </head>
 <body class="bg-gray-50">

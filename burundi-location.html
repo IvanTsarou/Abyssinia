@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Локация — Бурунди</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+    <nav class="sticky top-0 z-50 bg-gradient-to-r from-[#CE1126] via-[#b50f21] to-[#CE1126] shadow-lg">
+        <div class="container mx-auto px-3 py-2">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1 sm:gap-3">
+                    <a href="overview.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🗺️ <span class="hidden sm:inline">Обзор</span></a>
+                    <a href="index.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
+                    <a href="uganda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
+                    <a href="rwanda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
+                    <a href="burundi-map.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-burundi py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center gap-3">
+                <a href="burundi.html" class="inline-flex items-center px-3 py-1.5 rounded-lg font-semibold text-white bg-white/20 hover:bg-white/30 transition text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i>Назад
+                </a>
+                <div class="flex-1 min-w-0">
+                    <h1 class="text-lg sm:text-xl font-bold truncate" id="location-title">Загрузка…</h1>
+                    <p class="text-xs text-white/80" id="location-type"></p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-3 sm:px-4 py-4 md:py-6">
+        <section class="mb-4 sm:mb-6">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div id="photo-container" class="photo-placeholder h-48 sm:h-64 md:h-80 flex items-center justify-center text-gray-400">
+                    <i class="fas fa-image text-4xl"></i>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-4 sm:mb-6">
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                <h2 class="text-base sm:text-lg font-bold text-gray-800 mb-3"><i class="fas fa-info-circle mr-2 text-red-500"></i>Описание</h2>
+                <p id="location-description" class="text-gray-700 text-sm leading-relaxed"></p>
+            </div>
+        </section>
+
+        <section class="mb-4 sm:mb-6">
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                <h2 class="text-base sm:text-lg font-bold text-gray-800 mb-3"><i class="fas fa-clipboard-list mr-2 text-red-500"></i>Практическая информация</h2>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-clock text-red-600 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800 text-sm">Время на месте</p>
+                            <p id="time-on-site" class="text-gray-600 text-sm"></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-lightbulb text-red-600 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800 text-sm">Советы</p>
+                            <p id="practical-notes" class="text-gray-600 text-sm"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-4 sm:mb-6">
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+                <h2 class="text-base sm:text-lg font-bold text-gray-800 mb-3"><i class="fas fa-map-marked-alt mr-2 text-red-500"></i>Расположение</h2>
+                <div id="loc-map" class="mb-4"></div>
+                <div class="flex flex-wrap gap-3 items-center pt-3 border-t border-gray-100 text-sm">
+                    <span class="text-gray-600" id="location-coordinates"></span>
+                    <a id="google-maps-link" href="#" target="_blank" class="text-blue-600 hover:underline font-medium">Google Maps</a>
+                    <a id="mapsme-link" href="#" class="text-green-600 hover:underline font-medium">Maps.me</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4 text-center">
+        <p class="text-gray-300 text-sm">🇧🇮 Бурунди — Сердце Африки</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/burundi-data.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const locationId = parseInt(urlParams.get('id'), 10);
+        let currentLocation;
+        let map;
+
+        function loadLocation() {
+            if (!burundiLocations || !burundiLocations.length) {
+                document.getElementById('location-title').textContent = 'Ошибка загрузки';
+                return;
+            }
+            currentLocation = burundiLocations.find(l => l.id === locationId);
+            if (!currentLocation) {
+                document.getElementById('location-title').textContent = 'Локация не найдена';
+                return;
+            }
+
+            document.getElementById('location-title').textContent = currentLocation.name;
+            document.getElementById('location-type').textContent = currentLocation.type || '';
+            document.title = currentLocation.name + ' — Бурунди';
+            document.getElementById('location-description').textContent = currentLocation.description || 'Описание отсутствует';
+            document.getElementById('time-on-site').textContent = currentLocation.timeOnSite || '—';
+            document.getElementById('practical-notes').textContent = currentLocation.practicalNotes || '—';
+
+            if (currentLocation.photoUrl) {
+                document.getElementById('photo-container').innerHTML = 
+                    '<img src="' + currentLocation.photoUrl + '" alt="' + currentLocation.name + '" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML=\'<div class=\\\'photo-placeholder h-48 sm:h-64 md:h-80 flex items-center justify-center text-gray-400\\\'><i class=\\\'fas fa-image text-4xl\\\'></i></div>\'">';
+            }
+
+            loadMap();
+
+            const lon = currentLocation.coordinates[0], lat = currentLocation.coordinates[1];
+            document.getElementById('location-coordinates').textContent = lat.toFixed(4) + ', ' + lon.toFixed(4);
+            document.getElementById('google-maps-link').href = 'https://www.google.com/maps?q=' + lat + ',' + lon;
+            document.getElementById('mapsme-link').href = 'mapsme://map?v=1&ll=' + lat + ',' + lon + '&n=' + encodeURIComponent(currentLocation.name);
+        }
+
+        function loadMap() {
+            const lon = currentLocation.coordinates[0], lat = currentLocation.coordinates[1];
+            map = L.map('loc-map', { scrollWheelZoom: false }).setView([lat, lon], 12);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap',
+                maxZoom: 19
+            }).addTo(map);
+
+            const icon = L.divIcon({
+                className: '',
+                html: '<div style="background:#CE1126;width:32px;height:32px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>',
+                iconSize: [32, 32],
+                iconAnchor: [16, 16]
+            });
+            L.marker([lat, lon], { icon: icon }).addTo(map).bindPopup('<strong>' + currentLocation.name + '</strong>').openPopup();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof burundiLocations !== 'undefined') loadLocation();
+            else window.addEventListener('load', function() { setTimeout(loadLocation, 400); });
+        });
+    </script>
+</body>
+</html>

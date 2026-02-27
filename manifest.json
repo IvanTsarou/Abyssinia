@@ -1,0 +1,90 @@
+{
+  "name": "Восточная Африка — путешествие",
+  "short_name": "East Africa",
+  "description": "Путеводитель по Эфиопии, Уганде, Руанде и Бурунди. Работает офлайн.",
+  "start_url": "/overview.html",
+  "display": "standalone",
+  "background_color": "#1f2937",
+  "theme_color": "#078930",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["travel", "navigation"],
+  "lang": "ru",
+  "dir": "ltr",
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Эфиопия",
+      "short_name": "🇪🇹 Эфиопия",
+      "url": "/journey.html",
+      "icons": [{ "src": "icons/ethiopia.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Уганда",
+      "short_name": "🇺🇬 Уганда",
+      "url": "/uganda.html",
+      "icons": [{ "src": "icons/uganda.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Руанда",
+      "short_name": "🇷🇼 Руанда",
+      "url": "/rwanda.html",
+      "icons": [{ "src": "icons/rwanda.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Бурунди",
+      "short_name": "🇧🇮 Бурунди",
+      "url": "/burundi.html",
+      "icons": [{ "src": "icons/burundi.png", "sizes": "96x96" }]
+    }
+  ]
+}

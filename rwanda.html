@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#00A1DE">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Руанда — маршрут на 4–5 дней | Страна тысячи холмов</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇷🇼</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+    
+    <nav class="sticky top-0 z-50 bg-gradient-to-r from-[#00A1DE] via-[#0088bb] to-[#00A1DE] shadow-lg">
+        <div class="container mx-auto px-3 py-2">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1 sm:gap-3">
+                    <a href="overview.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🗺️ <span class="hidden sm:inline">Обзор</span></a>
+                    <a href="index.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
+                    <a href="uganda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
+                    <a href="rwanda-map.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
+                    <a href="burundi-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+                </div>
+                <div class="flex items-center">
+                    <a href="rwanda-map.html" class="text-white/80 hover:text-white bg-white/10 px-2 py-1 rounded-l text-xs"><i class="fas fa-map-marked-alt mr-1"></i>Карта</a>
+                    <a href="rwanda.html" class="text-white bg-white/20 px-2 py-1 rounded-r text-xs font-medium"><i class="fas fa-route mr-1"></i>Маршрут</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-rwanda py-2 sm:py-3 md:py-6">
+        <div class="container mx-auto px-3 text-center">
+            <h1 class="text-base sm:text-lg md:text-2xl font-bold">Руанда — 5 дней</h1>
+            <p class="text-[10px] sm:text-xs text-white/80">Мусанзе → Кигали → Ньюнгве → Киву</p>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-10">
+        
+        <!-- Карта маршрута -->
+        <section class="mb-4 sm:mb-8">
+            <div class="bg-white rounded-lg sm:rounded-xl shadow-lg p-3 sm:p-4 md:p-6">
+                <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-3 sm:mb-4">
+                    <i class="fas fa-map-marked-alt mr-2 text-blue-500"></i>
+                    Карта маршрута
+                </h2>
+                <div id="map"></div>
+            </div>
+        </section>
+
+        <!-- Маршрут по дням -->
+        <section class="mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-calendar-alt mr-3 text-blue-500"></i>
+                Маршрут по дням
+            </h2>
+            
+            <div class="space-y-6" id="days-timeline">
+                
+                <div id="day-0" class="day-card day-0 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 0 — Граница Уганды → Мусанзе</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Вулканы и золотые обезьяны</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Дорога</th></tr></thead>
+                            <tbody>
+                                <tr><td>Граница Cyanika → Мусанзе</td><td>40 км</td><td>1 ч</td><td>Отличный асфальт</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🐒 Что делаем:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Пересечение границы из Уганды</li>
+                            <li>Размещение в Мусанзе</li>
+                            <li>Опционально: трекинг к золотым обезьянам ($100)</li>
+                            <li>Или: пещеры Мусанзе ($50) — 2 км лавовых туннелей</li>
+                            <li>Вечер: виды на вулканы Вирунга</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm mb-3">Лодж в Мусанзе · <span class="font-medium">$60–150</span></p>
+                    
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
+                        <p class="font-semibold text-gray-800 mb-1">🌋 Парк Вулканов</p>
+                        <p class="text-gray-600">Если не были с гориллами в Уганде — здесь пермит $1500/чел. Или выберите золотых обезьян ($100) или восхождение на вулкан Бисоке ($75).</p>
+                    </div>
+                </div>
+
+                <div id="day-1" class="day-card day-1 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 1 — Мусанзе → Кигали</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">История и память</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Дорога</th></tr></thead>
+                            <tbody>
+                                <tr><td>Мусанзе → Кигали</td><td>90 км</td><td>2 ч</td><td>Отличная дорога через холмы</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🏛️ Что делаем:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Утро: переезд в Кигали</li>
+                            <li><strong>Мемориал геноцида</strong> (2–3 часа) — обязательно</li>
+                            <li>Обед в городе</li>
+                            <li>Рынок Кимиронко — сувениры, ткани</li>
+                            <li>Вечер: кафе и рестораны Кигали</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-100 border border-gray-300 rounded-xl p-4 mb-4">
+                        <p class="font-bold text-gray-800 mb-2">🕯️ Мемориал геноцида Кигали</p>
+                        <p class="text-gray-600 text-sm mb-2">Место захоронения более 250 000 жертв геноцида 1994 года. Музей документирует события, унёсшие жизни 800 000–1 000 000 человек за 100 дней.</p>
+                        <ul class="text-gray-600 text-sm space-y-0.5 list-disc list-inside">
+                            <li>Вход бесплатный (пожертвование приветствуется)</li>
+                            <li>Аудиогид: $20</li>
+                            <li>Фотографировать внутри запрещено</li>
+                            <li>Одежда: закрытые плечи и колени</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Отель в Кигали · <span class="font-medium">$50–150</span></p>
+                </div>
+
+                <div id="day-2" class="day-card day-2 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 2 — Кигали → Ньюнгве → Озеро Киву</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Тропический лес и озеро (275 км)</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Дорога</th></tr></thead>
+                            <tbody>
+                                <tr><td>Кигали → Ньюнгве</td><td>225 км</td><td>5 ч</td><td>Живописная, через чайные плантации</td></tr>
+                                <tr><td>Ньюнгве → Озеро Киву</td><td>50 км</td><td>1.5 ч</td><td>Горный серпантин</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🌳 Что делаем:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Ранний выезд из Кигали</li>
+                            <li>Остановка в Ньюнгве: <strong>Canopy Walk</strong> ($60) — подвесной мост на высоте 50 м</li>
+                            <li>Или: трекинг к шимпанзе ($90)</li>
+                            <li>Обед в лесу</li>
+                            <li>Переезд к озеру Киву</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-sm mb-4">
+                        <p class="font-semibold text-gray-800 mb-1">🌿 Национальный парк Ньюнгве</p>
+                        <p class="text-gray-600">Древнейший тропический лес Африки (970 км²). 13 видов приматов, 300 видов птиц. Canopy Walk — один из самых высоких в Африке!</p>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Отель на озере Киву · <span class="font-medium">$50–120</span></p>
+                </div>
+
+                <div id="day-3" class="day-card day-3 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 3 — Озеро Киву</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Отдых и вода</p>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🏖️ Что делаем:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Утро: купание в озере (безопасно — нет крокодилов и бильгарции!)</li>
+                            <li>Каякинг или лодка на острова ($20–30)</li>
+                            <li>Обед с видом на ДР Конго</li>
+                            <li>Опционально: горячие источники в Рубаву ($5)</li>
+                            <li>Закат над озером</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm mb-4">
+                        <p class="font-semibold text-gray-800 mb-1">🌊 Озеро Киву</p>
+                        <p class="text-gray-600">Одно из Великих Африканских озёр. Глубина 480 м, без опасных животных — можно купаться! Вид на вулкан Ньирагонго в Конго.</p>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Отель на озере Киву · <span class="font-medium">$50–120</span></p>
+                </div>
+
+                <div id="day-4" class="day-card day-4 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 4 — Озеро Киву → Хуе → Бурунди</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Путь на юг</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Дорога</th></tr></thead>
+                            <tbody>
+                                <tr><td>Озеро Киву → Хуе</td><td>100 км</td><td>2.5 ч</td><td>Хороший асфальт</td></tr>
+                                <tr><td>Хуе → Граница Akanyaru</td><td>40 км</td><td>1 ч</td><td>Асфальт</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🏛️ Что делаем:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Утро: последний завтрак у озера</li>
+                            <li>Переезд через Хуе (бывший Бутаре)</li>
+                            <li>Опционально: Национальный музей Руанды ($10)</li>
+                            <li>Пересечение границы в Бурунди</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm mb-4">
+                        <p class="font-semibold text-gray-800 mb-1">🛂 Граница с Бурунди</p>
+                        <ul class="text-gray-600 text-sm space-y-0.5 list-disc list-inside">
+                            <li>Переход Akanyaru/Kanyaru Haut</li>
+                            <li>Работает 6:00–18:00</li>
+                            <li>Виза Бурунди на границе: $90 (только наличные USD!)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-3 text-sm">
+                        <p class="font-semibold text-gray-800 mb-1">🇧🇮 Далее — Бурунди</p>
+                        <p class="text-gray-600">Финальная часть маршрута: Бужумбура → Исток Нила → Озеро Танганьика → Вылет домой</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Бюджет -->
+        <section class="mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 border-l-4 border-blue-400">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-wallet mr-2 text-blue-500"></i>
+                    Бюджет на Руанду (на человека)
+                </h2>
+                <div class="overflow-x-auto mb-4">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Категория</th><th>Сумма</th><th>Примечание</th></tr></thead>
+                        <tbody>
+                            <tr><td>🚗 Аренда авто / продолжение</td><td>$300–400</td><td>Или из Уганды</td></tr>
+                            <tr><td>⛽ Топливо</td><td>$100–120</td><td>~600 км, дороги хорошие</td></tr>
+                            <tr><td>🎫 Парки и активности</td><td>$150–250</td><td>Без горилл ($1500)</td></tr>
+                            <tr><td>🛏️ Проживание (4 ночи)</td><td>$250–400</td><td>$60–100/ночь</td></tr>
+                            <tr><td>🍽️ Питание</td><td>$100–150</td><td>$25–35/день</td></tr>
+                            <tr class="bg-blue-50 font-bold"><td>ИТОГО</td><td>$900–1300</td><td>Без горилл</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-500 text-xs">* С гориллами в Руанде: +$1500/чел</p>
+            </div>
+        </section>
+
+        <!-- Практическая информация -->
+        <section class="mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-info-circle mr-3 text-blue-500"></i>
+                Практическая информация
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-blue-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-passport text-blue-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Виза</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">East Africa Visa ($100) покрывает Руанду. Или отдельная виза $30 на границе. Жёлтая лихорадка обязательна!</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-green-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-money-bill text-green-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Валюта</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Руандийский франк (RWF). $1 ≈ 1250 RWF. Банкоматы в Кигали. Карты принимают в отелях.</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-purple-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-mobile-alt text-purple-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Связь</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">MTN Rwanda — лучшее покрытие. SIM $2, 10GB ~$8. 4G в городах, 3G на трассах.</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-red-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-car text-red-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Вождение</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Правостороннее движение! Дороги отличные — лучшие в Восточной Африке. Камеры и штрафы.</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-yellow-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-shield-alt text-yellow-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Безопасность</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Одна из самых безопасных стран Африки. Чистые улицы, низкая преступность. Пластиковые пакеты запрещены!</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-pink-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-medkit text-pink-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Здоровье</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Малярия: профилактика для озера Киву и Ньюнгве. Кигали на высоте — риск ниже. Медицина хорошая.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Особенности Руанды -->
+        <section class="mb-8">
+            <div class="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl shadow-lg p-4 md:p-6 border border-blue-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-star mr-2 text-yellow-500"></i>
+                    Почему Руанда особенная
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <p class="font-semibold text-gray-800 mb-2">🌟 Позитивное</p>
+                        <ul class="text-gray-600 space-y-1 list-disc list-inside">
+                            <li>Лучшие дороги в Восточной Африке</li>
+                            <li>Самая чистая страна континента</li>
+                            <li>Очень безопасно для туристов</li>
+                            <li>Дружелюбные люди</li>
+                            <li>Компактная — всё близко</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800 mb-2">⚠️ Учитывайте</p>
+                        <ul class="text-gray-600 space-y-1 list-disc list-inside">
+                            <li>Пластиковые пакеты запрещены (конфискуют на границе)</li>
+                            <li>Гориллы очень дорогие ($1500 vs $700 в Уганде)</li>
+                            <li>Строгие правила дорожного движения</li>
+                            <li>Не фотографируйте военные объекты</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 text-center">
+        <p class="text-gray-300 text-sm">
+            <span class="text-xl mr-2">🇷🇼</span>
+            Руанда — Страна тысячи холмов
+        </p>
+        <p class="text-gray-400 text-xs mt-2">4–5 дней · Мемориал · Вулканы · Озеро Киву</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/rwanda-data.js"></script>
+    <script src="js/pwa.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        
+        function initMap() {
+            map = L.map('map', { scrollWheelZoom: false }).setView([-2.0, 29.5], 8);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap',
+                maxZoom: 18
+            }).addTo(map);
+            
+            rwandaLocations.forEach((loc, index) => {
+                const color = ['#00A1DE', '#20603D', '#FAD201', '#1E90FF', '#228B22', '#9370DB', '#FF6B6B', '#20B2AA'][index] || '#00A1DE';
+                const textColor = color === '#FAD201' ? '#000' : '#fff';
+                
+                const icon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background:${color};width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-size:12px;font-weight:bold;color:${textColor}">${index + 1}</div>`,
+                    iconSize: [28, 28],
+                    iconAnchor: [14, 14]
+                });
+                
+                const marker = L.marker([loc.coordinates[1], loc.coordinates[0]], { icon }).addTo(map);
+                marker.bindPopup(`
+                    <div style="min-width:200px;padding:5px">
+                        <h3 style="margin:0 0 5px;font-weight:bold">${loc.name}</h3>
+                        <p style="margin:0 0 8px;color:#666;font-size:0.85em">${loc.type}</p>
+                        <p style="margin:0 0 10px;font-size:0.85em;line-height:1.4">${loc.description.substring(0, 100)}...</p>
+                        <a href="rwanda-location.html?id=${loc.id}" style="display:inline-block;padding:6px 12px;background:#00A1DE;color:#fff;text-decoration:none;border-radius:6px;font-size:0.85em;font-weight:500">Подробнее →</a>
+                    </div>
+                `);
+                markers.push(marker);
+            });
+            
+            const routeCoords = rwandaLocations.map(loc => [loc.coordinates[1], loc.coordinates[0]]);
+            L.polyline(routeCoords, { 
+                color: '#00A1DE', 
+                weight: 3, 
+                opacity: 0.8,
+                dashArray: '10, 10'
+            }).addTo(map);
+            
+            if (markers.length > 0) {
+                const group = L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.1));
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+        });
+    </script>
+    
+    <nav class="bottom-nav sm:hidden">
+        <a href="overview.html"><span class="flag">🗺️</span><span>Обзор</span></a>
+        <a href="index.html"><span class="flag">🇪🇹</span><span>Эфиопия</span></a>
+        <a href="uganda-map.html"><span class="flag">🇺🇬</span><span>Уганда</span></a>
+        <a href="rwanda-map.html" class="active"><span class="flag">🇷🇼</span><span>Руанда</span></a>
+        <a href="burundi-map.html"><span class="flag">🇧🇮</span><span>Бурунди</span></a>
+    </nav>
+</body>
+</html>

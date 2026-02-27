@@ -1,0 +1,327 @@
+/* ========================================
+   Общие стили для Africa Travel Guide
+   ======================================== */
+
+/* Base */
+body {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* ========================================
+   Навигация
+   ======================================== */
+
+/* Верхний навбар */
+.top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.25rem 0.375rem;
+    font-size: 0.75rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+@media (min-width: 640px) {
+    .nav-link {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Нижний навбар (мобильный) */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1f2937;
+    display: flex;
+    justify-content: space-around;
+    padding: 6px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.bottom-nav a.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.bottom-nav a span.flag {
+    font-size: 18px;
+}
+
+@media (min-width: 640px) {
+    .bottom-nav {
+        display: none;
+    }
+}
+
+/* ========================================
+   Карта Leaflet
+   ======================================== */
+
+#map, #loc-map {
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    position: relative;
+}
+
+#map {
+    height: 300px;
+}
+
+#loc-map {
+    height: 300px;
+}
+
+@media (min-width: 640px) {
+    #map { height: 400px; }
+    #loc-map { height: 400px; }
+}
+
+@media (min-width: 768px) {
+    #map { height: 500px; }
+}
+
+@media (max-width: 639px) {
+    #map, #loc-map {
+        height: 200px;
+        border-radius: 0.5rem;
+    }
+    body {
+        padding-bottom: 56px;
+    }
+}
+
+.leaflet-top, .leaflet-bottom {
+    z-index: 10 !important;
+}
+
+/* ========================================
+   Карточки
+   ======================================== */
+
+.location-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.location-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.info-card {
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-2px);
+}
+
+.stats-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* ========================================
+   Дни маршрута
+   ======================================== */
+
+.day-card {
+    border-left: 4px solid #ccc;
+}
+
+.day-0 { border-left-color: #FCDC04; }
+.day-1 { border-left-color: #1E90FF; }
+.day-2 { border-left-color: #228B22; }
+.day-3 { border-left-color: #8B4513; }
+.day-4 { border-left-color: #9370DB; }
+.day-5 { border-left-color: #20B2AA; }
+.day-6 { border-left-color: #D90000; }
+.day-7 { border-left-color: #FF6B6B; }
+
+/* ========================================
+   Таблицы транспорта
+   ======================================== */
+
+.transport-table {
+    font-size: 0.75rem;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transport-table th,
+.transport-table td {
+    padding: 0.35rem 0.5rem;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+.transport-table th {
+    background: #f3f4f6;
+    font-weight: 600;
+}
+
+@media (max-width: 639px) {
+    .transport-table {
+        font-size: 0.65rem;
+    }
+    .transport-table th,
+    .transport-table td {
+        padding: 0.2rem;
+    }
+    .day-card {
+        padding: 0.75rem;
+    }
+}
+
+/* ========================================
+   Hero секции по странам
+   ======================================== */
+
+.hero-ethiopia {
+    background: linear-gradient(135deg, #078930 0%, #056b24 40%, #DA121A 100%);
+    color: white;
+}
+
+.hero-uganda {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 30%, #FCDC04 70%, #D90000 100%);
+    color: white;
+}
+
+.hero-rwanda {
+    background: linear-gradient(135deg, #00A1DE 0%, #0088bb 50%, #FAD201 100%);
+    color: white;
+}
+
+.hero-burundi {
+    background: linear-gradient(135deg, #CE1126 0%, #b50f21 50%, #1EB53A 100%);
+    color: white;
+}
+
+.hero-overview {
+    background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%);
+    color: white;
+}
+
+/* Акцентные цвета в hero */
+.hero-ethiopia .accent { color: #FCDD09; }
+.hero-uganda .accent { color: #FCDC04; }
+.hero-rwanda .accent { color: #FAD201; }
+.hero-burundi .accent { color: #1EB53A; }
+
+/* ========================================
+   Кнопки по странам
+   ======================================== */
+
+/* Эфиопия */
+.btn-eth-primary {
+    background: linear-gradient(135deg, #078930 0%, #056b24 100%);
+    color: white;
+}
+.btn-eth-primary:hover {
+    background: linear-gradient(135deg, #056b24 0%, #034d1a 100%);
+}
+
+/* Уганда */
+.btn-ug-primary {
+    background: linear-gradient(135deg, #FCDC04 0%, #e5c700 100%);
+    color: #000;
+}
+.btn-ug-primary:hover {
+    background: linear-gradient(135deg, #e5c700 0%, #cdb200 100%);
+}
+
+/* Руанда */
+.btn-rw-primary {
+    background: linear-gradient(135deg, #00A1DE 0%, #0077a3 100%);
+    color: white;
+}
+.btn-rw-primary:hover {
+    background: linear-gradient(135deg, #0077a3 0%, #005577 100%);
+}
+
+/* Бурунди */
+.btn-bi-primary {
+    background: linear-gradient(135deg, #CE1126 0%, #a50e1f 100%);
+    color: white;
+}
+.btn-bi-primary:hover {
+    background: linear-gradient(135deg, #a50e1f 0%, #7d0b18 100%);
+}
+
+/* ========================================
+   Утилиты
+   ======================================== */
+
+.photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+}
+
+.photo-placeholder.ethiopia { background: linear-gradient(135deg, #078930 0%, #056b24 100%); }
+.photo-placeholder.uganda { background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); }
+.photo-placeholder.rwanda { background: linear-gradient(135deg, #00A1DE 0%, #0088bb 100%); }
+.photo-placeholder.burundi { background: linear-gradient(135deg, #CE1126 0%, #b50f21 100%); }
+
+/* Предупреждение о безопасности (Бурунди) */
+.safety-alert {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #f59e0b;
+}
+
+/* Timeline для overview */
+.timeline-item {
+    position: relative;
+    padding-left: 20px;
+    border-left: 2px solid #e5e7eb;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 0.5rem;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--color);
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

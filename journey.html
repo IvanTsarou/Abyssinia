@@ -3,388 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abyssinia — план поездки на 7 дней</title>
+    <meta name="theme-color" content="#078930">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Эфиопия — маршрут на 7 дней | Исторический север</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇪🇹</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .hero-eth { background: linear-gradient(135deg, #078930 0%, #056b24 40%, #DA121A 100%); color: white; }
-        .day-card { border-left: 4px solid #078930; }
-        .day-0 { border-left-color: #078930; }
-        .day-1 { border-left-color: #1E90FF; }
-        .day-2 { border-left-color: #8B4512; }
-        .day-3 { border-left-color: #228B22; }
-        .day-4 { border-left-color: #20B2AA; }
-        .day-5 { border-left-color: #FCDD09; }
-        .day-6 { border-left-color: #DA121A; }
         .day-7 { border-left-color: #078930; }
-        .transport-table { font-size: 0.75rem; }
-        .transport-table th, .transport-table td { padding: 0.35rem 0.5rem; border: 1px solid #e5e7eb; }
-        .transport-table th { background: #f3f4f6; font-weight: 600; }
-        @media (max-width: 640px) { .hero-eth h1 { font-size: 1.5rem; } .day-card { padding: 1rem; } .transport-table { font-size: 0.7rem; } .transport-table th, .transport-table td { padding: 0.25rem; } }
+        
+        #map { height: 200px; }
+        @media (min-width: 640px) { #map { height: 350px; } }
+        @media (min-width: 768px) { #map { height: 450px; } }
     </style>
 </head>
 <body class="bg-gray-50">
-    <nav class="sticky top-0 z-50 hero-eth shadow-lg">
-        <div class="container mx-auto px-4 py-3">
+    
+    <!-- Навигация -->
+    <nav class="sticky top-0 z-50 bg-gradient-to-r from-[#078930] via-[#056b24] to-[#078930] shadow-lg">
+        <div class="container mx-auto px-3 py-2">
             <div class="flex items-center justify-between">
-                <a href="index.html" class="text-white font-bold flex items-center"><i class="fas fa-map-marker-alt mr-2 text-[#FCDD09]"></i>Abyssinia</a>
-                <div class="flex gap-4">
-                    <a href="index.html" class="text-white/90 hover:text-white text-sm">Карта</a>
+                <div class="flex items-center gap-1 sm:gap-3">
+                    <a href="overview.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🗺️ <span class="hidden sm:inline">Обзор</span></a>
+                    <a href="index.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
+                    <a href="uganda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
+                    <a href="rwanda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
+                    <a href="burundi-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+                </div>
+                <div class="flex items-center">
+                    <a href="index.html" class="text-white/80 hover:text-white bg-white/10 px-2 py-1 rounded-l text-xs"><i class="fas fa-map-marked-alt mr-1"></i>Карта</a>
+                    <a href="journey.html" class="text-white bg-white/20 px-2 py-1 rounded-r text-xs font-medium"><i class="fas fa-route mr-1"></i>Маршрут</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section class="hero-eth py-10 md:py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold mb-2">🇪🇹 Эфиопия — маршрут на 7 дней</h1>
-            <p class="text-lg text-white/90 mb-1">3 человека · Март</p>
-            <p class="text-base text-white/80 mb-4">Аддис-Абеба → Бахр-Дар → Гондэр → Горы Симиен → Лалибела → Аддис-Абеба</p>
-            <a href="#day-0" class="inline-block mt-4 px-6 py-3 bg-white text-[#078930] font-semibold rounded-xl hover:bg-[#FCDD09] transition">Смотреть план</a>
+    <!-- Hero -->
+    <section class="hero-ethiopia py-2 sm:py-3 md:py-5">
+        <div class="container mx-auto px-3 text-center">
+            <h1 class="text-base sm:text-lg md:text-2xl font-bold">Эфиопия — 7 дней</h1>
+            <p class="text-[10px] sm:text-xs text-white/80">Аддис-Абеба → Бахр-Дар → Гондэр → Симиен → Лалибела</p>
         </div>
     </section>
 
-    <section class="container mx-auto px-4 py-8 md:py-12">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-            <div class="bg-white rounded-xl p-4 text-center shadow">
-                <div class="text-2xl md:text-3xl font-bold text-[#078930]">7</div>
-                <div class="text-gray-600 text-sm">дней</div>
+    <main class="container mx-auto px-2 sm:px-4 py-2 sm:py-4">
+        
+        <!-- Карта маршрута -->
+        <section class="mb-3 sm:mb-6">
+            <div class="bg-white rounded shadow-lg p-2 sm:p-4">
+                <h2 class="text-sm sm:text-base font-bold text-gray-800 mb-2 sm:mb-3">
+                    <i class="fas fa-map-marked-alt mr-1 text-green-600"></i>
+                    Карта маршрута
+                </h2>
+                <div id="map"></div>
             </div>
-            <div class="bg-white rounded-xl p-4 text-center shadow">
-                <div class="text-2xl md:text-3xl font-bold text-[#078930]">3</div>
-                <div class="text-gray-600 text-sm">человека</div>
-            </div>
-            <div class="bg-white rounded-xl p-4 text-center shadow">
-                <div class="text-2xl md:text-3xl font-bold text-[#078930]">5</div>
-                <div class="text-gray-600 text-sm">ЮНЕСКО</div>
-            </div>
-            <div class="bg-white rounded-xl p-4 text-center shadow">
-                <div class="text-2xl md:text-3xl font-bold text-[#DA121A]">🇪🇹</div>
-                <div class="text-gray-600 text-sm">Abyssinia</div>
-            </div>
-        </div>
+        </section>
 
-        <div class="space-y-6">
-            <div id="day-0" class="day-card day-0 bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">День 0 — Прилёт · Аддис-Абеба</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Знакомство со столицей</p>
-                <p class="text-gray-600 text-sm font-semibold mb-1">🏛️ Достопримечательности</p>
-                <ul class="text-gray-600 text-sm space-y-1 mb-4 list-disc list-inside">
-                    <li>Национальный музей Эфиопии — скелет «Люси» (3,2 млн лет), этнография. Вход ~$10/чел</li>
-                    <li>Гора Энтото — панорама Аддис-Абебы. Бесплатно</li>
-                    <li>Собор Святой Троицы — захоронение Хайле Селассие. ~$2/чел</li>
-                    <li>Мемориал Красного Террора (1977–1978). ~$2/чел</li>
-                    <li>Кофейная церемония в местном кафе</li>
-                </ul>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Аддис-Абеба → Бахр-Дар (565 км)</p>
-                <div class="overflow-x-auto mb-4">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
-                        <tbody>
-                            <tr><td>✈️ Перелёт</td><td>50 мин</td><td>$360 ($120×3)</td><td>06:00</td><td>06:50</td><td>Ethiopian Airlines. Быстро и комфортно.</td></tr>
-                            <tr><td>🚌 Ночной автобус ⭐</td><td>10–12 ч</td><td>$33 ($11×3)</td><td>18:00</td><td>05:00 (+1)</td><td>Selam Bus. Спите в дороге, экономите ночь в отеле.</td></tr>
-                            <tr><td>🛣️ Авто с водителем</td><td>8–10 ч</td><td>$180 (доля)</td><td>07:00</td><td>16:00</td><td>4WD + водитель ($150/день + топливо). Свобода остановок.</td></tr>
-                        </tbody>
-                    </table>
+        <!-- Маршрут по дням -->
+        <section class="mb-3 sm:mb-6">
+            <h2 class="text-sm sm:text-base font-bold text-gray-800 mb-2 sm:mb-3">
+                <i class="fas fa-calendar-alt mr-1 text-green-600"></i>
+                Маршрут по дням
+            </h2>
+            
+            <div class="space-y-2 sm:space-y-3" id="days-timeline"></div>
+        </section>
+
+        <!-- Практическая информация -->
+        <section class="mb-3 sm:mb-6">
+            <h2 class="text-sm sm:text-base font-bold text-gray-800 mb-2 sm:mb-3">
+                <i class="fas fa-info-circle mr-1 text-blue-500"></i>
+                Практическая информация
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+                <div class="info-card bg-white rounded shadow p-2 sm:p-3">
+                    <div class="text-lg sm:text-xl mb-1">🛂</div>
+                    <h3 class="font-bold text-gray-800 text-xs sm:text-sm">Виза</h3>
+                    <p class="text-gray-600 text-[10px] sm:text-xs">e-Visa $82</p>
+                    <p class="text-gray-500 text-[9px] sm:text-xs">evisa.gov.et</p>
                 </div>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
-                <div class="overflow-x-auto mb-3">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
-                        <tbody>
-                            <tr><td>✈️ В1 — Аддис</td><td>Отель (1 ночь)</td><td>$80 (2-мест $45 + 1-мест $35)</td><td>Центр города, недалеко от музея</td></tr>
-                            <tr><td>🚌 В2 — Ночной автобус</td><td>В автобусе</td><td>$0</td><td>Экономия $80 на проживании</td></tr>
-                            <tr><td>🛣️ В3 — Аддис</td><td>Отель (1 ночь)</td><td>$80</td><td>Тот же отель, что в В1</td></tr>
-                        </tbody>
-                    </table>
+                <div class="info-card bg-white rounded shadow p-2 sm:p-3">
+                    <div class="text-lg sm:text-xl mb-1">💰</div>
+                    <h3 class="font-bold text-gray-800 text-xs sm:text-sm">Валюта</h3>
+                    <p class="text-gray-600 text-[10px] sm:text-xs">Быр (ETB)</p>
+                    <p class="text-gray-500 text-[9px] sm:text-xs">1 USD ≈ 56 ETB</p>
                 </div>
-                <div class="mt-3 flex flex-wrap gap-2">
-                    <a href="location.html?id=13" class="text-[#078930] font-medium text-sm hover:underline">Музей (Люси)</a>
-                    <a href="location.html?id=16" class="text-[#078930] font-medium text-sm hover:underline">Энтото</a>
-                    <a href="location.html?id=15" class="text-[#078930] font-medium text-sm hover:underline">Собор</a>
-                    <a href="location.html?id=17" class="text-[#078930] font-medium text-sm hover:underline">Мемориал</a>
+                <div class="info-card bg-white rounded shadow p-2 sm:p-3">
+                    <div class="text-lg sm:text-xl mb-1">💉</div>
+                    <h3 class="font-bold text-gray-800 text-xs sm:text-sm">Прививки</h3>
+                    <p class="text-gray-600 text-[10px] sm:text-xs">Жёлтая лихорадка</p>
+                    <p class="text-gray-500 text-[9px] sm:text-xs">Сертификат обязателен</p>
+                </div>
+                <div class="info-card bg-white rounded shadow p-2 sm:p-3">
+                    <div class="text-lg sm:text-xl mb-1">⛽</div>
+                    <h3 class="font-bold text-gray-800 text-xs sm:text-sm">Топливо</h3>
+                    <p class="text-gray-600 text-[10px] sm:text-xs">$150–200 всего</p>
+                    <p class="text-gray-500 text-[9px] sm:text-xs">~1200 км маршрут</p>
                 </div>
             </div>
+        </section>
 
-            <div id="day-1" class="day-card day-1 bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">День 1 — Бахр-Дар</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Озеро Тана и водопады Голубого Нила</p>
-                <p class="text-gray-600 text-sm font-semibold mb-1">🏛️ Достопримечательности</p>
-                <ul class="text-gray-600 text-sm space-y-1 mb-3 list-disc list-inside">
-                    <li>Водопад Тис-Ысат (Голубой Нил) — до 45 м в сезон. Вход $5/чел + транспорт ~$30</li>
-                    <li>Озеро Тана — лодка к островным монастырям (Зеге, Ура-Кидане-Мехрет). ~$25/чел</li>
-                    <li>Набережная и рынок Бахр-Дара</li>
-                </ul>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт внутри дня</p>
-                <ul class="text-gray-600 text-sm space-y-0.5 mb-4 list-disc list-inside">
-                    <li>До водопада: маршрутка/такси $10–15</li>
-                    <li>До монастырей: лодка от пристани $25/чел (2–3 часа)</li>
-                </ul>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
-                <div class="overflow-x-auto mb-3">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
-                        <tbody>
-                            <tr><td>Все варианты</td><td>Отель Бахр-Дар</td><td>$70 (2-мест $40 + 1-мест $30)</td><td>Центр, вид на озеро Тана</td></tr>
-                            <tr><td>Бюджетный</td><td>Гестхаус</td><td>$40–50</td><td>Рядом с портом, простые условия, чисто</td></tr>
-                            <tr><td>Комфорт</td><td>Kuriftu Resort</td><td>$120–150</td><td>На берегу озера</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-3 flex flex-wrap gap-2">
-                    <a href="location.html?id=7" class="text-[#078930] font-medium text-sm hover:underline">Водопад Тис-Ысат</a>
-                    <a href="location.html?id=6" class="text-[#078930] font-medium text-sm hover:underline">Озеро Тана</a>
-                </div>
-            </div>
-
-            <div id="day-2" class="day-card day-2 bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">День 2 — Бахр-Дар → Гондэр</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Африканский Камелот (180 км)</p>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Бахр-Дар → Гондэр (180 км)</p>
-                <div class="overflow-x-auto mb-4">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
-                        <tbody>
-                            <tr><td>✈️ Перелёт</td><td>30 мин</td><td>$270 ($90×3)</td><td>08:00</td><td>08:30</td><td>Ethiopian Airlines. Сохраняет полный день в Гондэре.</td></tr>
-                            <tr><td>🚌 Автобус ⭐</td><td>3–4 ч</td><td>$15 ($5×3)</td><td>06:00</td><td>10:00</td><td>Selam Bus. Живописная дорога, хорошее состояние.</td></tr>
-                            <tr><td>🛣️ То же авто</td><td>3 ч</td><td>$180 (день аренды)</td><td>08:00</td><td>11:00</td><td>День 2 аренды ($150 + топливо $30). Остановки где хотите.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="text-gray-600 text-sm font-semibold mb-1">🏛️ Достопримечательности Гондэра</p>
-                <ul class="text-gray-600 text-sm space-y-1 mb-4 list-disc list-inside">
-                    <li>Фасил-Гебби (ЮНЕСКО) — замки XVII в. $10/чел</li>
-                    <li>Церковь Дэбрэ Бырхан-Селассие — иконы херувимов. $5/чел</li>
-                    <li>Купальни Фасилидаса. $3/чел</li>
-                </ul>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
-                <div class="overflow-x-auto mb-3">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
-                        <tbody>
-                            <tr><td>Все варианты</td><td>Отель Гондэр</td><td>$70 (2-мест $40 + 1-мест $30)</td><td>Центр, вид на замки</td></tr>
-                            <tr><td>Бюджетный</td><td>Гестхаус / хостел</td><td>$30–45</td><td>Центр, простые условия</td></tr>
-                            <tr><td>Комфорт</td><td>Goha Hotel</td><td>$100–130</td><td>На холме над городом, панорама, бассейн</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-3"><a href="location.html?id=3" class="text-[#078930] font-medium text-sm hover:underline">Гондэр →</a></div>
-            </div>
-
-            <div id="day-3" class="day-card day-3 bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">День 3 — Гондэр → Горы Симиен</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Начало треккинга (Гондэр → Дебарк → Sankaber, 100 + 25 км)</p>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Гондэр → Дебарк → Sankaber</p>
-                <div class="overflow-x-auto mb-4">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
-                        <tbody>
-                            <tr><td>✈️ В1 и В2: Автобус + такси</td><td>2 ч + 1 ч</td><td>$42 (автобус $12 + такси в парк $30)</td><td>07:00</td><td>~11:00</td><td>Автобус Гондэр–Дебарк, затем такси/джип до Sankaber.</td></tr>
-                            <tr><td>🛣️ В3: То же авто</td><td>3–4 ч</td><td>$180 (день аренды)</td><td>08:00</td><td>12:00</td><td>День 3 аренды ($150 + топливо $30). Прямо до лагеря с рюкзаками.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="text-gray-600 text-sm font-semibold mb-1">🏛️ В парке:</p>
-                <ul class="text-gray-600 text-sm space-y-1 mb-3 list-disc list-inside">
-                    <li>Регистрация на воротах + обязательный скаут $20/чел/день; гид ~$15/день на группу</li>
-                    <li>Треккинг от ворот до Sankaber Camp (3–4 ч, набор ~400 м)</li>
-                    <li>Гелада-бабуины на тропе, каньоны до 1500 м</li>
-                </ul>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
-                <div class="overflow-x-auto mb-3">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
-                        <tbody>
-                            <tr><td>Все варианты</td><td>Sankaber Lodge / Camp</td><td>~$100</td><td>У ворот парка</td></tr>
-                            <tr><td>Палатка</td><td>Кемпинг</td><td>$5–10</td><td>Холодно ночью</td></tr>
-                            <tr><td>Комфорт</td><td>Simien Lodge</td><td>$200–280</td><td>3260 м, выше парка</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-3"><a href="location.html?id=5" class="text-[#078930] font-medium text-sm hover:underline">Симиен →</a></div>
-            </div>
-
-            <div id="day-4" class="day-card day-4 bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">День 4 — Треккинг: Sankaber → Geech</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Каньоны, водопад Джинбар, эфиопский волк</p>
-                <ul class="text-gray-600 text-sm space-y-1 mb-3 list-disc list-inside">
-                    <li>Переход Sankaber → Geech (5–6 ч, ~12 км, до 3600 м)</li>
-                    <li>Водопад Джинбар — обрыв 500 м</li>
-                    <li>Гелады, при удаче — эфиопский волк</li>
-                </ul>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт</p>
-                <p class="text-gray-600 text-sm mb-4">Пеший переход. Мулы для вещей опционально $10–15/день.</p>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
-                <div class="overflow-x-auto">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
-                        <tbody>
-                            <tr><td>Все варианты</td><td>Geech Camp</td><td>~$115</td><td>Лодж/кемпинг</td></tr>
-                            <tr><td>Палатка</td><td>Кемпинг</td><td>$5–10</td><td>Холодно ночью</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="day-5" class="day-card day-5 bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">День 5 — Симиен → Гондэр → Лалибела</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Спуск с гор и перелёт. Утро: спуск Geech → Дебарк (~3 ч). Вечер: прогулка по Лалибеле.</p>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Дебарк → Гондэр → Лалибела</p>
-                <div class="overflow-x-auto mb-4">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
-                        <tbody>
-                            <tr><td>✈️ Авто + перелёт</td><td>3 ч + 45 мин</td><td>$42 (такси) + $240 (перелёт)</td><td>09:00</td><td>15:00</td><td>Такси Дебарк→Гондэр, затем Ethiopian Airlines→Лалибела.</td></tr>
-                            <tr><td>🚌 Автобус + перелёт ⭐</td><td>3 ч + 45 мин</td><td>$30 (автобус) + $240 (перелёт)</td><td>09:00</td><td>15:00</td><td>Автобус Дебарк→Гондэр $5×3, затем тот же рейс.</td></tr>
-                            <tr><td>🛣️ Авто (горная дорога)</td><td>13–15 ч</td><td>$200 (авто + топливо)</td><td>07:00</td><td>20:00</td><td>⚠️ 330 км серпантинов! Крайне сложная дорога.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
-                <div class="overflow-x-auto mb-3">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость/ночь</th><th>Особенности</th></tr></thead>
-                        <tbody>
-                            <tr><td>Все варианты</td><td>Отель Лалибела</td><td>$125 (2+1 комн.)</td><td>Центр, в пешей доступности от церквей</td></tr>
-                            <tr><td>Бюджетный</td><td>Ben Abeba / гестхаус</td><td>$40–60</td><td>Выше в деревне, уникальная архитектура</td></tr>
-                            <tr><td>Комфорт</td><td>Lalibela Hudad Lodge</td><td>$180–220</td><td>На горе над деревней, традиционные домики ⭐</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-3"><a href="location.html?id=1" class="text-[#078930] font-medium text-sm hover:underline">Лалибела →</a></div>
-            </div>
-
-            <div id="day-6" class="day-card day-6 bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">День 6 — Лалибела — скальные церкви</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Восьмое чудо света · ЮНЕСКО</p>
-                <p class="text-gray-600 text-sm mb-2">Комбо-билет на все 11 церквей (2 дня) $50/чел. Гид ~$30 на группу.</p>
-                <p class="text-gray-600 text-sm mb-1 font-medium">Утро — Северная группа:</p>
-                <ul class="text-gray-600 text-sm space-y-0.5 mb-3 list-disc list-inside">
-                    <li>Бет Медхане Алем, Бет Мариам, Бет Голгофа, Бет Денагель</li>
-                </ul>
-                <p class="text-gray-600 text-sm mb-1 font-medium">День — Южная группа:</p>
-                <ul class="text-gray-600 text-sm space-y-0.5 mb-3 list-disc list-inside">
-                    <li>Бет Гиоргис (визитная карточка), Бет Абба Либанос</li>
-                </ul>
-                <p class="text-gray-600 text-sm mb-2">Вечер: кофейная церемония ~$10/чел, ужин (инджера, тибс).</p>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт</p>
-                <p class="text-gray-600 text-sm mb-4">Все церкви — пешком. Расстояние между группами ~500 м. Такси до Бет Гиоргис при необходимости $3–5.</p>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Варианты ночлега</p>
-                <div class="overflow-x-auto mb-3">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость</th><th>Особенности</th></tr></thead>
-                        <tbody>
-                            <tr><td>В1 — 2-я ночь</td><td>Тот же отель</td><td>$125</td><td>Центр Лалибелы, удобно после долгого дня</td></tr>
-                            <tr><td>В2 — Ночной автобус ⭐</td><td>В автобусе</td><td>$0</td><td>Отпр. 18:00, приб. 11:00 (День 7). Экономия $125.</td></tr>
-                            <tr><td>В3 — Авто + 2-я ночь</td><td>Отель + авто простой</td><td>$125 + $150 авто</td><td>Водитель ждёт в Лалибеле. Частное авто на участке Лалибела→Аддис невыгодно.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-3"><a href="location.html?id=1" class="text-[#078930] font-medium text-sm hover:underline">Лалибела →</a></div>
-            </div>
-
-            <div id="day-7" class="day-card day-7 bg-white rounded-xl shadow-lg p-6">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">День 7 — Лалибела → Аддис-Абеба</h2>
-                <p class="text-gray-600 text-sm mb-3 font-medium">Шопинг и вылет домой (645 км)</p>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Транспорт: Лалибела → Аддис-Абеба</p>
-                <div class="overflow-x-auto mb-4">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Время</th><th>Стоимость (3 чел)</th><th>Отправл.</th><th>Прибытие</th><th>Примечание</th></tr></thead>
-                        <tbody>
-                            <tr><td>✈️ Перелёт</td><td>1 ч</td><td>$240 ($80×3)</td><td>10:00</td><td>11:00</td><td>Удобно: весь день в столице для шопинга.</td></tr>
-                            <tr><td>🚌 Ночной автобус ⭐</td><td>16–18 ч</td><td>$45 ($15×3)</td><td>18:00 (День 6)</td><td>11:00 (День 7)</td><td>Прибытие утром Дня 7. Экономия $195 + ночь отеля.</td></tr>
-                            <tr><td>🛣️ Ночной автобус</td><td>16–18 ч</td><td>$45</td><td>18:00 (День 6)</td><td>11:00 (День 7)</td><td>Частное авто на этом участке невыгодно.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🛍️ В Аддис-Абебе</p>
-                <ul class="text-gray-600 text-sm space-y-0.5 mb-3 list-disc list-inside">
-                    <li>Рынок Меркато — сувениры, специи, ткани</li>
-                    <li>Кофе (Yirgacheffe, Sidamo) $5–8/кг. Взять 3–5 кг!</li>
-                    <li>Специи берберé $3–5 · Ладан $2–5 · Кресты $5–50</li>
-                    <li>Прощальный ужин Yod Abyssinia — шоу + кухня ~$25/чел</li>
-                    <li>Day-use room (душ и хранение перед вылетом) ~$25</li>
-                </ul>
-                <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег / вылет</p>
-                <div class="overflow-x-auto">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Вариант</th><th>Тип</th><th>Стоимость</th><th>Особенности</th></tr></thead>
-                        <tbody>
-                            <tr><td>В1 — Дневная комната</td><td>Day-use room</td><td>$25 (на группу)</td><td>Аэропорт или центр. Душ + хранение перед ночным рейсом.</td></tr>
-                            <tr><td>В2 и В3</td><td>Прибытие утром</td><td>—</td><td>Прибытие 11:00 — сразу шопинг и прощальный ужин.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-[#078930]">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">💰 Полный бюджет на 3 человека</h2>
-                <div class="overflow-x-auto mb-4">
-                    <table class="transport-table w-full text-left border-collapse">
-                        <thead><tr><th>Категория</th><th>✈️ Вариант 1</th><th>🚌 Вариант 2 ⭐</th><th>🛣️ Вариант 3</th><th>Единица</th></tr></thead>
-                        <tbody>
-                            <tr><td>Транспорт</td><td>$1 232</td><td>$455</td><td>$1 220</td><td>на 3 чел.</td></tr>
-                            <tr><td>Проживание (6–7 ночей)</td><td>$710</td><td>$505</td><td>$585</td><td>на 3 чел.</td></tr>
-                            <tr><td>Питание (7 дней)</td><td>$465</td><td>$465</td><td>$465</td><td>на 3 чел.</td></tr>
-                            <tr><td>Входные билеты и гиды</td><td>$698</td><td>$698</td><td>$698</td><td>на 3 чел.</td></tr>
-                            <tr><td>Разное (кофе, шопинг, чаевые)</td><td>$145</td><td>$145</td><td>$145</td><td>на 3 чел.</td></tr>
-                            <tr class="font-bold bg-gray-100"><td>ИТОГО</td><td>$3 250</td><td>$2 268</td><td>$3 113</td><td>$756–1083/чел</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="bg-[#078930]/10 border border-[#078930]/30 rounded-lg p-4 mb-4">
-                    <p class="text-sm font-semibold text-gray-800 mb-2">🏆 Рекомендация: Вариант 2 (комбо)</p>
-                    <ul class="text-gray-700 text-sm space-y-0.5 list-disc list-inside">
-                        <li>~$756 на человека (в пределах бюджета $100/день)</li>
-                        <li>Экономия ~$1 000 на группу по сравнению с Вариантом 1</li>
-                        <li>2 ночных автобуса = приключение + экономия</li>
-                        <li>Перелёты на сложных участках (Гондэр→Лалибела)</li>
-                    </ul>
-                    <p class="text-gray-600 text-xs mt-2">⚠️ Вариант 3 (авто): после пересчёта полной аренды (~$150/день × 7 дней) обходится в $3 113 — дороже В2 на $845. Выбирайте только если важна свобода остановок и готовы к 10–12 ч серпантинов Гондэр→Лалибела.</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-amber-500">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">📱 Практические советы</h2>
-                <div class="grid md:grid-cols-3 gap-4 text-sm">
+        <!-- Бюджет -->
+        <section class="mb-3 sm:mb-6">
+            <div class="bg-gradient-to-r from-green-50 to-yellow-50 rounded shadow-lg p-2 sm:p-4 border border-green-200">
+                <h2 class="text-sm sm:text-base font-bold text-gray-800 mb-2">
+                    <i class="fas fa-calculator mr-1 text-green-600"></i>
+                    Примерный бюджет (на 1 человека)
+                </h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
                     <div>
-                        <p class="font-semibold text-gray-800 mb-1">💳 Деньги</p>
-                        <p class="text-gray-600">Меняйте $ в аэропорту Аддис. Курс ~$1 = 130 ETB (март 2026). Разменяйте на мелкие. Карты почти нигде не работают. Наличных на руках: $200–300/чел.</p>
+                        <div class="text-base sm:text-lg font-bold text-green-700">$420–560</div>
+                        <div class="text-[9px] sm:text-xs text-gray-600">Проживание</div>
                     </div>
                     <div>
-                        <p class="font-semibold text-gray-800 mb-1">✈️ Перелёты и автобусы</p>
-                        <p class="text-gray-600">Selam Bus: selambus.com.et · Sky Bus: skybus.com.et. Бронируйте автобус за 2–3 дня. Ethiopian Airlines — за 2 недели! Март = высокий сезон → дорого.</p>
+                        <div class="text-base sm:text-lg font-bold text-green-700">$100–175</div>
+                        <div class="text-[9px] sm:text-xs text-gray-600">Еда</div>
                     </div>
                     <div>
-                        <p class="font-semibold text-gray-800 mb-1">⚠️ Здоровье</p>
-                        <p class="text-gray-600">Вакцины: жёлтая лихорадка + тиф. Малярия: профилактика в Бахр-Даре. Вода только бутилированная! В горах: Диамокс за день до подъёма, пить 3–4 л воды/день.</p>
+                        <div class="text-base sm:text-lg font-bold text-green-700">$150–200</div>
+                        <div class="text-[9px] sm:text-xs text-gray-600">Транспорт</div>
+                    </div>
+                    <div>
+                        <div class="text-base sm:text-lg font-bold text-green-700">$100–120</div>
+                        <div class="text-[9px] sm:text-xs text-gray-600">Входы</div>
                     </div>
                 </div>
+                <div class="mt-2 pt-2 border-t border-green-200 text-center">
+                    <span class="text-sm sm:text-lg font-bold text-green-800">Итого: $750–1100</span>
+                    <span class="text-[10px] sm:text-xs text-gray-600 ml-1">за 7 дней</span>
+                </div>
             </div>
+        </section>
 
-            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-gray-400">
-                <h2 class="text-xl font-bold text-gray-800 mb-3">🔍 Достопримечательности, не вошедшие в маршрут</h2>
-                <p class="text-gray-600 text-sm mb-4">Для их посещения нужно расширить поездку или планировать отдельную экспедицию.</p>
-                <ul class="text-gray-600 text-sm space-y-2">
-                    <li><strong>Аксум</strong> (ЮНЕСКО) — далеко, отдельная поездка.</li>
-                    <li><strong>Харар-Джугол</strong> (ЮНЕСКО) — восток, +1 день; рядом Дыре-Дауа.</li>
-                    <li><strong>Данакиль</strong> (Эрта-Але, Даллол) — только организованный тур, 3 дня из Мекеле/Аддис.</li>
-                    <li><strong>Долина Омо</strong> — юг, минимум 3 дня (племена Мурси, Хамер).</li>
-                    <li><strong>Горы Бале</strong> — эфиопский волк, 2–3 дня.</li>
-                    <li><strong>Парк Аваш</strong> — сафари, горячие источники, недалеко от Аддис.</li>
-                    <li><strong>Озёра Рифта</strong> (Зивай, Лангано, Хавасса) — отдых, бердвотчинг.</li>
-                    <li><strong>Тиграйские церкви</strong> (Абуна-Йемата) — регион нестабилен (2026).</li>
-                </ul>
-                <p class="text-gray-500 text-xs mt-4">💡 Аксум и Харар можно добавить при 10–12 днях и перелётах Ethiopian Airlines.</p>
-                <a href="index.html" class="inline-block mt-4 text-[#078930] font-medium text-sm hover:underline">Все достопримечательности на карте →</a>
-            </div>
-        </div>
-    </section>
+    </main>
 
-    <footer class="bg-gray-800 text-white py-6 text-center mt-8">
-        <p class="text-gray-300 text-sm">Abyssinia — маршрут на 7 дней</p>
+    <footer class="bg-gray-800 text-white py-3 text-center">
+        <p class="text-gray-400 text-xs">🇪🇹 Эфиопия — часть путешествия по Восточной Африке</p>
     </footer>
+
+    <nav class="bottom-nav sm:hidden">
+        <a href="overview.html"><span class="flag">🗺️</span><span>Обзор</span></a>
+        <a href="index.html" class="active"><span class="flag">🇪🇹</span><span>Эфиопия</span></a>
+        <a href="uganda-map.html"><span class="flag">🇺🇬</span><span>Уганда</span></a>
+        <a href="rwanda-map.html"><span class="flag">🇷🇼</span><span>Руанда</span></a>
+        <a href="burundi-map.html"><span class="flag">🇧🇮</span><span>Бурунди</span></a>
+    </nav>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/ethiopia-data.js"></script>
+    <script>
+        // Инициализация карты
+        function initMap() {
+            const map = L.map('map').setView([11.5, 38.5], 6);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+            
+            const routeColors = ['#078930', '#1E90FF', '#8B4513', '#228B22', '#FCDD09'];
+            
+            ethiopiaLocations.forEach((loc, index) => {
+                const color = routeColors[index % routeColors.length];
+                
+                const icon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background:${color};width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-size:10px;font-weight:bold;color:white">${index + 1}</div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+                
+                const marker = L.marker([loc.coordinates[1], loc.coordinates[0]], { icon }).addTo(map);
+                marker.bindPopup(`
+                    <div style="min-width:180px;padding:5px">
+                        <h3 style="margin:0 0 5px;font-weight:bold;font-size:1em">${loc.name}</h3>
+                        <p style="margin:0 0 8px;color:#666;font-size:0.85em">${loc.type}</p>
+                        ${loc.isUnesco ? '<span style="display:inline-block;margin-bottom:8px;background:#078930;color:white;padding:2px 6px;border-radius:4px;font-size:0.75em">ЮНЕСКО</span>' : ''}
+                        <p style="margin:0 0 10px;font-size:0.85em;line-height:1.4">${loc.description ? loc.description.substring(0, 80) + '...' : ''}</p>
+                        <a href="ethiopia-location.html?id=${loc.id}" style="display:inline-block;padding:6px 12px;background:#078930;color:#fff;text-decoration:none;border-radius:6px;font-size:0.85em;font-weight:500">Подробнее →</a>
+                    </div>
+                `);
+            });
+            
+            // Линия маршрута
+            const routeCoords = ethiopiaLocations.map(loc => [loc.coordinates[1], loc.coordinates[0]]);
+            L.polyline(routeCoords, { color: '#078930', weight: 3, opacity: 0.7, dashArray: '8, 4' }).addTo(map);
+            
+            map.fitBounds(routeCoords, { padding: [20, 20] });
+        }
+        
+        // Рендер дней
+        function renderDays() {
+            const timeline = document.getElementById('days-timeline');
+            timeline.innerHTML = ethiopiaDays.map((day, index) => `
+                <div id="day-${day.day}" class="day-card day-${day.day} bg-white rounded shadow-lg p-2 sm:p-3">
+                    <h3 class="text-xs sm:text-sm font-bold text-gray-800 mb-0.5 sm:mb-1">День ${day.day} — ${day.title}</h3>
+                    <p class="text-gray-500 text-[10px] sm:text-xs mb-1 sm:mb-2">${day.subtitle}</p>
+                    
+                    <div class="mb-2">
+                        <p class="text-gray-700 text-[10px] sm:text-xs font-semibold mb-1">🏛️ Что делаем:</p>
+                        <ul class="text-gray-600 text-[10px] sm:text-xs space-y-0.5 list-disc list-inside">
+                            ${day.activities.map(a => `<li>${a}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    ${day.transport ? `
+                        <div class="mb-2">
+                            <p class="text-gray-700 text-[10px] sm:text-xs font-semibold mb-1">🚗 Транспорт${day.transport.to ? ` → ${day.transport.to}` : ''}${day.transport.distance ? ` (${day.transport.distance})` : ''}</p>
+                            ${day.transport.options ? `
+                                <div class="overflow-x-auto">
+                                    <table class="transport-table w-full text-left border-collapse">
+                                        <thead><tr><th>Вариант</th><th>Время</th><th>Цена</th></tr></thead>
+                                        <tbody>
+                                            ${day.transport.options.map(o => `<tr><td>${o.type}</td><td>${o.time}</td><td>${o.cost}</td></tr>`).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ` : ''}
+                        </div>
+                    ` : ''}
+                    
+                    ${day.accommodation ? `
+                        <p class="text-gray-600 text-[10px] sm:text-xs">🛏️ Ночлег: <strong>${day.accommodation}</strong></p>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+            renderDays();
+        });
+    </script>
 </body>
 </html>

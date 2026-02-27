@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1f2937">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Путеводитель по Восточной Африке: Эфиопия, Уганда, Руанда, Бурунди. 22 дня, 4500 км. Работает офлайн.">
+    <title>Восточная Африка — большое путешествие | 4 страны за 3 недели</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        .hero-overview {
+            background: linear-gradient(135deg, 
+                #078930 0%, 
+                #FCDC04 25%, 
+                #00A1DE 50%, 
+                #CE1126 75%, 
+                #1EB53A 100%
+            );
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .country-card {
+            transition: all 0.3s ease;
+        }
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        #map { height: 400px; }
+        @media (min-width: 640px) { #map { height: 500px; } }
+        @media (min-width: 768px) { #map { height: 600px; } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <nav class="sticky top-0 z-50 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 shadow-lg">
+        <div class="container mx-auto px-3 py-2">
+            <div class="flex items-center gap-1 sm:gap-3">
+                <a href="overview.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🗺️ <span class="hidden sm:inline">Обзор</span></a>
+                <a href="index.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
+                <a href="uganda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
+                <a href="rwanda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
+                <a href="burundi-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-overview py-2 sm:py-3 md:py-6">
+        <div class="container mx-auto px-3 text-center">
+            <h1 class="text-base sm:text-lg md:text-2xl font-bold">Восточная Африка — 22 дня</h1>
+            <p class="text-[10px] sm:text-xs text-white/80">🇪🇹 → 🇺🇬 → 🇷🇼 → 🇧🇮 · 4500 км</p>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-2 sm:px-4 py-2 sm:py-4">
+        <div class="grid grid-cols-4 gap-1 sm:gap-2 mb-3 sm:mb-6">
+            <div class="stats-card rounded p-1.5 sm:p-2 text-center bg-gray-100">
+                <div class="text-sm sm:text-lg font-bold text-gray-800">4</div>
+                <div class="text-[9px] sm:text-xs text-gray-600">страны</div>
+            </div>
+            <div class="stats-card rounded p-1.5 sm:p-2 text-center bg-gray-100">
+                <div class="text-sm sm:text-lg font-bold text-gray-800">22</div>
+                <div class="text-[9px] sm:text-xs text-gray-600">дня</div>
+            </div>
+            <div class="stats-card rounded p-1.5 sm:p-2 text-center bg-gray-100">
+                <div class="text-sm sm:text-lg font-bold text-gray-800">4500</div>
+                <div class="text-[9px] sm:text-xs text-gray-600">км</div>
+            </div>
+            <div class="stats-card rounded p-1.5 sm:p-2 text-center bg-gray-100">
+                <div class="text-sm sm:text-lg">🦍</div>
+                <div class="text-[9px] sm:text-xs text-gray-600">гориллы</div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-2 sm:px-4 py-2 sm:py-4 md:py-8">
+        
+        <!-- Карты стран -->
+        <section class="mb-3 sm:mb-6">
+            <div class="grid grid-cols-4 gap-1.5 sm:gap-3">
+                <a href="journey.html" class="country-card bg-white rounded shadow overflow-hidden block">
+                    <div class="h-8 sm:h-16 flex items-center justify-center" style="background: linear-gradient(135deg, #078930 0%, #DA121A 100%);">
+                        <span class="text-lg sm:text-3xl">🇪🇹</span>
+                    </div>
+                    <div class="p-1.5 sm:p-3 text-center">
+                        <h3 class="font-bold text-gray-800 text-[10px] sm:text-sm">Эфиопия</h3>
+                        <p class="text-[9px] sm:text-xs text-gray-500">7 дней</p>
+                    </div>
+                </a>
+                <a href="uganda.html" class="country-card bg-white rounded shadow overflow-hidden block">
+                    <div class="h-8 sm:h-16 flex items-center justify-center" style="background: linear-gradient(135deg, #000 0%, #FCDC04 50%, #D90000 100%);">
+                        <span class="text-lg sm:text-3xl">🇺🇬</span>
+                    </div>
+                    <div class="p-1.5 sm:p-3 text-center">
+                        <h3 class="font-bold text-gray-800 text-[10px] sm:text-sm">Уганда</h3>
+                        <p class="text-[9px] sm:text-xs text-gray-500">6 дней</p>
+                    </div>
+                </a>
+                <a href="rwanda.html" class="country-card bg-white rounded shadow overflow-hidden block">
+                    <div class="h-8 sm:h-16 flex items-center justify-center" style="background: linear-gradient(135deg, #00A1DE 0%, #FAD201 50%, #20603D 100%);">
+                        <span class="text-lg sm:text-3xl">🇷🇼</span>
+                    </div>
+                    <div class="p-1.5 sm:p-3 text-center">
+                        <h3 class="font-bold text-gray-800 text-[10px] sm:text-sm">Руанда</h3>
+                        <p class="text-[9px] sm:text-xs text-gray-500">5 дней</p>
+                    </div>
+                </a>
+                <a href="burundi.html" class="country-card bg-white rounded shadow overflow-hidden block">
+                    <div class="h-8 sm:h-16 flex items-center justify-center" style="background: linear-gradient(135deg, #CE1126 0%, #1EB53A 100%);">
+                        <span class="text-lg sm:text-3xl">🇧🇮</span>
+                    </div>
+                    <div class="p-1.5 sm:p-3 text-center">
+                        <h3 class="font-bold text-gray-800 text-[10px] sm:text-sm">Бурунди</h3>
+                        <p class="text-[9px] sm:text-xs text-gray-500">4 дня</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Общая карта -->
+        <section class="mb-3 sm:mb-6">
+            <div class="bg-white rounded shadow-lg p-2 sm:p-4">
+                <div id="map"></div>
+                <div class="mt-2 flex flex-wrap gap-2 sm:gap-3 justify-center text-[9px] sm:text-xs">
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#078930"></span>Эфиопия</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#FCDC04"></span>Уганда</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#00A1DE"></span>Руанда</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#CE1126"></span>Бурунди</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Хронологический таймлайн -->
+        <section class="mb-3 sm:mb-6">
+            <h2 class="text-sm sm:text-lg font-bold text-gray-800 mb-2 sm:mb-4">Хронология</h2>
+            
+            <div class="bg-white rounded shadow-lg p-2 sm:p-4">
+                <div class="space-y-2 sm:space-y-4">
+                    
+                    <div class="timeline-item" style="--color: #078930; --next-color: #078930;">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">🇪🇹</span>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Дни 0–7: Эфиопия</h3>
+                                <p class="text-sm text-gray-500">Исторический север</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Аддис-Абеба → Бахр-Дар → Гондэр → Горы Симиен → Лалибела → Аддис-Абеба</p>
+                    </div>
+                    
+                    <div class="timeline-item" style="--color: #6B7280; --next-color: #FCDC04;">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">✈️</span>
+                            <div>
+                                <h3 class="font-bold text-gray-800">День 8: Перелёт</h3>
+                                <p class="text-sm text-gray-500">Аддис-Абеба → Энтеббе</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Ethiopian Airlines, ~2 часа. Получение арендованного 4WD в Уганде.</p>
+                    </div>
+                    
+                    <div class="timeline-item" style="--color: #FCDC04; --next-color: #FCDC04;">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">🇺🇬</span>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Дни 8–14: Уганда</h3>
+                                <p class="text-sm text-gray-500">Сафари и гориллы</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Кампала → Джинджа → Мёрчисон → Кибале → Королева Елизавета → Бвинди → Кисоро</p>
+                    </div>
+                    
+                    <div class="timeline-item" style="--color: #00A1DE; --next-color: #00A1DE;">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">🇷🇼</span>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Дни 14–18: Руанда</h3>
+                                <p class="text-sm text-gray-500">Память и природа</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Мусанзе → Кигали (Мемориал) → Ньюнгве → Озеро Киву → Хуе</p>
+                    </div>
+                    
+                    <div class="timeline-item" style="--color: #CE1126; --next-color: #CE1126;">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">🇧🇮</span>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Дни 18–21: Бурунди</h3>
+                                <p class="text-sm text-gray-500">Исток Нила и Танганьика</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Бужумбура → Озеро Танганьика → Исток Нила → Аэропорт</p>
+                    </div>
+                    
+                    <div class="timeline-item" style="--color: #6B7280;">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">✈️</span>
+                            <div>
+                                <h3 class="font-bold text-gray-800">День 21–22: Вылет домой</h3>
+                                <p class="text-sm text-gray-500">Бужумбура → Аддис-Абеба → Дом</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Через Аддис-Абебу или Найроби. Конец путешествия!</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Сводная таблица -->
+        <section class="mb-3 sm:mb-6">
+            <div class="bg-white rounded shadow-lg p-2 sm:p-4">
+                <h2 class="text-sm sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3">Сводка</h2>
+                <div class="overflow-x-auto">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead>
+                            <tr>
+                                <th>Страна</th>
+                                <th>Дней</th>
+                                <th>Км</th>
+                                <th>Ключевые локации</th>
+                                <th>Топливо</th>
+                                <th>Итого/чел</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="mr-1">🇪🇹</span> Эфиопия</td>
+                                <td>7</td>
+                                <td>~1200</td>
+                                <td>Лалибела, Гондэр, Симиен, Тана</td>
+                                <td>$150–200</td>
+                                <td>$756–1083</td>
+                            </tr>
+                            <tr>
+                                <td><span class="mr-1">🇺🇬</span> Уганда</td>
+                                <td>6</td>
+                                <td>~1500</td>
+                                <td>Бвинди, Мёрчисон, Кибале, Джинджа</td>
+                                <td>$250–300</td>
+                                <td>$2250–2800</td>
+                            </tr>
+                            <tr>
+                                <td><span class="mr-1">🇷🇼</span> Руанда</td>
+                                <td>5</td>
+                                <td>~600</td>
+                                <td>Кигали, Вулканы, Ньюнгве, Киву</td>
+                                <td>$100–120</td>
+                                <td>$900–1300</td>
+                            </tr>
+                            <tr>
+                                <td><span class="mr-1">🇧🇮</span> Бурунди</td>
+                                <td>4</td>
+                                <td>~400</td>
+                                <td>Танганьика, Исток Нила, Рузизи</td>
+                                <td>$80–100</td>
+                                <td>$700–1000</td>
+                            </tr>
+                            <tr class="bg-gray-100 font-bold">
+                                <td>ИТОГО</td>
+                                <td>22</td>
+                                <td>~4500</td>
+                                <td>—</td>
+                                <td>$580–720</td>
+                                <td>$4600–6200</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-500 text-xs mt-3">* Уганда включает пермит на горилл ($700). При поездке вдвоём делите аренду авто и топливо.</p>
+            </div>
+        </section>
+
+        <!-- Визы -->
+        <section class="mb-3 sm:mb-6">
+            <div class="bg-blue-50 rounded shadow-lg p-2 sm:p-4 border border-blue-200">
+                <h2 class="text-sm sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3">Визы</h2>
+                
+                <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Вариант 1: East Africa Tourist Visa</h3>
+                        <p class="text-gray-600 text-sm mb-2"><strong>$100</strong> — покрывает Уганду, Руанду и Кению (90 дней)</p>
+                        <p class="text-gray-500 text-sm">Оформить в Уганде. Эфиопия и Бурунди — отдельно.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Вариант 2: Отдельные визы</h3>
+                        <ul class="text-gray-600 text-sm space-y-1">
+                            <li>🇪🇹 Эфиопия: e-Visa <strong>$82</strong></li>
+                            <li>🇺🇬 Уганда: e-Visa <strong>$50</strong></li>
+                            <li>🇷🇼 Руанда: на границе <strong>$30</strong></li>
+                            <li>🇧🇮 Бурунди: на границе <strong>$90</strong></li>
+                        </ul>
+                        <p class="text-gray-500 text-sm mt-2">Итого: <strong>$252</strong></p>
+                    </div>
+                </div>
+                
+                <div class="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
+                    <p class="text-sm text-gray-800"><strong>⚠️ Обязательно:</strong> Сертификат о вакцинации от жёлтой лихорадки — требуется во всех 4 странах!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Здоровье -->
+        <section class="mb-3 sm:mb-6">
+            <div class="bg-white rounded shadow-lg p-2 sm:p-4">
+                <h2 class="text-sm sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3">Здоровье</h2>
+                
+                <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Обязательные прививки</h3>
+                        <ul class="text-gray-600 text-sm space-y-1">
+                            <li class="flex items-center gap-2">
+                                <span class="text-red-500">●</span>
+                                <strong>Жёлтая лихорадка</strong> — обязательна для всех 4 стран!
+                            </li>
+                        </ul>
+                        
+                        <h3 class="font-semibold text-gray-800 mb-2 mt-4">Рекомендуемые</h3>
+                        <ul class="text-gray-600 text-sm space-y-1">
+                            <li class="flex items-center gap-2">
+                                <span class="text-yellow-500">●</span>
+                                Гепатит A и B
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-yellow-500">●</span>
+                                Брюшной тиф
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-yellow-500">●</span>
+                                Менингит (для Эфиопии)
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Малярия</h3>
+                        <p class="text-gray-600 text-sm mb-3">Профилактика обязательна для всех стран, кроме высокогорий Эфиопии (Симиен) и Руанды (Кигали).</p>
+                        <p class="text-gray-600 text-sm">Препараты: Маларон или Доксициклин. Начать за 1–2 дня до въезда в зону риска.</p>
+                        
+                        <h3 class="font-semibold text-gray-800 mb-2 mt-4">Страховка</h3>
+                        <p class="text-gray-600 text-sm">Обязательна страховка с медицинской эвакуацией! Ближайшие хорошие госпитали — в Найроби.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <p class="text-gray-300 text-sm mb-2">
+            🌍 Восточная Африка — большое путешествие
+        </p>
+        <p class="text-gray-400 text-xs">
+            🇪🇹 Эфиопия · 🇺🇬 Уганда · 🇷🇼 Руанда · 🇧🇮 Бурунди
+        </p>
+        <p class="text-gray-500 text-xs mt-2">22 дня · 4 страны · ~4500 км · Март 2026</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/overview-data.js"></script>
+    <script src="js/pwa.js"></script>
+    <script>
+        let map;
+        
+        function initMap() {
+            map = L.map('map', { scrollWheelZoom: false }).setView([2.0, 33.0], 5);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap',
+                maxZoom: 18
+            }).addTo(map);
+            
+            const countryColors = {
+                ethiopia: '#078930',
+                uganda: '#FCDC04',
+                rwanda: '#00A1DE',
+                burundi: '#CE1126'
+            };
+            
+            // Добавляем маркеры
+            fullRoute.forEach((point, index) => {
+                const color = countryColors[point.country] || '#666';
+                const textColor = point.country === 'uganda' ? '#000' : '#fff';
+                
+                const icon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background:${color};width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-size:10px;font-weight:bold;color:${textColor}">${point.day}</div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+                
+                const marker = L.marker([point.coordinates[1], point.coordinates[0]], { icon }).addTo(map);
+                const countryLinks = {
+                    ethiopia: 'index.html',
+                    uganda: 'uganda-map.html',
+                    rwanda: 'rwanda-map.html',
+                    burundi: 'burundi-map.html'
+                };
+                const countryNames = {
+                    ethiopia: 'Эфиопия',
+                    uganda: 'Уганда',
+                    rwanda: 'Руанда',
+                    burundi: 'Бурунди'
+                };
+                marker.bindPopup(`
+                    <div style="min-width:180px;padding:5px">
+                        <h3 style="margin:0 0 5px;font-weight:bold;font-size:1em">${point.location}</h3>
+                        <p style="margin:0 0 8px;color:#666;font-size:0.85em">День ${point.day} · ${countryNames[point.country]}</p>
+                        <a href="${countryLinks[point.country]}" style="display:inline-block;padding:6px 12px;background:${color};color:${textColor};text-decoration:none;border-radius:6px;font-size:0.85em;font-weight:500">Открыть страну →</a>
+                    </div>
+                `);
+            });
+            
+            // Рисуем линии маршрута по странам
+            const ethiopiaRoute = fullRoute.filter(p => p.country === 'ethiopia').map(p => [p.coordinates[1], p.coordinates[0]]);
+            const ugandaRoute = fullRoute.filter(p => p.country === 'uganda').map(p => [p.coordinates[1], p.coordinates[0]]);
+            const rwandaRoute = fullRoute.filter(p => p.country === 'rwanda').map(p => [p.coordinates[1], p.coordinates[0]]);
+            const burundiRoute = fullRoute.filter(p => p.country === 'burundi').map(p => [p.coordinates[1], p.coordinates[0]]);
+            
+            if (ethiopiaRoute.length > 1) {
+                L.polyline(ethiopiaRoute, { color: '#078930', weight: 3, opacity: 0.8, dashArray: '10, 5' }).addTo(map);
+            }
+            if (ugandaRoute.length > 1) {
+                L.polyline(ugandaRoute, { color: '#FCDC04', weight: 3, opacity: 0.8, dashArray: '10, 5' }).addTo(map);
+            }
+            if (rwandaRoute.length > 1) {
+                L.polyline(rwandaRoute, { color: '#00A1DE', weight: 3, opacity: 0.8, dashArray: '10, 5' }).addTo(map);
+            }
+            if (burundiRoute.length > 1) {
+                L.polyline(burundiRoute, { color: '#CE1126', weight: 3, opacity: 0.8, dashArray: '10, 5' }).addTo(map);
+            }
+            
+            // Перелёт Эфиопия → Уганда (пунктир)
+            const ethiopiaEnd = fullRoute.find(p => p.country === 'ethiopia' && p.day === 7);
+            const ugandaStart = fullRoute.find(p => p.country === 'uganda' && p.day === 8);
+            if (ethiopiaEnd && ugandaStart) {
+                L.polyline([
+                    [ethiopiaEnd.coordinates[1], ethiopiaEnd.coordinates[0]],
+                    [ugandaStart.coordinates[1], ugandaStart.coordinates[0]]
+                ], { color: '#666', weight: 2, opacity: 0.5, dashArray: '5, 10' }).addTo(map);
+            }
+            
+            // Подгоняем карту
+            const allCoords = fullRoute.map(p => [p.coordinates[1], p.coordinates[0]]);
+            if (allCoords.length > 0) {
+                map.fitBounds(allCoords, { padding: [30, 30] });
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', initMap);
+    </script>
+    
+    <nav class="bottom-nav sm:hidden">
+        <a href="overview.html" class="active"><span class="flag">🗺️</span><span>Обзор</span></a>
+        <a href="index.html"><span class="flag">🇪🇹</span><span>Эфиопия</span></a>
+        <a href="uganda-map.html"><span class="flag">🇺🇬</span><span>Уганда</span></a>
+        <a href="rwanda-map.html"><span class="flag">🇷🇼</span><span>Руанда</span></a>
+        <a href="burundi-map.html"><span class="flag">🇧🇮</span><span>Бурунди</span></a>
+    </nav>
+</body>
+</html>

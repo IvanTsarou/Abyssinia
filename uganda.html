@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Уганда — маршрут на 5–6 дней | Жемчужина Африки</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇺🇬</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+    
+    <nav class="sticky top-0 z-50 bg-gradient-to-r from-black via-gray-900 to-black shadow-lg">
+        <div class="container mx-auto px-3 py-2">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1 sm:gap-3">
+                    <a href="overview.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🗺️ <span class="hidden sm:inline">Обзор</span></a>
+                    <a href="index.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
+                    <a href="uganda-map.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
+                    <a href="rwanda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
+                    <a href="burundi-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+                </div>
+                <div class="flex items-center">
+                    <a href="uganda-map.html" class="text-white/80 hover:text-white bg-white/10 px-2 py-1 rounded-l text-xs"><i class="fas fa-map-marked-alt mr-1"></i>Карта</a>
+                    <a href="uganda.html" class="text-white bg-white/20 px-2 py-1 rounded-r text-xs font-medium"><i class="fas fa-route mr-1"></i>Маршрут</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-uganda py-2 sm:py-3 md:py-6">
+        <div class="container mx-auto px-3 text-center">
+            <h1 class="text-base sm:text-lg md:text-2xl font-bold">Уганда — 6 дней</h1>
+            <p class="text-[10px] sm:text-xs text-white/80">Кампала → Мёрчисон → Бвинди → Кисоро</p>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-10">
+        
+        <!-- Карта маршрута -->
+        <section class="mb-4 sm:mb-8">
+            <div class="bg-white rounded-lg sm:rounded-xl shadow-lg p-3 sm:p-4 md:p-6">
+                <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-3 sm:mb-4">
+                    <i class="fas fa-map-marked-alt mr-2 text-yellow-500"></i>
+                    Карта маршрута
+                </h2>
+                <div id="map"></div>
+            </div>
+        </section>
+
+        <!-- Маршрут по дням -->
+        <section class="mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-calendar-alt mr-3 text-yellow-500"></i>
+                Маршрут по дням
+            </h2>
+            
+            <div class="space-y-6" id="days-timeline">
+                
+                <div id="day-0" class="day-card day-0 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 0 — Прилёт · Кампала</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Знакомство со столицей</p>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🏛️ Что делаем:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Прилёт в аэропорт Энтеббе (35 км от Кампалы)</li>
+                            <li>Получение арендованного 4WD</li>
+                            <li>Гробницы Касуби (ЮНЕСКО) — если время позволяет</li>
+                            <li>Ужин в Кампале, подготовка к маршруту</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm mb-3">Отель в Кампале или Энтеббе · <span class="font-medium">$60–100</span></p>
+                    
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm">
+                        <p class="font-semibold text-gray-800 mb-1">💡 Совет</p>
+                        <p class="text-gray-600">Аренда 4WD: $80–120/день. Офисы проката у аэропорта Энтеббе. Движение левостороннее!</p>
+                    </div>
+                </div>
+
+                <div id="day-1" class="day-card day-1 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 1 — Кампала → Джинджа → Мёрчисон</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Исток Нила и путь на север (380 км)</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Дорога</th></tr></thead>
+                            <tbody>
+                                <tr><td>Кампала → Джинджа</td><td>80 км</td><td>1.5 ч</td><td>Отличный асфальт</td></tr>
+                                <tr><td>Джинджа → Мёрчисон</td><td>300 км</td><td>5–6 ч</td><td>Асфальт, затем грунтовка</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🏛️ Что делаем:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Утро: Джинджа — исток Нила, памятник Ганди</li>
+                            <li>Опционально: рафтинг ($125–150/чел)</li>
+                            <li>Обед в Джиндже</li>
+                            <li>Переезд в Мёрчисон</li>
+                            <li>Вечернее сафари или отдых</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Лодж в парке Мёрчисон · <span class="font-medium">$40–150</span></p>
+                </div>
+
+                <div id="day-2" class="day-card day-2 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 2 — Мёрчисон-Фолс</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Сафари и водопад — весь день в парке</p>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🦁 Программа дня:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li><strong>06:00</strong> — утреннее сафари (львы, слоны, жирафы, буйволы)</li>
+                            <li><strong>12:00</strong> — обед в лодже</li>
+                            <li><strong>15:00</strong> — круиз к водопаду Мёрчисон (3 ч)</li>
+                            <li>Бегемоты, крокодилы, сотни птиц</li>
+                            <li>Подход к подножию водопада — кульминация!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Активность</th><th>Стоимость</th><th>Примечание</th></tr></thead>
+                            <tbody>
+                                <tr><td>Вход в парк</td><td>$40/чел + $150/авто</td><td>На 24 часа</td></tr>
+                                <tr><td>Круиз к водопаду</td><td>$30/чел</td><td>3 часа, бронировать заранее</td></tr>
+                                <tr><td>Утреннее сафари</td><td>Включено</td><td>На своей машине</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Лодж в парке Мёрчисон · <span class="font-medium">$40–150</span></p>
+                    
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-sm mt-4">
+                        <p class="font-semibold text-gray-800 mb-1">🌟 Главное событие</p>
+                        <p class="text-gray-600">Водопад Мёрчисон — весь Нил сжимается в 7-метровую расщелину и падает с 43 м. Незабываемое зрелище!</p>
+                    </div>
+                </div>
+
+                <div id="day-3" class="day-card day-3 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 3 — Мёрчисон → Форт-Портал → Кибале</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Через саванну к тропическому лесу (280 км)</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Дорога</th></tr></thead>
+                            <tbody>
+                                <tr><td>Мёрчисон → Форт-Портал</td><td>250 км</td><td>4–5 ч</td><td>Через Масинди, живописные холмы</td></tr>
+                                <tr><td>Форт-Портал → Кибале</td><td>30 км</td><td>40 мин</td><td>Хороший асфальт</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🐒 Что делаем:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Ранний выезд из Мёрчисона</li>
+                            <li>Остановка у кратерных озёр Форт-Портала</li>
+                            <li>Обед в Форт-Портале</li>
+                            <li><strong>14:00</strong> — трекинг к шимпанзе в Кибале ($200/чел)</li>
+                            <li>Встреча с шимпанзе в их естественной среде</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Лодж у парка Кибале · <span class="font-medium">$60–120</span></p>
+                    
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm mt-4">
+                        <p class="font-semibold text-gray-800 mb-1">⚠️ Важно</p>
+                        <p class="text-gray-600">Трекинг к шимпанзе бронируйте заранее через UWA (ugandawildlife.org). Резиновые сапоги обязательны!</p>
+                    </div>
+                </div>
+
+                <div id="day-4" class="day-card day-4 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 4 — Кибале → Королева Елизавета → Бвинди</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Саванна и путь к гориллам (250 км)</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Дорога</th></tr></thead>
+                            <tbody>
+                                <tr><td>Кибале → Королева Елизавета</td><td>100 км</td><td>2 ч</td><td>Хороший асфальт</td></tr>
+                                <tr><td>Королева Елизавета → Бвинди</td><td>150 км</td><td>4 ч</td><td>Горная грунтовка, сложная</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🦁 Опции на утро (выберите одну):</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li><strong>Вариант A:</strong> Круиз по каналу Казинга — бегемоты, птицы ($30/чел, 2 ч)</li>
+                            <li><strong>Вариант B:</strong> Сектор Ишаша — древолазающие львы (+60 км)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🚗 После обеда:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Переезд в Бвинди (4 ч, сложная дорога)</li>
+                            <li>Прибытие к вечеру, брифинг на завтра</li>
+                            <li>Ранний отбой — завтра гориллы!</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Лодж у Бвинди · <span class="font-medium">$100–300</span></p>
+                </div>
+
+                <div id="day-5" class="day-card day-5 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 5 — Бвинди — горные гориллы 🦍</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Главное событие поездки · ЮНЕСКО</p>
+                    
+                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4 mb-4">
+                        <p class="font-bold text-gray-800 mb-2 text-lg">🦍 Трекинг к горным гориллам</p>
+                        <p class="text-gray-600 text-sm mb-3">Половина всех горных горилл мира (около 450 особей) живёт в этом древнем тропическом лесу. Встреча лицом к лицу с серебристоспинным самцом и его семьёй — незабываемый опыт.</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li><strong>07:00</strong> — брифинг в штаб-квартире парка</li>
+                            <li><strong>08:00</strong> — начало трекинга с рейнджерами</li>
+                            <li>Поиск семьи горилл в тропическом лесу (2–8 часов)</li>
+                            <li><strong>1 час с гориллами</strong> — фото, наблюдение</li>
+                            <li>Возвращение, сертификат участника</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Статья</th><th>Стоимость</th><th>Примечание</th></tr></thead>
+                            <tbody>
+                                <tr class="bg-yellow-50"><td><strong>Пермит на горилл</strong></td><td><strong>$700/чел</strong></td><td>Бронировать за 3–6 месяцев через UWA!</td></tr>
+                                <tr><td>Портер (помощник)</td><td>$15–20</td><td>Рекомендуется, помогает на сложных участках</td></tr>
+                                <tr><td>Чаевые рейнджерам</td><td>$10–20</td><td>По желанию</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Лодж у Бвинди или переезд в Кисоро · <span class="font-medium">$80–150</span></p>
+                    
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-3 text-sm mt-4">
+                        <p class="font-semibold text-gray-800 mb-1">⚠️ Критически важно</p>
+                        <p class="text-gray-600">Пермиты на горилл раскупаются за месяцы вперёд! Бронируйте сразу после покупки билетов на ugandawildlife.org</p>
+                    </div>
+                </div>
+
+                <div id="day-6" class="day-card day-6 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 6 — Бвинди/Кисоро → Руанда</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Пересечение границы</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд к границе</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Примечание</th></tr></thead>
+                            <tbody>
+                                <tr><td>Бвинди → Кисоро</td><td>60 км</td><td>1.5 ч</td><td>Горная дорога</td></tr>
+                                <tr><td>Кисоро → Граница Cyanika</td><td>15 км</td><td>20 мин</td><td>Асфальт</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🌅 Опции на утро:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Озеро Мутанда — одно из красивейших в регионе (каяк $20)</li>
+                            <li>Или: парк Мгахинга — золотые обезьяны ($100)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🛂 Пересечение границы:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Граница Cyanika открыта 6:00–18:00</li>
+                            <li>Виза Руанды на месте $30 (или East Africa Visa)</li>
+                            <li>Машину можно сдать в Уганде или продолжить на ней</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
+                        <p class="font-semibold text-gray-800 mb-1">🇷🇼 Далее — Руанда</p>
+                        <p class="text-gray-600">Продолжение маршрута: Мусанзе → Кигали → Озеро Киву → Бурунди</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Бюджет -->
+        <section class="mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 border-l-4 border-yellow-400">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-wallet mr-2 text-yellow-500"></i>
+                    Бюджет на Уганду (на человека)
+                </h2>
+                <div class="overflow-x-auto mb-4">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Категория</th><th>Сумма</th><th>Примечание</th></tr></thead>
+                        <tbody>
+                            <tr><td>🚗 Аренда авто (6 дней)</td><td>$500–700</td><td>4WD $80–120/день</td></tr>
+                            <tr><td>⛽ Топливо</td><td>$250–300</td><td>~1500 км</td></tr>
+                            <tr><td>🎫 Парки и активности</td><td>$950–1000</td><td>Включая горилл $700</td></tr>
+                            <tr><td>🛏️ Проживание (6 ночей)</td><td>$400–600</td><td>$70–100/ночь</td></tr>
+                            <tr><td>🍽️ Питание</td><td>$150–200</td><td>$25–35/день</td></tr>
+                            <tr class="bg-yellow-50 font-bold"><td>ИТОГО</td><td>$2250–2800</td><td>При поездке вдвоём</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-500 text-xs">* При поездке вдвоём делите аренду и топливо пополам</p>
+            </div>
+        </section>
+
+        <!-- Практическая информация -->
+        <section class="mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-info-circle mr-3 text-yellow-500"></i>
+                Практическая информация
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-blue-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-passport text-blue-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Виза</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Электронная виза $50 или East Africa Tourist Visa $100 (Уганда + Руанда + Кения). Жёлтая лихорадка обязательна!</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-green-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-money-bill text-green-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Валюта</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Угандийский шиллинг (UGX). $1 ≈ 3700 UGX. Меняйте в Кампале. Карты работают в отелях, но наличные обязательны.</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-purple-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-mobile-alt text-purple-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Связь</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">MTN Uganda. SIM-карта $1–2, 10GB ~$10. В парках связь слабая — скачайте офлайн-карты!</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-red-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-car text-red-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Вождение</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Левостороннее движение! 4WD обязателен. Заправляйтесь при каждой возможности. Ночью не ездите.</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-yellow-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-shield-alt text-yellow-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Безопасность</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Уганда безопасна для туристов. Избегайте границы с ДР Конго. В парках слушайте рейнджеров.</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-pink-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-medkit text-pink-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Здоровье</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Жёлтая лихорадка обязательна! Малярия: профилактика. Вода только бутилированная.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 text-center">
+        <p class="text-gray-300 text-sm">
+            <span class="text-xl mr-2">🇺🇬</span>
+            Уганда — Жемчужина Африки
+        </p>
+        <p class="text-gray-400 text-xs mt-2">5–6 дней · 4 национальных парка · Горные гориллы</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/uganda-data.js"></script>
+    <script src="js/pwa.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        
+        function initMap() {
+            map = L.map('map', { scrollWheelZoom: false }).setView([1.0, 31.0], 7);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap',
+                maxZoom: 18
+            }).addTo(map);
+            
+            ugandaLocations.forEach((loc, index) => {
+                const color = ['#FCDC04', '#1E90FF', '#228B22', '#8B4513', '#9370DB', '#20B2AA', '#D90000', '#FF6B6B'][index] || '#FCDC04';
+                
+                const icon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background:${color};width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-size:12px;font-weight:bold;color:${color === '#FCDC04' ? '#000' : '#fff'}">${index + 1}</div>`,
+                    iconSize: [28, 28],
+                    iconAnchor: [14, 14]
+                });
+                
+                const marker = L.marker([loc.coordinates[1], loc.coordinates[0]], { icon }).addTo(map);
+                marker.bindPopup(`
+                    <div style="min-width:200px;padding:5px">
+                        <h3 style="margin:0 0 5px;font-weight:bold">${loc.name}</h3>
+                        <p style="margin:0 0 8px;color:#666;font-size:0.85em">${loc.type}</p>
+                        <p style="margin:0 0 10px;font-size:0.85em;line-height:1.4">${loc.description.substring(0, 100)}...</p>
+                        <a href="uganda-location.html?id=${loc.id}" style="display:inline-block;padding:6px 12px;background:#FCDC04;color:#000;text-decoration:none;border-radius:6px;font-size:0.85em;font-weight:500">Подробнее →</a>
+                    </div>
+                `);
+                markers.push(marker);
+            });
+            
+            const routeCoords = ugandaLocations.map(loc => [loc.coordinates[1], loc.coordinates[0]]);
+            L.polyline(routeCoords, { 
+                color: '#FCDC04', 
+                weight: 3, 
+                opacity: 0.8,
+                dashArray: '10, 10'
+            }).addTo(map);
+            
+            if (markers.length > 0) {
+                const group = L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.1));
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+        });
+    </script>
+    
+    <nav class="bottom-nav sm:hidden">
+        <a href="overview.html"><span class="flag">🗺️</span><span>Обзор</span></a>
+        <a href="index.html"><span class="flag">🇪🇹</span><span>Эфиопия</span></a>
+        <a href="uganda-map.html" class="active"><span class="flag">🇺🇬</span><span>Уганда</span></a>
+        <a href="rwanda-map.html"><span class="flag">🇷🇼</span><span>Руанда</span></a>
+        <a href="burundi-map.html"><span class="flag">🇧🇮</span><span>Бурунди</span></a>
+    </nav>
+</body>
+</html>

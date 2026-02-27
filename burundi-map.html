@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бурунди — карта и локации</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇧🇮</text></svg>">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+    
+    <nav class="sticky top-0 z-50 bg-gradient-to-r from-[#CE1126] via-[#b50f21] to-[#CE1126] shadow-lg">
+        <div class="container mx-auto px-3 py-2">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1 sm:gap-3">
+                    <a href="overview.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🗺️ <span class="hidden sm:inline">Обзор</span></a>
+                    <a href="index.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
+                    <a href="uganda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
+                    <a href="rwanda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
+                    <a href="burundi-map.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+                </div>
+                <div class="flex items-center">
+                    <a href="burundi-map.html" class="text-white bg-white/20 px-2 py-1 rounded-l text-xs font-medium"><i class="fas fa-map-marked-alt mr-1"></i>Карта</a>
+                    <a href="burundi.html" class="text-white/80 hover:text-white bg-white/10 px-2 py-1 rounded-r text-xs"><i class="fas fa-route mr-1"></i>Маршрут</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-burundi py-2 sm:py-4 md:py-6">
+        <div class="container mx-auto px-3">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-base sm:text-xl md:text-2xl font-bold">🇧🇮 Бурунди — Карта</h1>
+                    <p class="text-[10px] sm:text-xs text-white/70">6 ключевых локаций · 3–4 дня</p>
+                </div>
+                <div class="flex gap-3 text-center">
+                    <div>
+                        <div class="text-lg sm:text-xl font-bold accent">1</div>
+                        <div class="text-[9px] sm:text-xs text-white/70">исток Нила</div>
+                    </div>
+                    <div>
+                        <div class="text-lg sm:text-xl font-bold">1</div>
+                        <div class="text-[9px] sm:text-xs text-white/70">парк</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container mx-auto px-3 sm:px-4 py-4 md:py-8">
+        
+        <section class="mb-4 md:mb-8">
+            <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg md:text-xl font-bold text-gray-800">
+                        <i class="fas fa-globe-africa mr-2 text-red-500"></i>
+                        Карта маршрута
+                    </h2>
+                    <a href="burundi-map-fullscreen.html" class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 transition">
+                        <i class="fas fa-expand-alt"></i>
+                        <span class="hidden sm:inline">Открыть карту в полном размере</span>
+                        <span class="sm:hidden">Полный размер</span>
+                    </a>
+                </div>
+                <div id="map"></div>
+            </div>
+        </section>
+        
+        <section class="mb-6 md:mb-10">
+            <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6">
+                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-map-pin mr-2 text-green-500"></i>
+                    Локации
+                </h2>
+                <div id="locations-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"></div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <footer class="bg-gray-800 text-white py-6 text-center">
+        <p class="text-gray-300 text-sm">🇧🇮 Бурунди — Сердце Африки</p>
+        <p class="text-xs text-gray-400 mt-1">3–4 дня · Озеро Танганьика · Исток Нила</p>
+    </footer>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/burundi-data.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        const colors = ['#CE1126', '#1EB53A', '#1E90FF', '#228B22', '#9370DB', '#FF6B6B'];
+        
+        function initMap() {
+            map = L.map('map', { scrollWheelZoom: false }).setView([-3.4, 29.5], 8);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap',
+                maxZoom: 18
+            }).addTo(map);
+            
+            burundiLocations.forEach((loc, index) => {
+                const color = colors[index] || '#CE1126';
+                
+                const icon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background:${color};width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-size:12px;font-weight:bold;color:#fff">${index + 1}</div>`,
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15]
+                });
+                
+                const marker = L.marker([loc.coordinates[1], loc.coordinates[0]], { icon }).addTo(map);
+                marker.bindPopup(`
+                    <div style="min-width:220px;padding:5px">
+                        <h3 style="margin:0 0 5px;font-weight:bold;font-size:1em">${loc.name}</h3>
+                        <p style="margin:0 0 8px;color:#666;font-size:0.85em">${loc.type}</p>
+                        <p style="margin:0 0 10px;font-size:0.85em;line-height:1.4">${loc.description.substring(0, 100)}...</p>
+                        <a href="burundi-location.html?id=${loc.id}" style="display:inline-block;padding:8px 14px;background:#CE1126;color:#fff;text-decoration:none;border-radius:6px;font-size:0.85em;font-weight:600">Подробнее →</a>
+                    </div>
+                `);
+                markers.push(marker);
+            });
+            
+            const routeCoords = burundiLocations.slice(0, -1).map(loc => [loc.coordinates[1], loc.coordinates[0]]);
+            L.polyline(routeCoords, { color: '#CE1126', weight: 3, opacity: 0.8, dashArray: '10, 10' }).addTo(map);
+            
+            if (markers.length > 0) {
+                const group = L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.15));
+            }
+        }
+        
+        function showOnMap(locationId) {
+            const loc = burundiLocations.find(l => l.id === locationId);
+            if (!loc || !map) return;
+            const lat = loc.coordinates[1], lon = loc.coordinates[0];
+            document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            map.setView([lat, lon], 10, { animate: true });
+            const m = markers.find(m => {
+                const pos = m.getLatLng();
+                return Math.abs(pos.lat - lat) < 0.01 && Math.abs(pos.lng - lon) < 0.01;
+            });
+            if (m) setTimeout(() => m.openPopup(), 400);
+        }
+        
+        function renderLocationCards() {
+            const container = document.getElementById('locations-container');
+            if (!container) return;
+            
+            container.innerHTML = burundiLocations.map((loc, index) => {
+                const color = colors[index] || '#CE1126';
+                
+                return `
+                    <div class="location-card bg-white rounded-xl shadow overflow-hidden" onclick="window.location.href='burundi-location.html?id=${loc.id}'">
+                        <div class="h-36 sm:h-44 bg-gradient-to-br from-red-50 to-green-50 flex items-center justify-center relative">
+                            <div class="absolute top-3 left-3 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white" style="background:${color}">${index + 1}</div>
+                            <i class="fas fa-${loc.type.includes('озеро') ? 'water' : loc.type.includes('столица') ? 'city' : loc.type.includes('парк') ? 'tree' : loc.type.includes('аэропорт') ? 'plane' : 'mountain'} text-5xl text-gray-300"></i>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800 mb-1 text-sm sm:text-base">${loc.name}</h3>
+                            <p class="text-xs text-gray-500 mb-2">${loc.type}</p>
+                            <p class="text-xs sm:text-sm text-gray-600 line-clamp-2 mb-3">${loc.description.substring(0, 80)}...</p>
+                            <div class="flex justify-between items-center text-xs border-t border-gray-100 pt-3">
+                                <span class="text-gray-500"><i class="fas fa-clock mr-1"></i>${loc.timeOnSite}</span>
+                                <div class="flex gap-2">
+                                    <button onclick="event.stopPropagation();showOnMap(${loc.id})" class="text-red-600 hover:underline font-medium">На карте</button>
+                                    <span class="text-green-600 font-medium">Подробнее →</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+            renderLocationCards();
+        });
+    </script>
+    
+    <nav class="bottom-nav sm:hidden">
+        <a href="overview.html"><span class="flag">🗺️</span><span>Обзор</span></a>
+        <a href="index.html"><span class="flag">🇪🇹</span><span>Эфиопия</span></a>
+        <a href="uganda-map.html"><span class="flag">🇺🇬</span><span>Уганда</span></a>
+        <a href="rwanda-map.html"><span class="flag">🇷🇼</span><span>Руанда</span></a>
+        <a href="burundi-map.html" class="active"><span class="flag">🇧🇮</span><span>Бурунди</span></a>
+    </nav>
+</body>
+</html>

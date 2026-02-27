@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#CE1126">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Бурунди — маршрут на 3–4 дня | Сердце Африки</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇧🇮</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+    
+    <nav class="sticky top-0 z-50 bg-gradient-to-r from-[#CE1126] via-[#b50f21] to-[#CE1126] shadow-lg">
+        <div class="container mx-auto px-3 py-2">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1 sm:gap-3">
+                    <a href="overview.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🗺️ <span class="hidden sm:inline">Обзор</span></a>
+                    <a href="index.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
+                    <a href="uganda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
+                    <a href="rwanda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
+                    <a href="burundi-map.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+                </div>
+                <div class="flex items-center">
+                    <a href="burundi-map.html" class="text-white/80 hover:text-white bg-white/10 px-2 py-1 rounded-l text-xs"><i class="fas fa-map-marked-alt mr-1"></i>Карта</a>
+                    <a href="burundi.html" class="text-white bg-white/20 px-2 py-1 rounded-r text-xs font-medium"><i class="fas fa-route mr-1"></i>Маршрут</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-burundi py-2 sm:py-3 md:py-6">
+        <div class="container mx-auto px-3 text-center">
+            <h1 class="text-base sm:text-lg md:text-2xl font-bold">Бурунди — 4 дня</h1>
+            <p class="text-[10px] sm:text-xs text-white/80">Бужумбура → Исток Нила → Танганьика</p>
+        </div>
+    </section>
+
+    <!-- Предупреждение о безопасности -->
+    <section class="container mx-auto px-3 sm:px-4 -mt-2 sm:-mt-4 mb-4 sm:mb-6 relative z-10">
+        <details class="safety-alert rounded-lg sm:rounded-xl shadow-lg group">
+            <summary class="flex items-center gap-2 p-2.5 sm:p-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="text-base sm:text-xl">⚠️</span>
+                <span class="font-semibold text-gray-800 text-xs sm:text-sm flex-1">Бурунди — нестандартное направление</span>
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </summary>
+            <div class="px-2.5 pb-2.5 sm:px-4 sm:pb-4 pt-0">
+                <p class="text-gray-700 text-xs sm:text-sm mb-2">Политическая ситуация нестабильна. Туризм восстанавливается после кризиса 2015 года.</p>
+                <ul class="text-gray-600 text-xs sm:text-sm space-y-1 list-disc list-inside">
+                    <li>Зарегистрируйтесь в посольстве вашей страны</li>
+                    <li>Избегайте демонстраций и скоплений людей</li>
+                    <li>Не фотографируйте военных и полицию</li>
+                    <li>Страховка с эвакуацией обязательна</li>
+                </ul>
+                <a href="#safety-section" class="inline-block mt-2 text-amber-700 font-medium text-xs sm:text-sm hover:underline">
+                    Подробнее о безопасности →
+                </a>
+            </div>
+        </details>
+    </section>
+
+    <main class="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-10">
+        
+        <!-- Карта маршрута -->
+        <section class="mb-4 sm:mb-8">
+            <div class="bg-white rounded-lg sm:rounded-xl shadow-lg p-3 sm:p-4 md:p-6">
+                <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-3 sm:mb-4">
+                    <i class="fas fa-map-marked-alt mr-2 text-red-500"></i>
+                    Карта маршрута
+                </h2>
+                <div id="map"></div>
+            </div>
+        </section>
+
+        <!-- Маршрут по дням -->
+        <section class="mb-4 sm:mb-8">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center">
+                <i class="fas fa-calendar-alt mr-2 sm:mr-3 text-red-500"></i>
+                Маршрут по дням
+            </h2>
+            
+            <div class="space-y-3 sm:space-y-6" id="days-timeline">
+                
+                <div id="day-0" class="day-card day-0 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 0 — Граница Руанды → Бужумбура</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Прибытие в сердце Африки</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Дорога</th></tr></thead>
+                            <tbody>
+                                <tr><td>Граница Akanyaru → Бужумбура</td><td>120 км</td><td>3 ч</td><td>Асфальт, горный серпантин</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🏛️ Что делаем:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Пересечение границы (виза $90 на месте, только наличные USD!)</li>
+                            <li>Спуск к озеру Танганьика — драматичные виды</li>
+                            <li>Размещение в Бужумбуре</li>
+                            <li>Вечер: набережная, ужин с видом на озеро</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm mb-3">Отель в Бужумбуре · <span class="font-medium">$50–100</span></p>
+                    
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
+                        <p class="font-semibold text-gray-800 mb-1">🏙️ Бужумбура</p>
+                        <p class="text-gray-600">Бывшая столица (с 2019 — Гитега). Колониальная архитектура, живой рынок, расслабленная атмосфера на берегу великого озера.</p>
+                    </div>
+                </div>
+
+                <div id="day-1" class="day-card day-1 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 1 — Бужумбура и озеро Танганьика</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Пляжи, парк и закат</p>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🌊 Программа дня:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li><strong>Утро:</strong> Парк Рузизи — гиппопотамы, крокодилы, 200+ видов птиц</li>
+                            <li><strong>Обед:</strong> Пляж Saga Beach — свежая рыба</li>
+                            <li><strong>День:</strong> Купание в озере Танганьика</li>
+                            <li><strong>Вечер:</strong> Рыбный рынок, закат над озером</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Активность</th><th>Стоимость</th><th>Примечание</th></tr></thead>
+                            <tbody>
+                                <tr><td>Парк Рузизи</td><td>$10 + лодка $20–30</td><td>Лучше утром</td></tr>
+                                <tr><td>Пляж Saga Beach</td><td>$5–10 вход</td><td>Можно купаться</td></tr>
+                                <tr><td>Рыбный рынок</td><td>Бесплатно</td><td>Фото с разрешения</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-3 text-sm mb-4">
+                        <p class="font-semibold text-gray-800 mb-1">🌊 Озеро Танганьика</p>
+                        <p class="text-gray-600">Второе по глубине озеро мира (1470 м) и второе по объёму пресной воды после Байкала. Возраст 9–12 млн лет. 250+ эндемичных видов цихлид. Закаты здесь — одни из лучших в Африке!</p>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Отель в Бужумбуре · <span class="font-medium">$50–100</span></p>
+                </div>
+
+                <div id="day-2" class="day-card day-2 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 2 — Исток Нила</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">К самому южному истоку великой реки (230 км туда-обратно)</p>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🚗 Переезд</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Участок</th><th>Расстояние</th><th>Время</th><th>Дорога</th></tr></thead>
+                            <tbody>
+                                <tr><td>Бужумбура → Исток Нила</td><td>115 км</td><td>3 ч</td><td>Частично грунтовка, 4WD рекомендуется</td></tr>
+                                <tr><td>Обратно</td><td>115 км</td><td>3 ч</td><td>Тот же маршрут</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">🏛️ Программа дня:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li><strong>07:00</strong> — Ранний выезд из Бужумбуры</li>
+                            <li>Через Гитегу — остановка у Национального музея (опционально, $5)</li>
+                            <li><strong>10:00</strong> — Прибытие к пирамиде истока Нила</li>
+                            <li>Символическое фото у начала великой реки</li>
+                            <li>Обед в деревне</li>
+                            <li>Возвращение в Бужумбуру к вечеру</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-xl p-4 mb-4">
+                        <p class="font-bold text-gray-800 mb-2">🔺 Исток Нила — Пирамида Вальдекера</p>
+                        <p class="text-gray-600 text-sm mb-2">Самый южный исток Нила — ручей Кагера берёт начало в горах Бурунди. Пирамида-памятник установлена немецким исследователем Буркхартом Вальдекером в 1934 году.</p>
+                        <p class="text-gray-600 text-sm italic">Отсюда вода течёт 6700 км до Средиземного моря — через Танзанию, Уганду, Судан и Египет.</p>
+                    </div>
+                    
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Статья</th><th>Стоимость</th><th>Примечание</th></tr></thead>
+                            <tbody>
+                                <tr><td>Вход к истоку</td><td>$5</td><td>Гид обязателен</td></tr>
+                                <tr><td>Гид</td><td>$10</td><td>Местный, на французском/английском</td></tr>
+                                <tr><td>Музей Гитега</td><td>$5</td><td>Опционально</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="text-gray-700 text-sm font-semibold mb-2">🛏️ Ночлег</p>
+                    <p class="text-gray-600 text-sm">Отель в Бужумбуре · <span class="font-medium">$50–100</span></p>
+                </div>
+
+                <div id="day-3" class="day-card day-3 bg-white rounded-xl shadow-lg p-4 md:p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">День 3 — Бужумбура → Аэропорт</h3>
+                    <p class="text-gray-600 text-sm mb-4 font-medium">Вылет домой</p>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 text-sm font-semibold mb-2">✈️ Программа дня:</p>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Утро: последняя прогулка по набережной</li>
+                            <li>Завтрак с видом на озеро</li>
+                            <li>Сдача арендованного автомобиля</li>
+                            <li>Трансфер в аэропорт (11 км, 20–30 мин)</li>
+                            <li>Вылет через Аддис-Абебу или Найроби</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="overflow-x-auto mb-4">
+                        <table class="transport-table w-full text-left border-collapse">
+                            <thead><tr><th>Статья</th><th>Стоимость</th><th>Примечание</th></tr></thead>
+                            <tbody>
+                                <tr><td>Выездной сбор</td><td>$40</td><td>Оплата в аэропорту</td></tr>
+                                <tr><td>Такси до аэропорта</td><td>$15–20</td><td>Или на арендованной машине</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-3 text-sm">
+                        <p class="font-semibold text-gray-800 mb-1">✈️ Аэропорт Мелькиор Ндадайе</p>
+                        <p class="text-gray-600">Рейсы: Ethiopian Airlines (Аддис-Абеба), Kenya Airways (Найроби), RwandAir (Кигали). Прибыть за 3 часа до вылета. Duty free минимальный.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Бюджет -->
+        <section class="mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 border-l-4 border-red-400">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-wallet mr-2 text-red-500"></i>
+                    Бюджет на Бурунди (на человека)
+                </h2>
+                <div class="overflow-x-auto mb-4">
+                    <table class="transport-table w-full text-left border-collapse">
+                        <thead><tr><th>Категория</th><th>Сумма</th><th>Примечание</th></tr></thead>
+                        <tbody>
+                            <tr><td>🚗 Аренда авто / продолжение</td><td>$200–300</td><td>Или из Руанды</td></tr>
+                            <tr><td>⛽ Топливо</td><td>$80–100</td><td>~400 км</td></tr>
+                            <tr><td>🎫 Активности</td><td>$50–80</td><td>Рузизи + Исток Нила + пляжи</td></tr>
+                            <tr><td>🛏️ Проживание (3 ночи)</td><td>$150–250</td><td>$50–80/ночь</td></tr>
+                            <tr><td>🍽️ Питание</td><td>$60–100</td><td>$20–30/день, еда дешёвая</td></tr>
+                            <tr><td>🛂 Виза + сборы</td><td>$130</td><td>Виза $90 + выезд $40</td></tr>
+                            <tr class="bg-red-50 font-bold"><td>ИТОГО</td><td>$700–1000</td><td>Самая бюджетная часть</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-gray-500 text-xs">* Бурунди — самая доступная страна маршрута</p>
+            </div>
+        </section>
+
+        <!-- Безопасность -->
+        <section id="safety-section" class="mb-8">
+            <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl shadow-lg p-4 md:p-6 border-2 border-amber-300">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-exclamation-triangle mr-3 text-amber-500"></i>
+                    Безопасность в Бурунди
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">📋 Текущая ситуация</h3>
+                        <p class="text-gray-600 text-sm mb-3">После политического кризиса 2015 года ситуация стабилизировалась, но остаётся хрупкой. Туризм восстанавливается медленно. Иностранцев мало — вы будете привлекать внимание.</p>
+                        
+                        <h3 class="font-semibold text-gray-800 mb-2">✅ Рекомендации</h3>
+                        <ul class="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                            <li>Зарегистрируйтесь в посольстве/консульстве</li>
+                            <li>Имейте копии документов в облаке</li>
+                            <li>Носите минимум ценностей</li>
+                            <li>Избегайте ночных передвижений</li>
+                            <li>Не обсуждайте политику</li>
+                            <li>Не фотографируйте военных, полицию, правительственные здания</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">📞 Экстренные контакты</h3>
+                        <ul class="text-gray-600 text-sm space-y-1 mb-4">
+                            <li><strong>Полиция:</strong> 117</li>
+                            <li><strong>Скорая:</strong> 118</li>
+                            <li><strong>Посольство России:</strong> +257 22 22 60 98</li>
+                            <li><strong>Ближайшее крупное посольство:</strong> Найроби, Кения</li>
+                        </ul>
+                        
+                        <h3 class="font-semibold text-gray-800 mb-2">🌟 Позитивные моменты</h3>
+                        <p class="text-gray-600 text-sm">Местные жители дружелюбны к туристам. Преступность против иностранцев редка. Бурунди — одна из наименее посещаемых стран мира, что делает опыт уникальным и аутентичным.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Практическая информация -->
+        <section class="mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-info-circle mr-3 text-red-500"></i>
+                Практическая информация
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-blue-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-passport text-blue-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Виза</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Виза на границе $90 (только наличные USD!). East Africa Visa НЕ включает Бурунди. Жёлтая лихорадка обязательна!</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-green-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-money-bill text-green-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Валюта</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Бурундийский франк (BIF). $1 ≈ 2850 BIF. Карты почти нигде не работают — только наличные! Привезите достаточно USD.</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-purple-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-mobile-alt text-purple-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Связь</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Econet или Lumitel. Интернет дорогой и медленный. 3G в Бужумбуре, за городом — 2G. Скачайте всё офлайн!</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-red-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-car text-red-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Вождение</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Правостороннее движение. 4WD обязателен для истока Нила. Заправки редкие. Ночью не ездите!</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-yellow-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-shield-alt text-yellow-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Безопасность</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Нестандартное направление. Избегайте демонстраций. Не фотографируйте военных. Регистрируйтесь в посольстве.</p>
+                </div>
+                
+                <div class="info-card bg-white rounded-xl shadow p-4 border-l-4 border-pink-400">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-medkit text-pink-500 mr-2"></i>
+                        <h3 class="font-semibold text-gray-800">Здоровье</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm">Малярия: высокий риск, профилактика обязательна! Медицина базовая. Страховка с эвакуацией обязательна!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Почему стоит ехать -->
+        <section class="mb-8">
+            <div class="bg-gradient-to-r from-red-50 to-green-50 rounded-xl shadow-lg p-4 md:p-6 border border-red-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-heart mr-2 text-red-500"></i>
+                    Почему стоит ехать в Бурунди
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span><strong>Аутентичность:</strong> одна из наименее посещаемых стран мира</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span><strong>Озеро Танганьика:</strong> второе по глубине озеро планеты</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span><strong>Исток Нила:</strong> символическое место начала великой реки</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span><strong>Бюджет:</strong> самая доступная страна маршрута</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span><strong>Люди:</strong> дружелюбные и гостеприимные</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span><strong>Уникальный опыт:</strong> мало кто может сказать «Я был в Бурунди»</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 text-center">
+        <p class="text-gray-300 text-sm">
+            <span class="text-xl mr-2">🇧🇮</span>
+            Бурунди — Сердце Африки
+        </p>
+        <p class="text-gray-400 text-xs mt-2">3–4 дня · Озеро Танганьика · Исток Нила</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/burundi-data.js"></script>
+    <script src="js/pwa.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        
+        function initMap() {
+            map = L.map('map', { scrollWheelZoom: false }).setView([-3.4, 29.5], 8);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap',
+                maxZoom: 18
+            }).addTo(map);
+            
+            burundiLocations.forEach((loc, index) => {
+                const color = ['#CE1126', '#1EB53A', '#1E90FF', '#228B22', '#9370DB', '#FF6B6B'][index] || '#CE1126';
+                
+                const icon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background:${color};width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-size:12px;font-weight:bold;color:#fff">${index + 1}</div>`,
+                    iconSize: [28, 28],
+                    iconAnchor: [14, 14]
+                });
+                
+                const marker = L.marker([loc.coordinates[1], loc.coordinates[0]], { icon }).addTo(map);
+                marker.bindPopup(`
+                    <div style="min-width:200px;padding:5px">
+                        <h3 style="margin:0 0 5px;font-weight:bold">${loc.name}</h3>
+                        <p style="margin:0 0 8px;color:#666;font-size:0.85em">${loc.type}</p>
+                        <p style="margin:0 0 10px;font-size:0.85em;line-height:1.4">${loc.description.substring(0, 100)}...</p>
+                        <a href="burundi-location.html?id=${loc.id}" style="display:inline-block;padding:6px 12px;background:#CE1126;color:#fff;text-decoration:none;border-radius:6px;font-size:0.85em;font-weight:500">Подробнее →</a>
+                    </div>
+                `);
+                markers.push(marker);
+            });
+            
+            const routeCoords = burundiLocations.slice(0, -1).map(loc => [loc.coordinates[1], loc.coordinates[0]]);
+            L.polyline(routeCoords, { 
+                color: '#CE1126', 
+                weight: 3, 
+                opacity: 0.8,
+                dashArray: '10, 10'
+            }).addTo(map);
+            
+            if (markers.length > 0) {
+                const group = L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.15));
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+        });
+    </script>
+    
+    <!-- Нижний навбар для мобильных -->
+    <nav class="bottom-nav sm:hidden">
+        <a href="overview.html"><span class="flag">🗺️</span><span>Обзор</span></a>
+        <a href="index.html"><span class="flag">🇪🇹</span><span>Эфиопия</span></a>
+        <a href="uganda-map.html"><span class="flag">🇺🇬</span><span>Уганда</span></a>
+        <a href="rwanda-map.html"><span class="flag">🇷🇼</span><span>Руанда</span></a>
+        <a href="burundi-map.html" class="active"><span class="flag">🇧🇮</span><span>Бурунди</span></a>
+    </nav>
+</body>
+</html>
