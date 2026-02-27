@@ -1,6 +1,6 @@
 // Service Worker для офлайн работы
 // Версия кэша — обновите при изменении контента
-const CACHE_VERSION = 'east-africa-v2';
+const CACHE_VERSION = 'east-africa-v3';
 
 // Файлы для кэширования при установке
 const PRECACHE_URLS = [

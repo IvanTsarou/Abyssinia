@@ -17,28 +17,47 @@
 </head>
 <body class="bg-gray-50">
     
-    <nav class="sticky top-0 z-50 bg-gradient-to-r from-black via-gray-900 to-black shadow-lg">
+    <!-- Навигация (десктоп) -->
+    <nav class="hidden sm:block sticky top-0 z-50 bg-gradient-to-r from-black via-gray-900 to-black shadow-lg">
         <div class="container mx-auto px-3 py-2">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-1 sm:gap-3">
-                    <a href="overview.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🗺️ <span class="hidden sm:inline">Обзор</span></a>
-                    <a href="index.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
-                    <a href="uganda-map.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
-                    <a href="rwanda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
-                    <a href="burundi-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+                <div class="flex items-center gap-3">
+                    <a href="overview.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🗺️ Обзор</a>
+                    <a href="index.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇪🇹 Эфиопия</a>
+                    <a href="uganda-map.html" class="text-white bg-white/20 px-2 py-1 text-sm rounded">🇺🇬 Уганда</a>
+                    <a href="rwanda-map.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇷🇼 Руанда</a>
+                    <a href="burundi-map.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇧🇮 Бурунди</a>
                 </div>
                 <div class="flex items-center">
-                    <a href="uganda-map.html" class="text-white/80 hover:text-white bg-white/10 px-2 py-1 rounded-l text-xs"><i class="fas fa-map-marked-alt mr-1"></i>Карта</a>
-                    <a href="uganda.html" class="text-white bg-white/20 px-2 py-1 rounded-r text-xs font-medium"><i class="fas fa-route mr-1"></i>Маршрут</a>
+                    <a href="uganda-map.html" class="text-white/80 hover:text-white bg-white/10 px-2 py-1 rounded-l text-xs">Карта</a>
+                    <a href="uganda.html" class="text-white bg-white/20 px-2 py-1 rounded-r text-xs font-medium">Маршрут</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section class="hero-uganda py-2 sm:py-3 md:py-6">
+    <!-- Навигация (мобильная) -->
+    <nav class="sm:hidden sticky top-0 z-50 bg-gradient-to-r from-black via-gray-900 to-black shadow-lg">
+        <div class="px-3 py-2">
+            <div class="flex items-center justify-between">
+                <div class="text-white text-[10px]">
+                    <span class="font-medium">6 дней</span>
+                    <span class="text-white/50 mx-1">•</span>
+                    <span class="text-white/80">Кампала → Кисоро</span>
+                </div>
+                <div class="flex items-center">
+                    <a href="uganda-map.html" class="text-white/80 bg-white/10 px-2 py-1 rounded-l text-xs">Карта</a>
+                    <a href="uganda.html" class="text-white bg-white/20 px-2 py-1 rounded-r text-xs font-medium">Маршрут</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero (только десктоп) -->
+    <section class="hidden sm:block hero-uganda py-3 md:py-6">
         <div class="container mx-auto px-3 text-center">
-            <h1 class="text-base sm:text-lg md:text-2xl font-bold">Уганда — 6 дней</h1>
-            <p class="text-[10px] sm:text-xs text-white/80">Кампала → Мёрчисон → Бвинди → Кисоро</p>
+            <h1 class="text-lg md:text-2xl font-bold">Уганда — 6 дней</h1>
+            <p class="text-xs text-white/80">Кампала → Мёрчисон → Бвинди → Кисоро</p>
         </div>
     </section>
 
@@ -399,12 +418,34 @@
         let map;
         let markers = [];
         
+        function isMobile() { return window.innerWidth < 640; }
+        
         function initMap() {
-            map = L.map('map', { scrollWheelZoom: false }).setView([1.0, 31.0], 7);
+            const mapOptions = {
+                scrollWheelZoom: false,
+                zoomControl: !isMobile()
+            };
+            if (isMobile()) {
+                mapOptions.dragging = false;
+                mapOptions.tap = false;
+                mapOptions.touchZoom = false;
+            }
+            
+            map = L.map('map', mapOptions).setView([1.0, 31.0], 7);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap',
                 maxZoom: 18
             }).addTo(map);
+            
+            if (isMobile()) {
+                L.control.zoom({ position: 'topright' }).addTo(map);
+                let lastTap = 0;
+                map.getContainer().addEventListener('touchend', function(e) {
+                    const now = Date.now();
+                    if (now - lastTap < 300) { window.location.href = 'uganda-map-fullscreen.html'; }
+                    lastTap = now;
+                });
+            }
             
             ugandaLocations.forEach((loc, index) => {
                 const color = ['#FCDC04', '#1E90FF', '#228B22', '#8B4513', '#9370DB', '#20B2AA', '#D90000', '#FF6B6B'][index] || '#FCDC04';

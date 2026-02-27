@@ -177,12 +177,34 @@
     <script src="js/ethiopia-data.js"></script>
     <script>
         // Инициализация карты
+        function isMobile() { return window.innerWidth < 640; }
+        
         function initMap() {
-            const map = L.map('map').setView([11.5, 38.5], 6);
+            const mapOptions = {
+                scrollWheelZoom: false,
+                zoomControl: !isMobile()
+            };
+            if (isMobile()) {
+                mapOptions.dragging = false;
+                mapOptions.tap = false;
+                mapOptions.touchZoom = false;
+            }
+            
+            const map = L.map('map', mapOptions).setView([11.5, 38.5], 6);
             
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap'
             }).addTo(map);
+            
+            if (isMobile()) {
+                L.control.zoom({ position: 'topright' }).addTo(map);
+                let lastTap = 0;
+                map.getContainer().addEventListener('touchend', function(e) {
+                    const now = Date.now();
+                    if (now - lastTap < 300) { window.location.href = 'map-fullscreen.html'; }
+                    lastTap = now;
+                });
+            }
             
             const routeColors = ['#078930', '#1E90FF', '#8B4513', '#228B22', '#FCDD09'];
             

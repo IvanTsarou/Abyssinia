@@ -52,22 +52,40 @@
 </head>
 <body class="bg-gray-50">
     
-    <nav class="sticky top-0 z-50 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 shadow-lg">
+    <!-- Навигация (десктоп) -->
+    <nav class="hidden sm:block sticky top-0 z-50 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 shadow-lg">
         <div class="container mx-auto px-3 py-2">
-            <div class="flex items-center gap-1 sm:gap-3">
-                <a href="overview.html" class="text-white bg-white/20 px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded">🗺️ <span class="hidden sm:inline">Обзор</span></a>
-                <a href="index.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇪🇹 <span class="hidden sm:inline">Эфиопия</span></a>
-                <a href="uganda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇺🇬 <span class="hidden sm:inline">Уганда</span></a>
-                <a href="rwanda-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇷🇼 <span class="hidden sm:inline">Руанда</span></a>
-                <a href="burundi-map.html" class="text-white/70 hover:text-white px-1.5 sm:px-2 py-1 text-xs sm:text-sm rounded hover:bg-white/10">🇧🇮 <span class="hidden sm:inline">Бурунди</span></a>
+            <div class="flex items-center gap-3">
+                <a href="overview.html" class="text-white bg-white/20 px-2 py-1 text-sm rounded">🗺️ Обзор</a>
+                <a href="index.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇪🇹 Эфиопия</a>
+                <a href="uganda-map.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇺🇬 Уганда</a>
+                <a href="rwanda-map.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇷🇼 Руанда</a>
+                <a href="burundi-map.html" class="text-white/70 hover:text-white px-2 py-1 text-sm rounded hover:bg-white/10">🇧🇮 Бурунди</a>
             </div>
         </div>
     </nav>
 
-    <section class="hero-overview py-2 sm:py-3 md:py-6">
+    <!-- Навигация (мобильная) -->
+    <nav class="sm:hidden sticky top-0 z-50 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 shadow-lg">
+        <div class="px-3 py-2">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 text-white text-[10px]">
+                    <span class="font-medium">22 дня</span>
+                    <span class="text-white/50">•</span>
+                    <span>4 страны</span>
+                    <span class="text-white/50">•</span>
+                    <span>4500 км</span>
+                </div>
+                <span class="text-white/80 text-xs font-medium">Обзор</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero (только десктоп) -->
+    <section class="hidden sm:block hero-overview py-3 md:py-6">
         <div class="container mx-auto px-3 text-center">
-            <h1 class="text-base sm:text-lg md:text-2xl font-bold">Восточная Африка — 22 дня</h1>
-            <p class="text-[10px] sm:text-xs text-white/80">🇪🇹 → 🇺🇬 → 🇷🇼 → 🇧🇮 · 4500 км</p>
+            <h1 class="text-lg md:text-2xl font-bold">Восточная Африка — 22 дня</h1>
+            <p class="text-xs text-white/80">🇪🇹 → 🇺🇬 → 🇷🇼 → 🇧🇮 · 4500 км</p>
         </div>
     </section>
 
@@ -380,12 +398,28 @@
     <script>
         let map;
         
+        function isMobile() { return window.innerWidth < 640; }
+        
         function initMap() {
-            map = L.map('map', { scrollWheelZoom: false }).setView([2.0, 33.0], 5);
+            const mapOptions = {
+                scrollWheelZoom: false,
+                zoomControl: !isMobile()
+            };
+            if (isMobile()) {
+                mapOptions.dragging = false;
+                mapOptions.tap = false;
+                mapOptions.touchZoom = false;
+            }
+            
+            map = L.map('map', mapOptions).setView([2.0, 33.0], 5);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap',
                 maxZoom: 18
             }).addTo(map);
+            
+            if (isMobile()) {
+                L.control.zoom({ position: 'topright' }).addTo(map);
+            }
             
             const countryColors = {
                 ethiopia: '#078930',
